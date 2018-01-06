@@ -26,5 +26,6 @@ Install Pip:
 
 ``python floor\run-show.py --driver devserver``
 
-http://localhost:/1979
-http://localhost:/1977
+http://localhost:1979
+
+http://localhost:1977
