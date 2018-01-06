@@ -10,7 +10,7 @@ class RaverPlaid(Base):
     def __init__(self, **kwargs):
         super(RaverPlaid, self).__init__(**kwargs)
 
-        self.n_pixels = 64
+        self.n_pixels = self.FLOOR_HEIGHT * self.FLOOR_WIDTH
 
         # how many sine wave cycles are squeezed into our n_pixels
         # 24 happens to create nice diagonal stripes on the wall layout

@@ -10,8 +10,8 @@ class RandomDecay(Base):
         self.blue = 0
         self.pixels = []
 
-        for x in range(0, 8):
-            for y in range(0, 8):
+        for x in range(0, self.FLOOR_WIDTH):
+            for y in range(0, self.FLOOR_WIDTH):
                 self.pixels.append((
                     self.max_value*random.random(),
                     self.max_value*random.random(),
@@ -22,9 +22,9 @@ class RandomDecay(Base):
         next_pixels = []
         decay_rate = 0.9
 
-        for x in range(0, 8):
-            for y in range(0, 8):
-                next_pixel = self.pixels[x*8 + y]
+        for x in range(0, self.FLOOR_WIDTH):
+            for y in range(0, self.FLOOR_WIDTH):
+                next_pixel = self.pixels[x*self.FLOOR_WIDTH + y]
                 next_red = decay_rate*next_pixel[0]
                 next_blue = decay_rate*next_pixel[1]
                 next_green = decay_rate*next_pixel[2]

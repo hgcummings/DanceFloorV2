@@ -47,7 +47,7 @@
       "args": {
         "length": 10,
         "max_speed": 1.0,
-        "min_speed": 0.001
+        "min_speed": 0.9
       }
     },
     {

@@ -16,16 +16,16 @@ class LandMines(Base):
         self.walkers = self.init_walkers()
         self.palette = color.get_random_palette(self.max_value)
         self.palette_length = len(self.palette)
-        for x in range(0, 8):
-            for y in range(0, 8):
+        for x in range(0, self.FLOOR_WIDTH):
+            for y in range(0, self.FLOOR_WIDTH):
                 self.pixels.append((0, 0, 0))
 
     def init_walkers(self):
         walkers = []
         walkers.append({'x':0, 'y':0})
-        walkers.append({'x':0, 'y':7})
-        walkers.append({'x':7, 'y':0})
-        walkers.append({'x':7, 'y':7})
+        walkers.append({'x':0, 'y':self.FLOOR_WIDTH-1})
+        walkers.append({'x':self.FLOOR_WIDTH-1, 'y':0})
+        walkers.append({'x':self.FLOOR_WIDTH-1, 'y':self.FLOOR_WIDTH-1})
         return walkers
 
     def get_walker(self):
@@ -34,13 +34,13 @@ class LandMines(Base):
         walker['x'] += randint(-1, 1)
         if walker['x']<0:
             walker['x'] = 0
-        if walker['x']>7:
-            walker['x'] = 7
+        if walker['x']>self.FLOOR_WIDTH-1:
+            walker['x'] = self.FLOOR_WIDTH-1
         walker['y'] += randint(-1, 1)
         if walker['y']<0:
             walker['y'] = 0
-        if walker['y']>7:
-            walker['y'] = 7
+        if walker['y']>self.FLOOR_WIDTH-1:
+            walker['y'] = self.FLOOR_WIDTH-1
         return walker
 
     def build_mine(self, x, y):
@@ -68,7 +68,7 @@ class LandMines(Base):
             y = walker['y']
             mine = self.build_mine(x, y)
             self.mines.append(mine)
-            self.pixels[mine['y']*8 + mine['x']] = mine['color']
+            self.pixels[mine['y']*self.FLOOR_WIDTH + mine['x']] = mine['color']
 
         time_delta = 0.1
         velocity = 0.0003 * self.max_value
@@ -87,9 +87,9 @@ class LandMines(Base):
             #if the mine has time left, compute explosion, store it in live_mines for next time
             if mine['t'] > 0.0:
                 live_mines.append(mine)
-                for y in range(0, 8):
-                    for x in range(0, 8):
-                        next_pixel = self.pixels[y*8 + x]
+                for y in range(0, self.FLOOR_WIDTH):
+                    for x in range(0, self.FLOOR_WIDTH):
+                        next_pixel = self.pixels[y*self.FLOOR_WIDTH + x]
                         radius = math.sqrt((x-mine['x'])*(x-mine['x']) + (y-mine['y'])*(y-mine['y']))
 
                         #don't divide by zero :)
@@ -105,11 +105,11 @@ class LandMines(Base):
                                 next_red = 0
                             if next_green<0:
                                 next_green = 0
-                            self.pixels[y*8 + x] = (next_red, next_blue, next_green)
+                            self.pixels[y*self.FLOOR_WIDTH + x] = (next_red, next_blue, next_green)
 
             #if the mine doesn't have time left, 0 it out and don't add it to live_mines
             else:
-                self.pixels[mine['y']*8 + mine['x']] = (0,0,0)
+                self.pixels[mine['y']*self.FLOOR_WIDTH + mine['x']] = (0,0,0)
 
         self.mines = live_mines
 
