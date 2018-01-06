@@ -16,11 +16,13 @@ COLORS = [RED, YELLOW, GREEN, WHITE]
 # Pre-render the boxes.
 LINES = []
 for color in COLORS:
-    for i in xrange(2):
-        LINES.append([color, color, BLACK, BLACK, color, color, BLACK, BLACK])
-        LINES.append([color, color, BLACK, BLACK, color, color, BLACK, BLACK])
-        LINES.append([BLACK, BLACK, color, color, BLACK, BLACK, color, color])
-        LINES.append([BLACK, BLACK, color, color, BLACK, BLACK, color, color])
+    for i in xrange(3):
+        LINES.append([color, color, color, BLACK, BLACK, BLACK, color, color, color, BLACK, BLACK, BLACK, color, color, color, BLACK, BLACK, BLACK])
+        LINES.append([color, color, color, BLACK, BLACK, BLACK, color, color, color, BLACK, BLACK, BLACK, color, color, color, BLACK, BLACK, BLACK])
+        LINES.append([color, color, color, BLACK, BLACK, BLACK, color, color, color, BLACK, BLACK, BLACK, color, color, color, BLACK, BLACK, BLACK])
+        LINES.append([BLACK, BLACK, BLACK, color, color, color, BLACK, BLACK, BLACK, color, color, color, BLACK, BLACK, BLACK, color, color, color])
+        LINES.append([BLACK, BLACK, BLACK, color, color, color, BLACK, BLACK, BLACK, color, color, color, BLACK, BLACK, BLACK, color, color, color])
+        LINES.append([BLACK, BLACK, BLACK, color, color, color, BLACK, BLACK, BLACK, color, color, color, BLACK, BLACK, BLACK, color, color, color])
 
 
 class ChaChaCha(Base):
@@ -32,7 +34,7 @@ class ChaChaCha(Base):
 
     @clocked(frames_per_beat=2)
     def get_next_frame(self, weights):
-        lines = list(itertools.islice(self.lines, 0, 8))
+        lines = list(itertools.islice(self.lines, 0, self.FLOOR_HEIGHT))
         self.lines.rotate()
         pixels = [pixel for line in lines for pixel in line]
         return pixels

@@ -11,7 +11,7 @@ class Message(Base):
     # How far apart should the letters be
     KERNING = 1
     # Essentially the width of the dance floor
-    WINDOW_WIDTH = 8
+    WINDOW_WIDTH = 18
     # File with messages to display
     MESSAGE_FILE = "/tmp/messages.txt"
     # Default message to show if messages file is empty or missing
@@ -132,6 +132,10 @@ class Message(Base):
                     pixels.append(self.current_rgb_tuple())
                 else:
                     pixels.append((0, 0, 0))
+
+        for row in range(0, self.FLOOR_HEIGHT -8):
+            for col in range(int(self.window), int(self.window)+self.WINDOW_WIDTH):
+                pixels.append((0, 0, 0))
 
         self.shift_color()
 

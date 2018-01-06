@@ -13,8 +13,8 @@ class Fishies(Base):
         self.palette_length = len(self.palette)
         self.fishies = self.init_fishies()
         self.last_time = time.time()
-        for x in range(0, 8):
-            for y in range(0, 8):
+        for x in range(0, self.FLOOR_WIDTH):
+            for y in range(0, self.FLOOR_HEIGHT):
                 self.pixels.append((0, 0, 0))
 
     def rand_color(self):
@@ -24,10 +24,10 @@ class Fishies(Base):
     def init_fishies(self):
         fishies = []
         fishies.append({'x':0, 'y':0, 'dx':1, 'dy':1, 'c':self.palette[0]})
-        fishies.append({'x':0, 'y':7, 'dx':-1, 'dy':-1, 'c':self.palette[1]})
-        fishies.append({'x':7, 'y':0, 'dx':-1, 'dy':1, 'c':self.palette[3]})
-        fishies.append({'x':7, 'y':7, 'dx':-1, 'dy':-1, 'c':self.palette[4]})
-        # fishies.append({'x':3, 'y':3, 'dx':-1, 'dy':-1, 'c':self.palette[4]})
+        fishies.append({'x':0, 'y':17, 'dx':-1, 'dy':-1, 'c':self.palette[1]})
+        fishies.append({'x':17, 'y':0, 'dx':-1, 'dy':1, 'c':self.palette[3]})
+        fishies.append({'x':17, 'y':17, 'dx':-1, 'dy':-1, 'c':self.palette[4]})
+        fishies.append({'x':8, 'y':8, 'dx':-1, 'dy':-1, 'c':self.palette[4]})
         return fishies
 
     def swim(self, fish):
@@ -39,8 +39,8 @@ class Fishies(Base):
         if fish['x']<0:
             fish['x'] = 0
             fish['dx'] = -1 * fish['dx']
-        if fish['x']>7:
-            fish['x'] = 7
+        if fish['x']>self.FLOOR_WIDTH-1:
+            fish['x'] = self.FLOOR_WIDTH-1
             fish['dx'] = -1 * fish['dx']
 
         chance = random.random()
@@ -50,8 +50,8 @@ class Fishies(Base):
         if fish['y']<0:
             fish['y'] = 0
             fish['dy'] = -1 * fish['dy']
-        if fish['y']>7:
-            fish['y'] = 7
+        if fish['y']>self.FLOOR_HEIGHT-1:
+            fish['y'] = self.FLOOR_HEIGHT-1
             fish['dy'] = -1 * fish['dy']
 
     def get_next_frame(self, weights):
@@ -64,7 +64,7 @@ class Fishies(Base):
             if d_time > 0.2:
                 self.swim(fish)
                 self.last_time = next_time
-            self.pixels[fish['y']*8 + fish['x']] = fish['c']
+            self.pixels[fish['y']*self.FLOOR_WIDTH + fish['x']] = fish['c']
 
         for index in xrange(len(self.pixels)):
             px = self.pixels[index]

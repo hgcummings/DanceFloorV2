@@ -14,34 +14,6 @@
       }
     },
     {
-      "name": "animator",
-      "duration": "30",
-      "args": {
-        "animation": "Color train"
-      }
-    },
-    {
-      "name": "animator",
-      "duration": "30",
-      "args": {
-        "animation": "gods_eye"
-      }
-    },
-    {
-      "name": "animator",
-      "duration": "30",
-      "args": {
-        "animation": "gods_eye_rainbow"
-      }
-    },
-    {
-      "name": "animator",
-      "duration": "30",
-      "args": {
-        "animation": "radiating"
-      }
-    },
-    {
       "name": "stripes",
       "duration": "30",
       "args": {
@@ -55,19 +27,7 @@
       "duration": "60"
     },
     {
-      "name": "flash_bang",
-      "duration": "60"
-    },
-    {
       "name": "fishies",
-      "duration": "60"
-    },
-    {
-      "name": "kaleidoscope",
-      "duration": "60"
-    },
-    {
-      "name": "land_mines",
       "duration": "60"
     },
     {
@@ -76,26 +36,6 @@
       "args": {
         "text": "Dance, dance, dance!"
       }
-    },
-    {
-      "name": "pulsar",
-      "duration": "60"
-    },
-    {
-      "name": "random_decay",
-      "duration": "60"
-    },
-    {
-      "name": "raver_plaid",
-      "duration": "60"
-    },
-    {
-      "name": "throbber",
-      "duration": "60"
-    },
-    {
-      "name": "zap",
-      "duration": "60"
     }
   ]
 }

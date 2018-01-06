@@ -3,8 +3,8 @@
 class Base(object):
 
     DEFAULT_MAX_VALUE = 1024
-    FLOOR_WIDTH = 8
-    FLOOR_HEIGHT = 8
+    FLOOR_WIDTH = 18
+    FLOOR_HEIGHT = 18
 
     def __init__(self, **kwargs):
         self.weights = []

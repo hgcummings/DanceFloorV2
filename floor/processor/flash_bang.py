@@ -42,7 +42,7 @@ class FlashBang(Base):
         self.create_burst()
 
     def init_burst_pixels(self):
-        for x in range(0, 64):
+        for x in range(0, self.FLOOR_HEIGHT * self.FLOOR_WIDTH):
             self.burst_pixels.append([0, 0, 0])
 
     def set_burst_decay(self):
@@ -92,10 +92,10 @@ class FlashBang(Base):
         self.burst_green = random.randint(int(self.max_value * 0.8), self.max_value*2)
         self.burst_blue = random.randint(int(self.max_value * 0.8), self.max_value*2)
 
-        for x in range(0, 8):
-            for y in range(0, 8):
+        for x in range(0, self.FLOOR_WIDTH):
+            for y in range(0, self.FLOOR_HEIGHT):
                 power_factor = self.inverse_square(x, y, burst_x, burst_y)
-                self.burst_pixels[y*8 + x] = [
+                self.burst_pixels[y*self.FLOOR_WIDTH + x] = [
                     self.burst_red * power_factor,
                     self.burst_green * power_factor,
                     self.burst_blue * power_factor
@@ -109,22 +109,22 @@ class FlashBang(Base):
 
     def create_sparkles(self):
         self.sparkles = []
-        for x in range(0, 64):
+        for x in range(0, self.FLOOR_HEIGHT * self.FLOOR_WIDTH):
             if random.random() < self.SPARKLE_PERCENT:
                 self.sparkles.append(-1 * random.randint(0, 24*3))
             else:
                 self.sparkles.append(-99999)
 
     def clear_burst_pixels(self):
-        for x in range(0, 64):
+        for x in range(0, self.FLOOR_HEIGHT * self.FLOOR_WIDTH):
             self.burst_pixels[x] = [0, 0, 0]
 
     def append_burst_pixels(self, pixels):
-        for x in range(0, 64):
+        for x in range(0, self.FLOOR_HEIGHT * self.FLOOR_WIDTH):
             pixels.append(self.burst_pixels[x])
 
     def add_sparkles(self, pixels):
-        for x in range(0, 64):
+        for x in range(0, self.FLOOR_HEIGHT * self.FLOOR_WIDTH):
             # If the sparkle value is greater than zero and is a multiple of self.SPARKLE_SPACING then
             # start a sparkle!
             if (self.sparkles[x] > 0)\

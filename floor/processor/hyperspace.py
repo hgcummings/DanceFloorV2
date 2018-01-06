@@ -12,12 +12,12 @@ class Hyperspace(Base):
     def __init__(self, **kwargs):
         super(Hyperspace, self).__init__(**kwargs)
         self.pixels = []
-        self.times = [0 for _ in range(64)]
+        #self.times = [0 for _ in range(64)]
         # self.palette = color.get_random_palette(self.max_value)
         self.palette = color.get_palette('rainbow_bunny', self.max_value)
         self.palette_length = len(self.palette)
-        self.radius_map_1 = [None] * 64
-        self.radius_map_2 = [None] * 64
+        self.radius_map_1 = [None] * self.FLOOR_HEIGHT * self.FLOOR_WIDTH
+        self.radius_map_2 = [None] * self.FLOOR_HEIGHT * self.FLOOR_WIDTH
         self.start_time = time.time()
 
         self.radius_map_1 = self.build_radius_map({'x':3.5, 'y':3.5});
@@ -25,7 +25,7 @@ class Hyperspace(Base):
 
     #precompute distance of each pixel to the center
     def build_radius_map(self, center):
-        radius_map = [None] * 64
+        radius_map = [None] * self.FLOOR_HEIGHT * self.FLOOR_WIDTH
         for y in range(0, self.FLOOR_HEIGHT):
             for x in range(0, self.FLOOR_WIDTH):
                 index = self.idx((x, y))
@@ -34,7 +34,7 @@ class Hyperspace(Base):
         return radius_map
 
     def offset_frame(self, frame, offset):
-        new_frame = [None] * 64
+        new_frame = [None] * self.FLOOR_HEIGHT * self.FLOOR_WIDTH
         for y in range(0, self.FLOOR_HEIGHT):
             for x in range(0, self.FLOOR_WIDTH):
                 index = self.idx((x, y))
@@ -67,7 +67,7 @@ class Hyperspace(Base):
     def get_next_frame(self, weights):
         delta = time.time() - self.start_time
         pulse = 2*math.sin(0.5*delta)
-        frame = [None] * 64
+        frame = [None] * self.FLOOR_HEIGHT * self.FLOOR_WIDTH
         for y in range(0, self.FLOOR_HEIGHT):
             for x in range(0, self.FLOOR_WIDTH):
                 index = self.idx((x, y))
