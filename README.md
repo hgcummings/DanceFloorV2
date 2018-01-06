@@ -1,8 +1,31 @@
-# dance-floor
-Code for various components of the LED disco dance floor
+# DanceFloorV2
 
-* [eagle](https://github.com/garthwebb/dance-floor/tree/master/eagle) - Eagle files for the PCBs used in this project
-* [floor](https://github.com/garthwebb/dance-floor/tree/master/floor) - This code controls the light show on the dance floor
-* poc_test - Proof of concept test code.
-* [spi-buffer](https://github.com/garthwebb/dance-floor/tree/master/spi-buffer) - This code handles reading SPI weight data coming from the floor
-* [square](https://github.com/garthwebb/dance-floor/tree/master/square) - This code run on the ATTiny in each square and manages the lights and weight sensors
+Download and execute the latest Python 2.* installation package from https://www.python.org/downloads/windows/
+
+Set system environment variables
+- PYTHON_HOME = C:\Python27
+- PATH : Add ;%PYTHON_HOME%\;%PYTHON_HOME%\Scripts\ 
+
+Install Pip:
+
+``pip install virtualenv``
+
+``pip install virtualenvwrapper-win flask``
+``pip install git+https://github.com/dpallot/simple-websocket-server.git``
+
+``mkvirtualenv DanceFloorV2``
+
+``deactivate``
+
+``git clone git@github.com:PhilMarsden/DanceFloorV2.git``
+
+``cd DanceFloorV2``
+
+# To work on the project
+``workon DanceFloorV2``
+
+``python floor\run-show.py --driver devserver``
+
+http://localhost:1979
+
+http://localhost:1977
