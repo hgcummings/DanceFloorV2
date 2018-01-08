@@ -10,8 +10,6 @@ class Message(Base):
     DEFAULT_FONT = "synchronizer"
     # How far apart should the letters be
     KERNING = 1
-    # Essentially the width of the dance floor
-    WINDOW_WIDTH = 18
     # File with messages to display
     MESSAGE_FILE = "/tmp/messages.txt"
     # Default message to show if messages file is empty or missing
@@ -79,14 +77,14 @@ class Message(Base):
             self.wall.append([])
 
             # Add blank space at the beginning so the text can scroll in from the side
-            self.wall[row].extend([0] * self.WINDOW_WIDTH)
+            self.wall[row].extend([0] * self.FLOOR_WIDTH)
 
             # Add the characters for this row
             self.load_wall_row(mesg, row)
 
             # Add blank space at the end so the text can scroll off the side, minus the
             # kerning from the final letter
-            self.wall[row].extend([0] * (self.WINDOW_WIDTH - self.KERNING))
+            self.wall[row].extend([0] * (self.FLOOR_WIDTH - self.KERNING))
 
         # Ready us for the next load
         self.message_num = (self.message_num + 1) % len(self.messages)
@@ -127,20 +125,20 @@ class Message(Base):
 
         pixels = []
         for row in range(0, 8):
-            for col in range(int(self.window), int(self.window)+self.WINDOW_WIDTH):
+            for col in range(int(self.window), int(self.window)+self.FLOOR_WIDTH):
                 if self.wall[row][col]:
                     pixels.append(self.current_rgb_tuple())
                 else:
                     pixels.append((0, 0, 0))
 
         for row in range(0, self.FLOOR_HEIGHT -8):
-            for col in range(int(self.window), int(self.window)+self.WINDOW_WIDTH):
+            for col in range(int(self.window), int(self.window)+self.FLOOR_WIDTH):
                 pixels.append((0, 0, 0))
 
         self.shift_color()
 
         self.window += self.speed
-        if self.window >= len(self.wall[0]) - self.WINDOW_WIDTH:
+        if self.window >= len(self.wall[0]) - self.FLOOR_WIDTH:
             self.load_next_wall()
 
         return pixels

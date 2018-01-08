@@ -24,10 +24,10 @@ class Fishies(Base):
     def init_fishies(self):
         fishies = []
         fishies.append({'x':0, 'y':0, 'dx':1, 'dy':1, 'c':self.palette[0]})
-        fishies.append({'x':0, 'y':17, 'dx':-1, 'dy':-1, 'c':self.palette[1]})
-        fishies.append({'x':17, 'y':0, 'dx':-1, 'dy':1, 'c':self.palette[3]})
-        fishies.append({'x':17, 'y':17, 'dx':-1, 'dy':-1, 'c':self.palette[4]})
-        fishies.append({'x':8, 'y':8, 'dx':-1, 'dy':-1, 'c':self.palette[4]})
+        fishies.append({'x':0, 'y':self.FLOOR_HEIGHT-1, 'dx':-1, 'dy':-1, 'c':self.palette[1]})
+        fishies.append({'x':self.FLOOR_WIDTH-1, 'y':0, 'dx':-1, 'dy':1, 'c':self.palette[3]})
+        fishies.append({'x':self.FLOOR_WIDTH-1, 'y':self.FLOOR_HEIGHT-1, 'dx':-1, 'dy':-1, 'c':self.palette[4]})
+        fishies.append({'x':self.FLOOR_WIDTH/2, 'y':self.FLOOR_HEIGHT/2, 'dx':-1, 'dy':-1, 'c':self.palette[4]})
         return fishies
 
     def swim(self, fish):
@@ -64,11 +64,13 @@ class Fishies(Base):
             if d_time > 0.2:
                 self.swim(fish)
                 self.last_time = next_time
-            self.pixels[fish['y']*self.FLOOR_WIDTH + fish['x']] = fish['c']
+            #self.pixels[fish['y']*self.FLOOR_WIDTH + fish['x']] = fish['c']
+            self.set_pixel(fish['x'], fish['y'], fish['c'])
 
-        for index in xrange(len(self.pixels)):
-            px = self.pixels[index]
-            px = color.scale_color(px, 0.7)
-            self.pixels[index] = px
+        #for index in xrange(len(self.pixels)):
+            #px = self.pixels[index]
+            #px = color.scale_color(px, 0.7)
+            #self.pixels[index] = px
 
-        return self.pixels
+        #return self.pixels
+	return None

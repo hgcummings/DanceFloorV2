@@ -2,21 +2,22 @@
 
 class Base(object):
 
-    DEFAULT_MAX_VALUE = 1024
-    FLOOR_WIDTH = 18
+    DEFAULT_MAX_VALUE = 256
+    FLOOR_WIDTH = 36
     FLOOR_HEIGHT = 18
 
     def __init__(self, **kwargs):
         self.weights = []
         self.max_value = self.DEFAULT_MAX_VALUE
         self.bpm = None
+	self.driver = None
         self.downbeat = None
 
     # accept (x,y) tuple reflecting a coordinate
     # return the array index suitable for use in weights or pixels arrays
     def idx(self,pixel):
         (x,y) = pixel
-        return (x * self.FLOOR_WIDTH) + y
+        return (y * self.FLOOR_WIDTH) + x
 
     def set_max_value(self, max_value):
         self.max_value = max_value
@@ -27,6 +28,12 @@ class Base(object):
         :return:
         """
         pass
+
+    def set_driver(self, driver):
+        self.driver = driver
+
+    def set_pixel(self,x,y,c):
+        self.driver.set_pixel(x,y,c)
 
     def set_bpm(self, bpm, downbeat):
         """

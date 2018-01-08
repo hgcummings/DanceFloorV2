@@ -1,13 +1,21 @@
 
+import logging
+logger = logging.getLogger('driver.base')
 
 class Base(object):
 
     MAX_LED_VALUE = 1023
+    FLOOR_WIDTH = 36
+    FLOOR_HEIGHT = 18
 
     def __init__(self, driver_args):
         self.weights = []
         self.leds = []
+	self.clear_leds()
         self.args = driver_args
+
+	# To speed up processing, controllers can send pixel data directly to the driver using the set_pixel(x,y,c) function
+	self.leds_set_through_driver = False;
 
         if "layout" in driver_args:
             self.layout = driver_args["layout"]
@@ -27,7 +35,29 @@ class Base(object):
         :param values:
         :return:
         """
-        self.leds = values
+	if ((values is not None) and (len(values) > 0)):
+                # 
+		#logger.debug('set_led received LED data')
+	        self.leds = values
+		self.leds_set_through_driver = False
+        else:
+		self.leds_set_through_driver = True
+		#logger.debug('set_led None')
+
+    def set_pixel(self,x,y,c):
+        """
+        Can be overridden by driver; 
+        :return:
+        """
+	# Expand the array if necessary
+	while (len(self.leds) < self.FLOOR_WIDTH * self.FLOOR_HEIGHT):
+		self.leds.append((0,0,0))
+	self.leds[x+y*self.FLOOR_WIDTH] = c
+
+    def clear_leds(self):
+	self.leds = []
+	for x in range(self.FLOOR_WIDTH * self.FLOOR_HEIGHT):
+		self.leds.append((0,0,0))
 
     def test_support(self):
         """

@@ -1,28 +1,32 @@
 {
   "queue": [
     {
+      "name": "pmrotatingsquare",
+      "duration": "20"
+    },
+    {
       "name": "chachacha",
-      "duration": "60"
+      "duration": "20"
     },
     {
       "name": "flashbang",
-      "duration": "60"
+      "duration": "20"
     },
     {
       "name": "landmines",
-      "duration": "60"
+      "duration": "20"
     },
     {
       "name": "raverplaid",
-      "duration": "60"
+      "duration": "20"
     },
     {
       "name": "randomdecay",
-      "duration": "60"
+      "duration": "20"
     },
     {
       "name": "stripes",
-      "duration": "30",
+      "duration": "20",
       "args": {
         "length": 18,
         "max_speed": 1.0,
@@ -31,11 +35,11 @@
     },
     {
       "name": "hyperspace",
-      "duration": "60"
+      "duration": "20"
     },
     {
       "name": "fishies",
-      "duration": "60"
+      "duration": "20"
     },
     {
       "name": "message",

@@ -21,6 +21,9 @@ class FlashBang(Base):
     SPARKLE_PERCENT = 0.40
     SPARKLE_SPACING = 5
 
+    # Colour at which we deem it to be black and finished
+    BLACK_COLOR = 3.0
+
     def __init__(self, **kwargs):
         super(FlashBang, self).__init__(**kwargs)
         self.burst_pixels = []
@@ -64,7 +67,7 @@ class FlashBang(Base):
         for rgb in self.burst_pixels:
             for color in range(0, 3):
                 rgb[color] *= self.burst_decay
-                if rgb[color] < 1.0:
+                if rgb[color] < self.BLACK_COLOR:
                     rgb[color] = 0
                 else:
                     # If any color is still above 1.0, we're still fading

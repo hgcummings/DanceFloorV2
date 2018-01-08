@@ -2,11 +2,13 @@ from base import Base
 import util.color_utils as color
 import random
 from random import randint
-
 import time
 import math
+import logging
 
 life_time = 4
+
+logger = logging.getLogger('land_mines')
 
 class LandMines(Base):
     def __init__(self, **kwargs):
@@ -17,21 +19,21 @@ class LandMines(Base):
         self.palette = color.get_random_palette(self.max_value)
         self.palette_length = len(self.palette)
         for x in range(0, self.FLOOR_WIDTH):
-            for y in range(0, self.FLOOR_WIDTH):
+            for y in range(0, self.FLOOR_HEIGHT):
                 self.pixels.append((0, 0, 0))
 
     def init_walkers(self):
         walkers = []
         walkers.append({'x':0, 'y':0})
-        walkers.append({'x':0, 'y':self.FLOOR_WIDTH-1})
+        walkers.append({'x':0, 'y':self.FLOOR_HEIGHT-1})
         walkers.append({'x':self.FLOOR_WIDTH-1, 'y':0})
-        walkers.append({'x':self.FLOOR_WIDTH-1, 'y':self.FLOOR_WIDTH-1})
+        walkers.append({'x':self.FLOOR_WIDTH-1, 'y':self.FLOOR_HEIGHT-1})
         return walkers
 
     def get_walker(self):
-        walker = self.walkers[randint(0, 2)]
+        walker = self.walkers[randint(0, 3)]
         #take a random step
-        walker['x'] += randint(-1, 1)
+        walker['x'] += randint(-6, 6)
         if walker['x']<0:
             walker['x'] = 0
         if walker['x']>self.FLOOR_WIDTH-1:
@@ -39,18 +41,19 @@ class LandMines(Base):
         walker['y'] += randint(-1, 1)
         if walker['y']<0:
             walker['y'] = 0
-        if walker['y']>self.FLOOR_WIDTH-1:
-            walker['y'] = self.FLOOR_WIDTH-1
+        if walker['y']>self.FLOOR_HEIGHT-1:
+            walker['y'] = self.FLOOR_HEIGHT-1
         return walker
 
     def build_mine(self, x, y):
         t = life_time
-        color = [0,0,0]
-        color[0] = randint(0, 1)*self.max_value
-        color[1] = randint(0, 1)*self.max_value
-        color[2] = randint(0, 1)*self.max_value
-        color = tuple(color)
+        #color = [0,0,0]
+        #color[0] = randint(0, 1)*self.max_value
+        #color[1] = randint(0, 1)*self.max_value
+        #color[2] = randint(0, 1)*self.max_value
+        #color = tuple(color)
         idx = random.randint(0, self.palette_length-1)
+	#logger.debug("Build mine(x,y,t,col_idx): {} {} {} {}".format(x,y,t,idx))
         return {'x':x, 'y':y, 't':t, 'color':self.palette[idx]}
 
 
@@ -71,7 +74,7 @@ class LandMines(Base):
             self.pixels[mine['y']*self.FLOOR_WIDTH + mine['x']] = mine['color']
 
         time_delta = 0.1
-        velocity = 0.0003 * self.max_value
+        velocity = 0.0009 * self.max_value
         live_mines = []
         for index in xrange(len(self.mines)):
             mine = self.mines[index]
@@ -87,7 +90,7 @@ class LandMines(Base):
             #if the mine has time left, compute explosion, store it in live_mines for next time
             if mine['t'] > 0.0:
                 live_mines.append(mine)
-                for y in range(0, self.FLOOR_WIDTH):
+                for y in range(0, self.FLOOR_HEIGHT):
                     for x in range(0, self.FLOOR_WIDTH):
                         next_pixel = self.pixels[y*self.FLOOR_WIDTH + x]
                         radius = math.sqrt((x-mine['x'])*(x-mine['x']) + (y-mine['y'])*(y-mine['y']))

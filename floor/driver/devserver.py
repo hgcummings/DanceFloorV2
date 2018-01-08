@@ -109,6 +109,9 @@ class Devserver(Base):
         self.web_thread.start()
         logger.info('Serving on http://localhost:1979/')
 
+    def set_pixel(self,x,y,c):
+        super(Devserver, self).set_pixel(x,y,c)
+
     def send_data(self):
         # Ensure all RGB values are integral.
         leds = [map(int, pixel) for pixel in self.leds]

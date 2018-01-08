@@ -1,7 +1,9 @@
 from base import Base
 from util import color_utils
 import random
+import logging
 
+logger = logging.getLogger('stripes')
 
 class Stripes(Base):
     DEFAULT_FADE_LENGTH = 100
@@ -18,6 +20,7 @@ class Stripes(Base):
         fade_length = kwargs.get("length", self.DEFAULT_FADE_LENGTH)
         self.max_speed = kwargs.get("max_speed", self.DEFAULT_MAX_SPEED)
         self.min_speed = kwargs.get("min_speed", self.DEFAULT_MIN_SPEED)
+        logger.info('Fade length : {}'.format(fade_length))
 
         for idx, p in enumerate(self.palette):
             for n in range(fade_length, 1, -1):
@@ -42,7 +45,7 @@ class Stripes(Base):
         else:
             direction = -1
 
-        return Stripe(gradient, speed, direction, self.FLOOR_HEIGHT)
+        return Stripe(gradient, speed, direction, self.FLOOR_WIDTH)
 
     def get_next_frame(self, weights):
         # Ignore weights
@@ -53,7 +56,12 @@ class Stripes(Base):
             stripe = self.stripes[row]
             values = stripe.get_values()
 
-            pixels.extend(values)
+            if (False):
+                pixels.extend(values)
+            else:
+                for col in range(self.FLOOR_WIDTH):
+                    #logger.debug('Setting pixel : ({},{}) = {}'.format(col,row,values[col]))
+                    self.driver.set_pixel(col,row,values[col])
 
             if stripe.is_done():
                 self.stripes[row] = self.generate_new_stripe()

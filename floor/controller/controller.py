@@ -10,7 +10,7 @@ logger = logging.getLogger('controller')
 
 
 class Controller(object):
-    DEFAULT_FPS = 24
+    DEFAULT_FPS = 5
     DEFAULT_BPM = 120.0
 
     def __init__(self, playlist):
@@ -83,6 +83,7 @@ class Controller(object):
         """
         self.processor = self.build_processor(processor_name, processor_args)
         self.processor.set_bpm(self.bpm, self.downbeat)
+	self.processor.set_driver(self.driver)
         self.current_processor = processor_name
         self.current_args = processor_args
 
@@ -114,11 +115,17 @@ class Controller(object):
                 time.sleep(0.5)
                 continue
 
+            t1 = time.time()
             self.init_loop()
             self.check_playlist()
+            t2 = time.time()
             self.generate_frame()
+            t3 = time.time()
             self.transfer_data()
+            t4 = time.time()
             self.delay()
+            t5 = time.time()
+            logger.debug("Time: check_playlist:{:06.2f} generate_frame:{:06.2f} transfer_data:{:06.2f} delay:{:06.2f} total:{:06.2f}".format(1000*(t2-t1),1000*(t3-t2),1000*(t4-t3),1000*(t5-t4),1000*(t5-t1)))
 
     def init_loop(self):
         self.frame_start = time.time()
@@ -161,5 +168,7 @@ class Controller(object):
     def delay(self):
         elapsed = time.time() - self.frame_start
         if elapsed < self.frame_seconds:
-            # print "Remain: {}".format(self.frame_seconds - elapsed)
+            #logger.debug("Remain: {}ms of {}ms".format(1000*(self.frame_seconds - elapsed),1000*self.frame_seconds))
             time.sleep(self.frame_seconds - elapsed)
+	else:
+            logger.info("Cant keep up with {}fps. Elapsed:{}ms Max:{}ms".format(self.fps,1000*(elapsed),1000*self.frame_seconds))
