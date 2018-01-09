@@ -1,4 +1,4 @@
-
+import copy
 import logging
 logger = logging.getLogger('driver.base')
 
@@ -37,12 +37,12 @@ class Base(object):
         """
 	if ((values is not None) and (len(values) > 0)):
                 # 
-		#logger.debug('set_led received LED data')
+		logger.debug('set_led received LED data')
 	        self.leds = values
 		self.leds_set_through_driver = False
         else:
 		self.leds_set_through_driver = True
-		#logger.debug('set_led None')
+		logger.debug('set_led None')
 
     def set_pixel(self,x,y,c):
         """
@@ -53,6 +53,14 @@ class Base(object):
 	while (len(self.leds) < self.FLOOR_WIDTH * self.FLOOR_HEIGHT):
 		self.leds.append((0,0,0))
 	self.leds[x+y*self.FLOOR_WIDTH] = c
+
+    def get_raw_pixel_data(self):
+        #logger.debug('Get raw pixel data {}'.format(self.leds))
+        return copy.copy(self.leds)
+
+    def set_raw_pixel_data(self,data):
+        self.leds = copy.copy(data)
+        #logger.debug('Set raw pixel data {}'.format(self.leds))
 
     def clear_leds(self):
 	self.leds = []

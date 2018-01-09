@@ -1,8 +1,3 @@
-# NeoPixel library strandtest example
-# Author: Tony DiCola (tony@tonydicola.com)
-#
-# Direct port of the Arduino NeoPixel library strandtest example.  Showcases
-# various animations on a strip of NeoPixels.
 import time
 
 from neopixel import *
@@ -56,6 +51,15 @@ class Raspberry(Base):
 		i = y*self.FLOOR_WIDTH + x
 		r,g,b = c
 		self.strip.setPixelColor(self.stripindex[i], Color(int(r),int(g),int(b)))
+
+	def get_raw_pixel_data(self):
+		data = self.strip.getRawPixelData()
+		#logger.debug('Get raw pixel data : {}'.format(data))
+		return data
+
+	def set_raw_pixel_data(self,data):
+		#logger.debug('Set raw pixel data : {}'.format(data))
+		self.strip.setRawPixelData(data)
 
 	def send_data(self):
 		"""

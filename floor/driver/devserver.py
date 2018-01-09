@@ -114,6 +114,7 @@ class Devserver(Base):
 
     def send_data(self):
         # Ensure all RGB values are integral.
+	#logger.debug('Sending LEDS:{}'.format(self.leds))
         leds = [map(int, pixel) for pixel in self.leds]
         message = {
             "event": "leds",

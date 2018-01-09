@@ -1,5 +1,8 @@
 from PIL import Image,ImageDraw
 
+import logging
+logger = logging.getLogger('processor.Base')
+
 class Base(object):
 
 	DEFAULT_MAX_VALUE = 256
@@ -34,6 +37,14 @@ class Base(object):
 
 	def set_pixel(self,x,y,c):
 		self.driver.set_pixel(x,y,c)
+
+	def get_raw_pixel_data(self):
+		logger.debug('Get raw pixel data')
+		return self.driver.get_raw_pixel_data()
+
+	def set_raw_pixel_data(self,data):
+		logger.debug('Set raw pixel data')
+		self.driver.set_raw_pixel_data(data)
 
 	def set_bpm(self, bpm, downbeat):
 		"""
