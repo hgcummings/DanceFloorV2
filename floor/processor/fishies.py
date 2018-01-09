@@ -3,6 +3,9 @@ import util.color_utils as color
 import random
 from random import randint
 import time
+import logging
+
+logger = logging.getLogger('fishies')
 
 class Fishies(Base):
     def __init__(self, **kwargs):
@@ -16,6 +19,7 @@ class Fishies(Base):
         for x in range(0, self.FLOOR_WIDTH):
             for y in range(0, self.FLOOR_HEIGHT):
                 self.pixels.append((0, 0, 0))
+	logger.info("Fishies constructed")
 
     def rand_color(self):
         idx = random.randint(0, self.palette_length - 1)
@@ -64,13 +68,13 @@ class Fishies(Base):
             if d_time > 0.2:
                 self.swim(fish)
                 self.last_time = next_time
-            #self.pixels[fish['y']*self.FLOOR_WIDTH + fish['x']] = fish['c']
-            self.set_pixel(fish['x'], fish['y'], fish['c'])
+            self.pixels[fish['y']*self.FLOOR_WIDTH + fish['x']] = fish['c']
+            #self.set_pixel(fish['x'], fish['y'], fish['c'])
 
-        #for index in xrange(len(self.pixels)):
-            #px = self.pixels[index]
-            #px = color.scale_color(px, 0.7)
-            #self.pixels[index] = px
+        for index in xrange(len(self.pixels)):
+            px = self.pixels[index]
+            px = color.scale_color(px, 0.6)
+            self.pixels[index] = px
 
-        #return self.pixels
-	return None
+        return self.pixels
+	#return None

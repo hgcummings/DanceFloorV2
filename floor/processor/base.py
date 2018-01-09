@@ -33,7 +33,11 @@ class Base(object):
 		pass
 
 	def set_driver(self, driver):
+		logger.info('Driver set')
 		self.driver = driver
+        	for x in range(0, self.FLOOR_WIDTH):
+            		for y in range(0, self.FLOOR_HEIGHT):
+                		self.set_pixel(x,y,(0, 0, 0))
 
 	def set_pixel(self,x,y,c):
 		self.driver.set_pixel(x,y,c)
