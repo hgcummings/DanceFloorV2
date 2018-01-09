@@ -1,3 +1,3 @@
-from processor.pmtest import *
+from processor.pm_rotatingsquare import *
 
-a = PMTest()
+a = PMRotatingSquare()
