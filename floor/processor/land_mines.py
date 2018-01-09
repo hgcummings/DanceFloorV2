@@ -24,10 +24,10 @@ class LandMines(Base):
 
     def init_walkers(self):
         walkers = []
-        walkers.append({'x':0, 'y':0})
-        walkers.append({'x':0, 'y':self.FLOOR_HEIGHT-1})
-        walkers.append({'x':self.FLOOR_WIDTH-1, 'y':0})
-        walkers.append({'x':self.FLOOR_WIDTH-1, 'y':self.FLOOR_HEIGHT-1})
+        walkers.append({'x':int(self.FLOOR_WIDTH/4), 'y':int(self.FLOOR_HEIGHT/4)})
+        walkers.append({'x':int(self.FLOOR_WIDTH/4), 'y':int(self.FLOOR_HEIGHT*3/4)})
+        walkers.append({'x':int(self.FLOOR_WIDTH*3/4), 'y':int(self.FLOOR_HEIGHT/4)})
+        walkers.append({'x':int(self.FLOOR_WIDTH*3/4), 'y':int(self.FLOOR_HEIGHT*3/4)})
         return walkers
 
     def get_walker(self):
@@ -38,7 +38,7 @@ class LandMines(Base):
             walker['x'] = 0
         if walker['x']>self.FLOOR_WIDTH-1:
             walker['x'] = self.FLOOR_WIDTH-1
-        walker['y'] += randint(-1, 1)
+        walker['y'] += randint(-6, 6)
         if walker['y']<0:
             walker['y'] = 0
         if walker['y']>self.FLOOR_HEIGHT-1:

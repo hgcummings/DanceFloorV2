@@ -6,8 +6,8 @@ import math
 class FlashBang(Base):
 
     # Random range for how long the main burst lasts
-    BURST_DECAY_MAX = 0.95
-    BURST_DECAY_MIN = 0.88
+    BURST_DECAY_MAX = 0.8
+    BURST_DECAY_MIN = 0.8
 
     # Random range for how intense the burst is
     BURST_INTENSITY_MAX = 1.0
@@ -18,8 +18,8 @@ class FlashBang(Base):
     SPARKLE_TRIGGER_MIN = 0.25
 
     # Percent chance (from 0.0 to 1.0) that a square will sparkle
-    SPARKLE_PERCENT = 0.40
-    SPARKLE_SPACING = 5
+    SPARKLE_PERCENT = 1.0
+    SPARKLE_SPACING = 3
 
     # Colour at which we deem it to be black and finished
     BLACK_COLOR = 3.0
@@ -89,8 +89,8 @@ class FlashBang(Base):
         self.sparkling = False
         self.clear_burst_pixels()
 
-        burst_x = random.randint(0, 7)
-        burst_y = random.randint(0, 7)
+        burst_x = random.randint(0, self.FLOOR_WIDTH)
+        burst_y = random.randint(0, self.FLOOR_HEIGHT)
         self.burst_red = random.randint(int(self.max_value * 0.8), self.max_value*2)
         self.burst_green = random.randint(int(self.max_value * 0.8), self.max_value*2)
         self.burst_blue = random.randint(int(self.max_value * 0.8), self.max_value*2)
