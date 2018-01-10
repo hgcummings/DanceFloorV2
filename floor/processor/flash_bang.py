@@ -1,6 +1,9 @@
 from base import Base
 import random
 import math
+import logging
+logger = logging.getLogger('flashbang')
+
 
 
 class FlashBang(Base):
@@ -36,6 +39,7 @@ class FlashBang(Base):
         self.burst_red = self.max_value
         self.burst_green = self.max_value
         self.burst_blue = self.max_value
+	logger.debug('Max LED = {}'.format(self.max_value))
 
         self.sparkle_trigger = self.SPARKLE_TRIGGER_MAX * self.max_value
         self.sparkle_start = False
@@ -91,9 +95,10 @@ class FlashBang(Base):
 
         burst_x = random.randint(0, self.FLOOR_WIDTH)
         burst_y = random.randint(0, self.FLOOR_HEIGHT)
-        self.burst_red = random.randint(int(self.max_value * 0.8), self.max_value*2)
-        self.burst_green = random.randint(int(self.max_value * 0.8), self.max_value*2)
-        self.burst_blue = random.randint(int(self.max_value * 0.8), self.max_value*2)
+	self.set_burst_intensity()
+        self.burst_red = random.randint(int(self.max_value * 0.8), self.max_value*1)
+        self.burst_green = random.randint(int(self.max_value * 0.8), self.max_value*1)
+        self.burst_blue = random.randint(int(self.max_value * 0.8), self.max_value*1)
 
         for x in range(0, self.FLOOR_WIDTH):
             for y in range(0, self.FLOOR_HEIGHT):

@@ -10,7 +10,7 @@ logger = logging.getLogger('controller')
 
 
 class Controller(object):
-    DEFAULT_FPS = 18
+    DEFAULT_FPS = 20
     DEFAULT_BPM = 120.0
 
     def __init__(self, playlist):

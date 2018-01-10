@@ -33,7 +33,7 @@ class Base(object):
 		pass
 
 	def set_driver(self, driver):
-		logger.info('Driver set')
+		#logger.debug('Driver set')
 		self.driver = driver
         	for x in range(0, self.FLOOR_WIDTH):
             		for y in range(0, self.FLOOR_HEIGHT):

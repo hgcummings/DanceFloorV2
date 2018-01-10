@@ -17,6 +17,7 @@ class LandMines(Base):
         self.mines = []
         self.walkers = self.init_walkers()
         self.palette = color.get_random_palette(self.max_value)
+	logger.debug('Palette:{}'.format(self.palette))
         self.palette_length = len(self.palette)
         for x in range(0, self.FLOOR_WIDTH):
             for y in range(0, self.FLOOR_HEIGHT):
@@ -102,6 +103,12 @@ class LandMines(Base):
                             next_blue = next_pixel[1] + delta*color[1]
                             next_green = next_pixel[2] + delta*color[2]
                             # don't let values go negative
+                            if next_blue>self.max_value:
+                                next_blue = self.max_value
+                            if next_red>self.max_value:
+                                next_red = self.max_value
+                            if next_green>self.max_value:
+                                next_green = self.max_value
                             if next_blue<0:
                                 next_blue = 0
                             if next_red<0:
