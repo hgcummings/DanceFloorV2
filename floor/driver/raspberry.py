@@ -82,7 +82,7 @@ class Raspberry(Base):
         	t2 = time.time()
 		self.strip.show()
         	t3 = time.time()
-		logger.debug('Calculation time: {} Strip time: {} Total time: {}'.format(1000*(t2-t1),1000*(t3-t2),1000*(t3-t1)))
+		logger.debug('Calculation time: {} Strip.show time: {} Total time: {}'.format(1000*(t2-t1),1000*(t3-t2),1000*(t3-t1)))
 
 	def read_data(self):
 		"""
