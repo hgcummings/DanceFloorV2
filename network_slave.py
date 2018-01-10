@@ -20,6 +20,7 @@ LED_INVERT     = False   # True to invert the signal (when using NPN transistor 
 LED_CHANNEL    = 0       # set to '1' for GPIOs 13, 19, 41, 45 or 53
 LED_STRIP      = ws.WS2811_STRIP_GRB   # Strip type and colour ordering
 
+LED_STRIP_OFFSET = 0
 
 # Main program logic follows:
 if __name__ == '__main__':
@@ -52,7 +53,7 @@ if __name__ == '__main__':
 					print nbytes/4,i,rgb,r,g,b,x
 				strip.setPixelColor(i, Color(int(r),int(g),int(b)))
 		else:
-			strip.setRawPixelData(buf[:])
+			strip.setRawPixelData(buf[LED_STRIP_OFFSET:])
 		t2 = time.time()
 		strip.show()
 		t3 = time.time()
