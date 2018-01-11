@@ -20,8 +20,8 @@ class Hyperspace(Base):
         self.radius_map_2 = [None] * self.FLOOR_HEIGHT * self.FLOOR_WIDTH
         self.start_time = time.time()
 
-        self.radius_map_1 = self.build_radius_map({'x':3.5, 'y':3.5});
-        self.radius_map_2 = self.build_radius_map({'x':3, 'y':4});
+        self.radius_map_1 = self.build_radius_map({'x':self.FLOOR_WIDTH/2 + 0.5, 'y':self.FLOOR_HEIGHT/2 + 0.5});
+        self.radius_map_2 = self.build_radius_map({'x':self.FLOOR_WIDTH/2, 'y':self.FLOOR_HEIGHT/2 + 1.0});
 
     #precompute distance of each pixel to the center
     def build_radius_map(self, center):
