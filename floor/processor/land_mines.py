@@ -15,7 +15,6 @@ class LandMines(Base):
 		super(LandMines, self).__init__(**kwargs)
 		self.pixels = []
 		self.mines = []
-		self.walkers = self.init_walkers()
 		self.palette = color.get_random_palette(self.max_value)
 		logger.debug('Palette:{}'.format(self.palette))
 		self.palette_length = len(self.palette)
@@ -25,29 +24,6 @@ class LandMines(Base):
 			for y in range(0, self.FLOOR_HEIGHT):
 				self.pixels.append((0, 0, 0))
 	
-	def init_walkers(self):
-		walkers = []
-		walkers.append({'x':int(self.FLOOR_WIDTH/4), 'y':int(self.FLOOR_HEIGHT/4)})
-		walkers.append({'x':int(self.FLOOR_WIDTH/4), 'y':int(self.FLOOR_HEIGHT*3/4)})
-		walkers.append({'x':int(self.FLOOR_WIDTH*3/4), 'y':int(self.FLOOR_HEIGHT/4)})
-		walkers.append({'x':int(self.FLOOR_WIDTH*3/4), 'y':int(self.FLOOR_HEIGHT*3/4)})
-		return walkers
-
-	def get_walker(self):
-		walker = self.walkers[randint(0, 3)]
-		#take a random step
-		walker['x'] += randint(-6, 6)
-		if walker['x']<0:
-			walker['x'] = 0
-		if walker['x']>self.FLOOR_WIDTH-1:
-			walker['x'] = self.FLOOR_WIDTH-1
-		walker['y'] += randint(-6, 6)
-		if walker['y']<0:
-			walker['y'] = 0
-		if walker['y']>self.FLOOR_HEIGHT-1:
-			walker['y'] = self.FLOOR_HEIGHT-1
-		return walker
-
 	def build_mine(self, x, y):
 		t = life_time
 		idx = random.randint(0, self.palette_length-1)
@@ -63,10 +39,9 @@ class LandMines(Base):
 		next_time = time.time()
 
 		chance = random.random()
-		if chance > 0.95:
-			walker = self.get_walker()
-			x = walker['x']
-			y = walker['y']
+		if chance > 0.90:
+			x = randint(0,self.FLOOR_WIDTH-1)
+			y = randint(0,self.FLOOR_HEIGHT-1)
 			mine = self.build_mine(x, y)
 			self.mines.append(mine)
 			self.pixels[mine['y']*self.FLOOR_WIDTH + mine['x']] = mine['color']
@@ -99,20 +74,26 @@ class LandMines(Base):
 							next_red = next_pixel[0] + delta*color[0]
 							next_blue = next_pixel[1] + delta*color[1]
 							next_green = next_pixel[2] + delta*color[2]
-							# don't let values go negative
-							if next_blue>self.max_value:
-								next_blue = self.max_value
-							if next_red>self.max_value:
-								next_red = self.max_value
-							if next_green>self.max_value:
-								next_green = self.max_value
-							if next_blue<0:
-								next_blue = 0
-							if next_red<0:
-								next_red = 0
-							if next_green<0:
-								next_green = 0
-							self.pixels[y*self.FLOOR_WIDTH + x] = (next_red, next_blue, next_green)
+						else:
+							delta = toggle * velocity * delta_time 
+							next_red = next_pixel[0] + delta*color[0]
+							next_blue = next_pixel[1] + delta*color[1]
+							next_green = next_pixel[2] + delta*color[2]
+						
+						# don't let values go negative
+						if next_blue>self.max_value:
+							next_blue = self.max_value
+						if next_red>self.max_value:
+							next_red = self.max_value
+						if next_green>self.max_value:
+							next_green = self.max_value
+						if next_blue<0:
+							next_blue = 0
+						if next_red<0:
+							next_red = 0
+						if next_green<0:
+							next_green = 0
+						self.pixels[y*self.FLOOR_WIDTH + x] = (next_red, next_blue, next_green)
 
 			#if the mine doesn't have time left, 0 it out and don't add it to live_mines
 			else:
