@@ -27,21 +27,21 @@ class ChaChaCha(Base):
 		# Pre-render the boxes.
 		LINES = []
 		for repeat in range (self.FLOOR_HEIGHT / len(COLORS) * 6):
-		for color in COLORS:
-			colors1 = []
-			colors2 = []
-			for j in range(self.FLOOR_WIDTH/6):
+			for color in COLORS:
+				colors1 = []
+				colors2 = []
+				for j in range(self.FLOOR_WIDTH/6):
+					for k in range(3):
+						colors1.append(color)
+						colors2.append(BLACK)
+					for k in range(3):
+						colors1.append(BLACK)
+						colors2.append(color)
+				# Add Six lines (3 of each colour)
 				for k in range(3):
-					colors1.append(color)
-					colors2.append(BLACK)
+					LINES.append(colors1)
 				for k in range(3):
-					colors1.append(BLACK)
-					colors2.append(color)
-			# Add Six lines (3 of each colour)
-			for k in range(3):
-				LINES.append(colors1)
-			for k in range(3):
-				LINES.append(colors2)
+					LINES.append(colors2)
 		self.lines = collections.deque(LINES)
 
 	@clocked(frames_per_beat=2)
