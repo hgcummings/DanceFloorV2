@@ -12,10 +12,11 @@ LOG_FORMAT = '%(asctime)-15s | %(name)-12s (%(levelname)s): %(message)s'
 def main():
 	parser = argparse.ArgumentParser(description='Run the disco dance floor')
 	parser.add_argument(
-		'--driver',
-		dest='driver_name',
-		default='network',
-		help='Sets the driver to use when writing LED data and reading weight data (default "network")'
+		'--network',
+		dest='networkdriver',
+		default=False,
+		action='store_true',
+		help='Starts the network driver (default = false)'
 	)
 	parser.add_argument(
 		'--processor',
@@ -24,11 +25,11 @@ def main():
 		help='Sets the LED processor to generate each frame of light data'
 	)
 	parser.add_argument(
-		'--nodevserver',
-		dest='nodevserver',
+		'--devserver',
+		dest='devserver',
 		default=False,
 		action='store_true',
-		help='Dont run a dev server'
+		help='Run a dev server'
 	)
 	parser.add_argument(
 		'--no-opc-input',
@@ -65,12 +66,13 @@ def main():
 	layout = Layout(config_dir)
 
 	show = Controller(playlist)
-	show.add_driver(args.driver_name, {
-		"opc_input": args.opc_input,
-		"layout": layout
-	})
+	if (args.networkdriver):
+		show.add_driver('network', {
+			"opc_input": args.opc_input,
+			"layout": layout
+		})
 	
-	if (not args.nodevserver):
+	if (args.devserver):
 		show.add_driver('devserver', {
 			"opc_input": args.opc_input,
 			"layout": layout
