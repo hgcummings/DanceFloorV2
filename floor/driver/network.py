@@ -6,8 +6,8 @@ import signal
 import sys
 
 # Size of LED grid (not floor)
-GRID_WIDTH = 36
-GRID_HEIGHT = 18
+RASP_GRID_WIDTH = 36
+RASP_GRID_HEIGHT = 18
 
 from base import Base
 import importlib
@@ -24,6 +24,7 @@ class Network(Base):
 	MAX_LED_VALUE = 255
 
 	def __init__(self, args):
+		logger.debug('__init__')
 		super(Network, self).__init__(args)
 		self.stripindex = []
 		i = 0
@@ -36,10 +37,11 @@ class Network(Base):
 			self.stripindex.append(led_index)
 			maxi = max(maxi,led_index)
 		self.maxledindex = maxi+1
+		logger.debug('Max index = {}'.format(maxi+1))
 
-        	self.multisocket = socket(AF_INET, SOCK_DGRAM)
-        	self.multisocket.bind(('', 0))
-        	self.multisocket.setsockopt(SOL_SOCKET, SO_BROADCAST, 1)
+	 	self.multisocket = socket(AF_INET, SOCK_DGRAM)
+	   	self.multisocket.bind(('', 0))
+	   	self.multisocket.setsockopt(SOL_SOCKET, SO_BROADCAST, 1)
 		self.multisocketport=50000
 		self.multisocketaddr='10.210.255.255'
 		self.multisocketdata = bytearray(chr(0)) * self.maxledindex * 4
@@ -71,7 +73,7 @@ class Network(Base):
 		:return:
 		"""
 
-        	t1 = time.time()
+		t1 = time.time()
 		#self.leds_set_through_driver = False
 		if not self.leds_set_through_driver:
 			logger.debug('LEDs set through processor')
@@ -85,9 +87,9 @@ class Network(Base):
 		else:
 			logger.debug('LEDs set through driver')
 
-        	t2 = time.time()
-        	self.multisocket.sendto(self.multisocketdata, (self.multisocketaddr, self.multisocketport))
-        	t3 = time.time()
+		t2 = time.time()
+		self.multisocket.sendto(self.multisocketdata, (self.multisocketaddr, self.multisocketport))
+		t3 = time.time()
 		logger.debug('Calculation time: {} Network time: {} Total time: {}'.format(1000*(t2-t1),1000*(t3-t2),1000*(t3-t1)))
 
 	def read_data(self):
@@ -101,8 +103,8 @@ class Network(Base):
 
 	def get_pixel_number(self,x_coordinate,y_coordinate,wrap=False):
 		if (wrap):
-			x_coordinate = x_coordinate[0] % GRID_WIDTH
-			y_coordinate = y_coordinate[1] % GRID_HEIGHT
+			x_coordinate = x_coordinate[0] % RASP_GRID_WIDTH
+			y_coordinate = y_coordinate[1] % RASP_GRID_HEIGHT
 
 		y_coordinate_is_even = y_coordinate % 2 == 0 
 		if y_coordinate_is_even:

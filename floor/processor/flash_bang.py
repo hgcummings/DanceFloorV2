@@ -45,10 +45,13 @@ class FlashBang(Base):
 		self.sparkle_start = False
 		self.sparkling = False
 
+
+	def initialise_processor(self):
 		self.init_burst_pixels()
 		self.create_burst()
-
+	
 	def init_burst_pixels(self):
+		logger.debug("init_burst_pixels for {}x{}".format(self.FLOOR_HEIGHT, self.FLOOR_WIDTH))
 		for x in range(0, self.FLOOR_HEIGHT * self.FLOOR_WIDTH):
 			self.burst_pixels.append([0, 0, 0])
 
@@ -130,6 +133,7 @@ class FlashBang(Base):
 			self.burst_pixels[x] = [0, 0, 0]
 
 	def append_burst_pixels(self, pixels):
+		logger.debug("append_pixels for {}x{}".format(self.FLOOR_HEIGHT, self.FLOOR_WIDTH))
 		for x in range(0, self.FLOOR_HEIGHT * self.FLOOR_WIDTH):
 			pixels.append(self.burst_pixels[x])
 

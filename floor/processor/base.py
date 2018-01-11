@@ -6,15 +6,16 @@ logger = logging.getLogger('processor.Base')
 class Base(object):
 
 	DEFAULT_MAX_VALUE = 256
-	FLOOR_WIDTH = 36
-	FLOOR_HEIGHT = 18
 
 	def __init__(self, **kwargs):
 		self.weights = []
 		self.max_value = self.DEFAULT_MAX_VALUE
 		self.bpm = None
-		self.driver = None
+		self.drivers = []
 		self.downbeat = None
+		logger.debug('__init__')
+		self.FLOOR_HEIGHT = 0
+		self.FLOOR_WIDTH = 0
 
 	# accept (x,y) tuple reflecting a coordinate
 	# return the array index suitable for use in weights or pixels arrays
@@ -25,6 +26,9 @@ class Base(object):
 	def set_max_value(self, max_value):
 		self.max_value = max_value
 
+	def initialise_processor(self):
+		pass
+		
 	def get_next_frame(self, weights):
 		"""
 		Generate the LED values needed for the next frame
@@ -32,23 +36,36 @@ class Base(object):
 		"""
 		pass
 
-	def set_driver(self, driver):
+	def set_drivers(self, drivers):
 		#logger.debug('Driver set')
-		self.driver = driver
-        	for x in range(0, self.FLOOR_WIDTH):
-            		for y in range(0, self.FLOOR_HEIGHT):
-                		self.set_pixel(x,y,(0, 0, 0))
+		self.drivers = drivers
+		self.FLOOR_HEIGHT = self.drivers[0].get_layout().rows
+		self.FLOOR_WIDTH = self.drivers[0].get_layout().cols
+		logger.debug('Layout Rows: {}'.format(self.FLOOR_HEIGHT))
+		logger.debug('Layout Cols: {}'.format(self.FLOOR_WIDTH))
+
+	   	for x in range(0, self.FLOOR_WIDTH):
+			for y in range(0, self.FLOOR_HEIGHT):
+				self.set_pixel(x,y,(0, 0, 0))
+
 
 	def set_pixel(self,x,y,c):
-		self.driver.set_pixel(x,y,c)
+		for d in self.drivers:
+			d.set_pixel(x,y,c)
 
 	def get_raw_pixel_data(self):
 		logger.debug('Get raw pixel data')
-		return self.driver.get_raw_pixel_data()
+		pd = []
+		for d in self.drivers:
+			pd.append(d.get_raw_pixel_data())
+		return pd
 
 	def set_raw_pixel_data(self,data):
-		logger.debug('Set raw pixel data')
-		self.driver.set_raw_pixel_data(data)
+		logger.debug('Set raw pixel data for {} drivers'.format(len(self.drivers)))
+		for i in range(len(self.drivers)):
+			r = self.drivers[i]
+			d = data[i]
+			r.set_raw_pixel_data(d)
 
 	def set_bpm(self, bpm, downbeat):
 		"""

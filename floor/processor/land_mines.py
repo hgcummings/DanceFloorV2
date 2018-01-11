@@ -19,10 +19,12 @@ class LandMines(Base):
 		self.palette = color.get_random_palette(self.max_value)
 		logger.debug('Palette:{}'.format(self.palette))
 		self.palette_length = len(self.palette)
+
+	def initialise_processor(self):
 		for x in range(0, self.FLOOR_WIDTH):
 			for y in range(0, self.FLOOR_HEIGHT):
 				self.pixels.append((0, 0, 0))
-
+	
 	def init_walkers(self):
 		walkers = []
 		walkers.append({'x':int(self.FLOOR_WIDTH/4), 'y':int(self.FLOOR_HEIGHT/4)})

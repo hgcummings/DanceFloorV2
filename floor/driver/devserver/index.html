@@ -1,4 +1,5 @@
 <html>
+<html>
 <head>
 <title>dance floor devserver</title>
 <style>
@@ -12,9 +13,9 @@ h1 small {
   color: #777;
 }
 .pixel {
-  width: 36px;
-  height: 36px;
-  padding: 2px;
+  width: 12px;
+  height: 12px;
+  padding: 1px;
   display: inline-block;
   border: 1px solid #222;
 }
@@ -22,15 +23,26 @@ h1 small {
 </head>
 <body>
 
-<h1>Let's Dance! <small id="socket-status"></small></h1>
+<h1>Softwire Dance! <small id="socket-status"></small></h1>
 
 <div id="dance-floor"></div>
 
 <script>
   var reconnectHandle;
+  var floor_width = 8
+  var floor_height = 8
+  var floor_init = 0
 
-  function updatePixels(pixelData) {
-    var pixelElements = document.getElementsByClassName('pixel');
+  function updatePixels(socket,floorData) {
+	var sizeData = floorData[0]
+	if (floor_init == 0) {
+		floor_init = 1
+		floor_width = sizeData[0]
+		floor_height = sizeData[1]
+		installDancefloor(socket)
+	}
+	var pixelData = floorData[1]
+	var pixelElements = document.getElementsByClassName('pixel');
     for (var i = 0; i < pixelElements.length; i++) {
       var element = pixelElements[i];
       var rgb = pixelData[i];
@@ -42,12 +54,13 @@ h1 small {
   function installDancefloor(socket) {
     var floor = document.getElementById('dance-floor');
     floor.innerHTML = '';
-
-    for (var i = 0; i < 18; i++) {
+	console.log('Install dance floor')
+	
+    for (var i = 0; i < floor_height; i++) {
       var row = document.createElement('div');
       row.className = 'row';
       floor.appendChild(row);
-      for (var j = 0; j < 36; j++) {
+      for (var j = 0; j < floor_width; j++) {
         var pixel = document.createElement('div');
         pixel.className = 'pixel';
         row.appendChild(pixel);
@@ -98,13 +111,12 @@ h1 small {
 
     socket.onmessage = function(event) {
       var message = JSON.parse(event.data);
-      updatePixels(message.payload);
+      updatePixels(socket,message.payload);
     };
 
     socket.onopen = function(event) {
       reconnectHandle = null;
       setStatus('Connected');
-      installDancefloor(socket);
     }
 
     socket.onclose = function(event) {
