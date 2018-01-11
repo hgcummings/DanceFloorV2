@@ -33,9 +33,16 @@ logger = logging.getLogger('raspberry')
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser(description='Run the disco dance floor')
 	parser.add_argument(
+		'--rawoffset',
+		dest='rawoffset',
+		type=int,
+		default=-1,
+	)
+	parser.add_argument(
 		'--offset',
 		dest='offset',
-		default=0,
+		type=int,
+		default=-1,
 	)
 	parser.add_argument(
 		'--verbose',
@@ -73,6 +80,12 @@ if __name__ == '__main__':
 
 
 	logger.info("Network Slave starting")
+
+	if (args.rawoffset > 0):
+		LED_STRIP_OFFSET = int(args.rawoffset)
+	if (args.offset > 0):
+		LED_STRIP_OFFSET = (int(args.offset) * LED_COUNT)
+	logger.info("Offset = {}".format(LED_STRIP_OFFSET))
 
         signal.signal(signal.SIGINT, signal_handler)
 
