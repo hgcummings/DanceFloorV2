@@ -1,4 +1,6 @@
 from PIL import Image,ImageDraw
+from StringIO import StringIO
+import urllib
 
 import logging
 logger = logging.getLogger('processor.Base')
