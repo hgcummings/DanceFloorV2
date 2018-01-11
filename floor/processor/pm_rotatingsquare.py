@@ -18,12 +18,16 @@ class PMRotatingSquare(Base):
 		logger.debug('__init__')
 
 	def initialise_processor(self):
-		img1 = self.get_rectangle_image(int(min(self.FLOOR_HEIGHT,self.FLOOR_WIDTH) * 2/3),outline=(255,0,0,0),fill=(0,255,0,0),buffer=int(min(self.FLOOR_HEIGHT,self.FLOOR_WIDTH) * 1/6))
-		speed = 10
+		squares_per_box = 2
+		square_size = min(self.FLOOR_HEIGHT,self.FLOOR_WIDTH)/squares_per_box
+		img1 = self.get_rectangle_image(int(square_size * 2/3),outline=(255,0,0,0),fill=(0,255,0,0),buffer=int(square_size * 1/(6)))
+		speed = 5
 		for i in range(0,360,speed):
 			logger.debug("Pre generating image for theta = {}".format(i))
 			img = img1.rotate(i,resample=Image.BILINEAR)
-			self.show_image(img)
+			for x in range(self.FLOOR_WIDTH / square_size):
+				for y in range(self.FLOOR_HEIGHT / square_size):
+					self.show_image(img,offset=[x*square_size,y*square_size])
 			#self.show_image(img,offset=[18,0])
 			self.raw_array.append(self.get_raw_pixel_data())
 
