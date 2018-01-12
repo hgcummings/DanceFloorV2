@@ -4,21 +4,28 @@ import math
 import logging
 logger = logging.getLogger('flashbang')
 
+LACK = (0, 0, 0)
+RED = [0xff, 0x00, 0x00]
+BLUE = [0x00, 0x00, 0xff]
+YELLOW = [0xff, 0xf0, 0x00]
+GREEN = [0x00, 0xff, 0x00]
+WHITE = [0xff, 0xff, 0xff]
 
+COLORS = [RED, BLUE, GREEN]
 
 class FlashBang(Base):
 
 	# Random range for how long the main burst lasts
-	BURST_DECAY_MAX = 0.90
-	BURST_DECAY_MIN = 0.90
+	BURST_DECAY_MAX = 0.95
+	BURST_DECAY_MIN = 0.95
 
 	# Random range for how intense the burst is
 	BURST_INTENSITY_MAX = 1.0
 	BURST_INTENSITY_MIN = 1.0
 
 	# Random range for when the sparkles are triggered (as a percentage of the current burst level)
-	SPARKLE_TRIGGER_MAX = 0.5
-	SPARKLE_TRIGGER_MIN = 0.5
+	SPARKLE_TRIGGER_MAX = 1.5
+	SPARKLE_TRIGGER_MIN = 1.5
 
 	# Percent chance (from 0.0 to 1.0) that a square will sparkle
 	SPARKLE_PERCENT = 1.0
@@ -97,12 +104,16 @@ class FlashBang(Base):
 		self.sparkling = False
 		self.clear_burst_pixels()
 
-		burst_x = random.randint(0, self.FLOOR_WIDTH)
-		burst_y = random.randint(0, self.FLOOR_HEIGHT)
+		burst_x = random.randint(0, self.FLOOR_WIDTH-1)
+		burst_y = random.randint(0, self.FLOOR_HEIGHT-1)
+		burst_x = int(self.FLOOR_WIDTH/2)
+		burst_y = int(self.FLOOR_HEIGHT/2)
 		self.set_burst_intensity()
-		self.burst_red = random.randint(int(self.max_value * 0.8), self.max_value*1)
-		self.burst_green = random.randint(int(self.max_value * 0.8), self.max_value*1)
-		self.burst_blue = random.randint(int(self.max_value * 0.8), self.max_value*1)
+		
+		color = COLORS[random.randint(0,len(COLORS)-1)]
+		self.burst_red = color[0]
+		self.burst_green = color[1]
+		self.burst_blue = color[2]
 
 		for x in range(0, self.FLOOR_WIDTH):
 			for y in range(0, self.FLOOR_HEIGHT):
@@ -144,15 +155,17 @@ class FlashBang(Base):
 			if (self.sparkles[x] > 0)\
 					and self.sparkles[x] < 24\
 					and (self.sparkles[x] % self.SPARKLE_SPACING == 0):
-				pixels[x] = [self.burst_blue, self.burst_red, self.burst_green]
+				pixels[x] = [self.burst_red, self.burst_green, self.burst_blue]
 			self.sparkles[x] += 1
-			self.burst_blue *= .9995
-			self.burst_red *= .9995
-			self.burst_green *= .9995
+			self.burst_blue *= .9999
+			self.burst_red *= .9999
+			self.burst_green *= .9999
 
 	@staticmethod
 	def inverse_square(x, y, center_x, center_y):
+		# Lower zoom = bigger 
 		zoom = 0.065
+		zoom = 0.05
 		# Inverse square law is 1/distance**2.  Here distance is sqrt((x-center_x)**+(y-y_center)**2)
 		# The square and and sqrt cancel out here and just give the following inverse:
 		distance = math.sqrt((x*zoom - center_x*zoom)**2 + (y*zoom - center_y*zoom)**2)

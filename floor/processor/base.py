@@ -25,6 +25,9 @@ class Base(object):
 		(x,y) = pixel
 		return (y * self.FLOOR_WIDTH) + x
 
+	def is_clocked(self):
+		return False
+		
 	def set_max_value(self, max_value):
 		self.max_value = max_value
 

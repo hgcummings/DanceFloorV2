@@ -155,17 +155,17 @@ class Controller(object):
 		if not self.processor:
 			return
 	
-		for d in self.drivers:
-
-			try:
-				leds = self.processor.get_next_frame(d.get_weights())
-			except KeyboardInterrupt:
-				raise
-			except Exception:
-				logger.exception('Error generating frame for processor {}'.format(self.processor))
-				logger.warning('Removing processor due to error.')
-				self.playlist.remove(self.playlist.position)
-			else:
+		try:
+			logger.debug('Get frame')
+			leds = self.processor.get_next_frame(self.drivers[0].get_weights())
+		except KeyboardInterrupt:
+			raise
+		except Exception:
+			logger.exception('Error generating frame for processor {}'.format(self.processor))
+			logger.warning('Removing processor due to error.')
+			self.playlist.remove(self.playlist.position)
+		else:
+			for d in self.drivers:
 				d.set_leds(leds)
 
 	def transfer_data(self):
@@ -176,7 +176,8 @@ class Controller(object):
 	def delay(self):
 		elapsed = time.time() - self.frame_start
 		if elapsed < self.frame_seconds:
-			#logger.debug("Remain: {}ms of {}ms".format(1000*(self.frame_seconds - elapsed),1000*self.frame_seconds))
+			logger.debug("Remain: {}ms of {}ms".format(1000*(self.frame_seconds - elapsed),1000*self.frame_seconds))
 			time.sleep(self.frame_seconds - elapsed)
 		else:
-			logger.info("Cant keep up with {}fps. Elapsed:{}ms Max:{}ms".format(self.fps,1000*(elapsed),1000*self.frame_seconds))
+			if (not self.processor.is_clocked()):
+				logger.info("Cant keep up with {}fps. Elapsed:{}ms Max:{}ms".format(self.fps,1000*(elapsed),1000*self.frame_seconds))

@@ -44,8 +44,12 @@ class ChaChaCha(Base):
 					LINES.append(colors2)
 		self.lines = collections.deque(LINES)
 
-	@clocked(frames_per_beat=2)
+	def is_clocked(self):
+		return True
+		
+	@clocked(frames_per_beat=3)
 	def get_next_frame(self, weights):
+		logger.debug('get_next_frame')
 		lines = list(itertools.islice(self.lines, 0, self.FLOOR_HEIGHT))
 		self.lines.rotate()
 		pixels = [pixel for line in lines for pixel in line]

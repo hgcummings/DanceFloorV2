@@ -42,9 +42,10 @@ class Network(Base):
 	 	self.multisocket = socket(AF_INET, SOCK_DGRAM)
 	   	self.multisocket.bind(('', 0))
 	   	self.multisocket.setsockopt(SOL_SOCKET, SO_BROADCAST, 1)
-		self.multisocketport=50000
 		self.multisocketaddr='10.210.255.255'
 		self.multisocketdata = bytearray(chr(0)) * self.maxledindex * 4
+		self.multisocketport = args['network_port']
+		logger.info('Network driver sending on port {}'.format(self.multisocketport))
 
 	def get_raw_pixel_data(self):
 		return self.multisocketdata[:]

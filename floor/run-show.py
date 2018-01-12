@@ -55,6 +55,13 @@ def main():
 		type=int,
 		help='Web server port; -1 to disable.'
 	)
+	parser.add_argument(
+		'--network_port',
+		dest='network_port',
+		type=int,
+		help='Network server port;',
+		default=50999
+	)
 	parser.set_defaults(opc_input=True, server_port=1977)
 	args = parser.parse_args()
 
@@ -69,7 +76,8 @@ def main():
 	if (args.networkdriver):
 		show.add_driver('network', {
 			"opc_input": args.opc_input,
-			"layout": layout
+			"layout": layout,
+			"network_port" : args.network_port
 		})
 	
 	if (args.devserver):
