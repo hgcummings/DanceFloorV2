@@ -3,17 +3,16 @@
 Download and execute the latest Python 2.* installation package from https://www.python.org/downloads/windows/
 
 Set system environment variables
-- PYTHON_HOME = C:\Python27
-- PATH : Add ;%PYTHON_HOME%\;%PYTHON_HOME%\Scripts\ 
+- set PYTHON_HOME=C:\Python27
+- set PATH=%PYTHON_HOME%\bin;%PYTHON_HOME%\Scripts\;%PATH%
 
 Install Pip:
 
-``pip install virtualenv``
+``pip install virtualenv virtualenvwrapper-win flask ``
 
-``pip install virtualenvwrapper-win flask``
 ``pip install git+https://github.com/dpallot/simple-websocket-server.git``
 
-``mkvirtualenv DanceFloorV2``
+``mkvirtualenv dance``
 
 ``deactivate``
 
@@ -22,10 +21,9 @@ Install Pip:
 ``cd DanceFloorV2``
 
 # To work on the project
-``workon DanceFloorV2``
+``workon dance``
 
-``python floor\run-show.py --driver devserver``
+``python floor\run-show.py --devserver``
 
 http://localhost:1979
-
 http://localhost:1977
