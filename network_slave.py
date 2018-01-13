@@ -45,6 +45,12 @@ if __name__ == '__main__':
 		default=-1,
 	)
 	parser.add_argument(
+		'--network_port',
+		dest='network_port',
+		type=int,
+		default=50999,
+	)
+	parser.add_argument(
 		'--verbose',
 		dest='verbose',
 		action='store_true',
@@ -79,7 +85,8 @@ if __name__ == '__main__':
         logging.getLogger('').addHandler(handler)
 
 
-	logger.info("Network Slave starting")
+	network_port = args.network_port
+	logger.info("Network Slave starting, listening on port {}".format(network_port))
 
 	if (args.rawoffset > 0):
 		LED_STRIP_OFFSET = int(args.rawoffset)
@@ -95,7 +102,7 @@ if __name__ == '__main__':
 	strip.begin()
 
 	s = socket(AF_INET, SOCK_DGRAM)
-	s.bind(('', 50000))
+	s.bind(('', network_port))
 
 	bufsize = 1024 * 16
 	buf = np.empty(bufsize / 4,dtype=int)
