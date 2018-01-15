@@ -109,7 +109,7 @@ class Network(Base):
 			y_coordinate = y_coordinate[1] % self.gridheight
 			
 		if (self.origin == "bottomleft"):
-			y_coordinate = self.stripheight - y_coordinate
+			y_coordinate = self.gridheight - y_coordinate
 		elif (not self.origin == "topleft"):
 			logger.error("unknown origin:{}".format(self.origin))
 			sys.exit(0)
