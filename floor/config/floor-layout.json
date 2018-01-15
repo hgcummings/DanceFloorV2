@@ -1,4 +1,8 @@
 {
-  "rows": 18,
-  "cols": 36
+  "rows": 36,
+  "cols": 36,
+  "stripdirection": "horizontal",
+  "gridheight": 18,
+  "gridwidth": 36,
+  "origin":"topleft"
 }

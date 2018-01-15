@@ -5,10 +5,6 @@ import argparse
 import signal
 import sys
 
-# Size of LED grid (not floor)
-RASP_GRID_WIDTH = 36
-RASP_GRID_HEIGHT = 18
-
 from base import Base
 import importlib
 import time
@@ -26,6 +22,11 @@ class Network(Base):
 	def __init__(self, args):
 		logger.debug('__init__')
 		super(Network, self).__init__(args)
+		self.stripdirection = self.layout.stripdirection
+		self.gridheight = self.layout.gridheight
+		self.gridwidth = self.layout.gridwidth
+		self.origin = self.layout.origin
+		logger.info('Strip direction, height, width, origin = {} {} {} {}'.format(self.stripdirection, self.gridheight, self.gridwidth,self.origin))
 		self.stripindex = []
 		i = 0
 		self.maxledindex = 999999
@@ -104,14 +105,30 @@ class Network(Base):
 
 	def get_pixel_number(self,x_coordinate,y_coordinate,wrap=False):
 		if (wrap):
-			x_coordinate = x_coordinate[0] % RASP_GRID_WIDTH
-			y_coordinate = y_coordinate[1] % RASP_GRID_HEIGHT
-
-		y_coordinate_is_even = y_coordinate % 2 == 0 
-		if y_coordinate_is_even:
-			pixnum = y_coordinate * 75 + (x_coordinate *2) + 3
+			x_coordinate = x_coordinate[0] % self.gridwidth
+			y_coordinate = y_coordinate[1] % self.gridheight
+			
+		if (self.origin == "bottomleft"):
+			y_coordinate = self.stripheight - y_coordinate
+		elif (not self.origin == "topleft"):
+			logger.error("unknown origin:{}".format(self.origin))
+			sys.exit(0)
+				
+		if (self.stripdirection == "horizontal"):
+			y_coordinate_is_even = y_coordinate % 2 == 0 
+			if y_coordinate_is_even:
+				pixnum = y_coordinate * 75 + (x_coordinate *2) + 3
+			else:
+				pixnum = (y_coordinate + 1) * 75 - (x_coordinate*2) - 4
+		elif (self.stripdirection == "vertical"):
+			x_coordinate_is_even = x_coordinate % 2 == 0 
+			if x_coordinate_is_even:
+				pixnum = x_coordinate * 75 + (y_coordinate *2) + 3
+			else:
+				pixnum = (x_coordinate + 1) * 75 - (y_coordinate*2) - 4
 		else:
-			pixnum = (y_coordinate + 1) * 75 - (x_coordinate*2) - 4
+			logger.error("unknown strip direction:{}".format(self.stripdirection))
+			sys.exit(0)
 
 		if (pixnum >= self.maxledindex):
 			print "Pixnum too big ",x_coordinate,y_coordinate,pixnum
