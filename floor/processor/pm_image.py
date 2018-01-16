@@ -1,12 +1,14 @@
+from utils import clocked
 from base import Base
-import time
 from PIL import Image,ImageDraw
 from StringIO import StringIO
+from os import listdir
+from os.path import isfile, join
+import time
 import urllib
 import sys
-
 import logging
-logger = logging.getLogger('pmrotatingsquare')
+logger = logging.getLogger('pmimage')
 
 class PMImage(Base):
 	init = False;
@@ -16,17 +18,38 @@ class PMImage(Base):
 		super(PMImage, self).__init__(**kwargs)
 		self.img_index = 0
 		logger.debug('__init__')
+		self.images = []
+		self.files = []
+		if "file" in kwargs:
+			# Load a single message from the args
+			logger.info("File : {}".format(kwargs["file"]))
+			self.files.append(kwargs["file"])
+		elif "directory" in kwargs:
+			# Load a list of messages from the messages file
+			logger.info("Directory File: {}".format(kwargs["directory"]))
+			for f in listdir(kwargs["directory"]):
+				filename = join(kwargs["directory"],f)
+				if isfile(filename):
+					logger.info("Found file {}".format(filename))
+					self.files.append(filename)
+				else:
+					logger.info("Ignored file {}".format(filename))
 
 	def initialise_processor(self):
-		img1 = self.get_scaled_image(url='https://media.licdn.com/mpr/mpr/shrink_100_100/AAEAAQAAAAAAAAKYAAAAJDJkMWU4ODc0LTZkZjgtNDlmNS1iYzVhLTc4Yzg4NDVjZDdmMQ.jpg')
-		self.show_image(img1)
-		self.raw_array.append(self.get_raw_pixel_data())
-		speed = 1
-		if (False):
-			for i in range(0,360,speed):
-				logger.debug("Pre generating image for theta = {}".format(i))
-				img = img1.rotate(i,resample=Image.BILINEAR)
+		for f in self.files:
+			img1 = self.get_scaled_image(file=f)
+			self.show_image(img1)
+			self.raw_array.append(self.get_raw_pixel_data())
+			speed = 1
+			if (False):
+				for i in range(0,360,speed):
+					logger.debug("Pre generating image for theta = {}".format(i))
+					img = img1.rotate(i,resample=Image.BILINEAR)
 
+	def is_clocked(self):
+		return True
+
+	@clocked(frames_per_beat=0.5)
 	def get_next_frame(self, weights):
 		logger.debug('** Setting raw pixel data for frame {}'.format(self.img_index))
 		self.set_raw_pixel_data(self.raw_array[self.img_index])

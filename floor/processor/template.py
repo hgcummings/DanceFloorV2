@@ -1,5 +1,5 @@
 from base import Base
-
+from utils import clocked
 import logging
 logger = logging.getLogger('template')
 

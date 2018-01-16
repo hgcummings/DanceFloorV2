@@ -12,8 +12,6 @@ class Message(Base):
 	DEFAULT_FONT = "synchronizer"
 	# How far apart should the letters be
 	KERNING = 1
-	# File with messages to display
-	MESSAGE_FILE = "floor\config\messages.txt"
 	# Default message to show if messages file is empty or missing
 	DEFAULT_MESSAGE = "Burn baby burn, Disco Inferno"
 
@@ -43,10 +41,14 @@ class Message(Base):
 
 		if "text" in kwargs:
 			# Load a single message from the args
+			logger.info("Text : {}".format(kwargs["text"]))
 			self.messages.append(kwargs["text"])
-		else:
+		elif "textfile" in kwargs:
 			# Load a list of messages from the messages file
-			self.load_messages()
+			logger.info("Text File: {}".format(kwargs["textfile"]))
+			self.load_messages(kwargs["textfile"])
+		else:
+			logger.error("No text or textfile argument supplied")
 
 	def is_clocked(self):
 		return True
@@ -54,17 +56,17 @@ class Message(Base):
 	def initialise_processor(self):
 		self.load_wall()
 
-	def load_messages(self):
-		if os.path.isfile(self.MESSAGE_FILE):
+	def load_messages(self,path):
+		if os.path.isfile(path):
 			try:
-				self.load_messages_from_file()
+				self.load_messages_from_file(path)
 			except IOError:
 				self.load_default_message()
 		else:
 			self.load_default_message()
 
-	def load_messages_from_file(self):
-		msg_file = open(self.MESSAGE_FILE, 'r')
+	def load_messages_from_file(self,path):
+		msg_file = open(path, 'r')
 		for line in msg_file:
 			self.messages.append(line)
 		msg_file.close()
@@ -133,7 +135,7 @@ class Message(Base):
 
 		return rgb
 
-	@clocked(frames_per_beat=4)
+	@clocked(frames_per_beat=2)
 	def get_next_frame(self, weights):
 		# Ignore weights
 		pixels = []

@@ -1,8 +1,8 @@
 {
   "rows": 36,
-  "cols": 56,
+  "cols": 54,
   "stripdirection": "vertical",
   "gridheight": 36,
-  "gridwidth": 56,
+  "gridwidth": 54,
   "origin":"bottomleft"
 }
