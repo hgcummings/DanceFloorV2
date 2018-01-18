@@ -119,6 +119,8 @@ if __name__ == '__main__':
 				g = (rgb >> 8) & 0xff
 				b = (rgb) & 0xff
 				strip.setPixelColor(i, Color(int(r),int(g),int(b)))
+				#if (not (int(r) == 0 and int(g) == 0 and int(b) == 0)):
+					#logger.debug("Setting color for index {} to {} {} {}".format(i,r,g,b))
 		else:
 			strip.setRawPixelData(buf[LED_STRIP_OFFSET:])
 		t2 = time.time()
