@@ -37,12 +37,29 @@ class Network(Base):
 			led_index = self.get_pixel_number(x ,y)
 			self.stripindex.append(led_index)
 			maxi = max(maxi,led_index)
-		self.maxledindex = maxi+1
+		self.maxledindex = maxi+4
 		logger.debug('Max index = {}'.format(maxi+1))
 
 	 	self.multisocket = socket(AF_INET, SOCK_DGRAM)
 	   	self.multisocket.bind(('', 0))
 	   	self.multisocket.setsockopt(SOL_SOCKET, SO_BROADCAST, 1)
+		# Don't broadcast on 10.210.255.255 as that breaks the alarm/door system.  Use 10.210.15.255 (10.210.8.1 - 10.210.15.255)
+		# On Raspberry Pi edit /etc/network/interfaces:
+		#
+		#auto eth0
+		#allow-hotplug eth0:1
+		#iface eth0:1 inet static
+		#	address 10.210.10.91
+		#	netmask 255.255.0.0
+		#	gateway 10.210.1.210
+		#
+		#auto eth0:1
+		#allow-hotplug eth0:1
+		#iface eth0:1 inet static
+		#	address 10.2.2.91
+		#	netmask 255.255.255.0
+
+		#self.multisocketaddr='10.2.2.255'
 		self.multisocketaddr='10.210.255.255'
 		self.multisocketdata = bytearray(chr(0)) * self.maxledindex * 4
 		self.multisocketport = args['network_port']
@@ -66,6 +83,8 @@ class Network(Base):
 		if (int(r) > 255 or int(g) > 255 or int(b) > 255 or int(r) < 0 or int(g) < 0 or int(b) < 0):
 			logger.error('rgb too big {} {} {}'.format(r,g,b))
 
+		if (not (int(r) == 0 and int(g) == 0 and int(b) == 0)):
+			logger.debug("Set pixel data for index {}".format(i))
 		self.multisocketdata[i*4] = chr(int(b))
 		self.multisocketdata[i*4+1] = chr(int(g))
 		self.multisocketdata[i*4+2] = chr(int(r))
@@ -109,7 +128,7 @@ class Network(Base):
 			y_coordinate = y_coordinate[1] % self.gridheight
 			
 		if (self.origin == "bottomleft"):
-			y_coordinate = self.gridheight - y_coordinate
+			y_coordinate = (self.gridheight - y_coordinate) - 1
 		elif (not self.origin == "topleft"):
 			logger.error("unknown origin:{}".format(self.origin))
 			sys.exit(0)
@@ -133,6 +152,6 @@ class Network(Base):
 		if (pixnum >= self.maxledindex):
 			print "Pixnum too big ",x_coordinate,y_coordinate,pixnum
 			sys.exit(0)
-
+		
 		return pixnum
 

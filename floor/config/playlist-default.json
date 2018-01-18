@@ -1,20 +1,6 @@
 {
   "queue": [
     {
-      "name": "message",
-      "duration": "15",
-      "args": {
-        "textfile": "floor\\config\\messages.txt"
-      }
-    },
-    {
-      "name": "pmimage",
-      "duration": "15",
-      "args": {
-        "directory": "floor\\processor\\images\\pmimages\\"
-      }
-    },
-    {
       "name": "pmrotatingsquare",
       "duration": "20"
     },
