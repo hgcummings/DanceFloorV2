@@ -24,11 +24,12 @@ class PMImage(Base):
 			# Load a single message from the args
 			logger.info("File : {}".format(kwargs["file"]))
 			self.files.append(kwargs["file"])
-		elif "directory" in kwargs:
+		else:
+			dir = kwargs.get("directory", "floor\processor\images\pmimages")
 			# Load a list of messages from the messages file
-			logger.info("Directory File: {}".format(kwargs["directory"]))
-			for f in listdir(kwargs["directory"]):
-				filename = join(kwargs["directory"],f)
+			logger.info("Directory File: {}".format(dir))
+			for f in listdir(dir):
+				filename = join(dir,f)
 				if isfile(filename):
 					logger.info("Found file {}".format(filename))
 					self.files.append(filename)
