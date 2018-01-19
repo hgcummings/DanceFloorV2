@@ -20,10 +20,13 @@ Install Pip:
 
 ``cd DanceFloorV2``
 
+See ``floor\processor\template.py`` for an example template for making a processor
+
 # To work on the project
 ``workon dance``
 
 ``python floor\run-show.py --devserver``
 
 http://localhost:1979
+
 http://localhost:1977
