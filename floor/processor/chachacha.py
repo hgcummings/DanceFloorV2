@@ -7,11 +7,10 @@ import time
 
 BLACK = (0, 0, 0)
 RED = (0xff, 0x00, 0x00)
-YELLOW = (0xff, 0xf0, 0x00)
+BLUE  = (0x00, 0x00, 0xff)
 GREEN = (0x00, 0xff, 0x00)
-WHITE = (0xff, 0xff, 0xff)
 
-COLORS = [RED, YELLOW, GREEN, WHITE]
+COLORS = [RED, BLUE, GREEN]
 
 import logging
 logger = logging.getLogger('chachacha')

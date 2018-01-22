@@ -1,5 +1,7 @@
 import json
 
+import logging
+logger = logging.getLogger('layout')
 
 class Layout(object):
 
@@ -14,8 +16,11 @@ class Layout(object):
 		self.gridheight = 0
 		self.gridwidth = 0
 		self.origin = None
+		self.ledbrightness = None
+		self.brightness = 1
 
 		filename = config_dir + "/" + self.CONFIG_FILE
+		logger.info('Opening config file {}'.format(filename))
 		with open(filename) as json_data:
 			config = json.load(json_data)
 
@@ -32,6 +37,8 @@ class Layout(object):
 			self.gridwidth = config.get('gridwidth', '')
 			self.stripdirection = config.get('stripdirection', '')
 			self.origin = config.get('origin','')
+			self.ledbrightness = config.get('ledbrightness',None)
+			self.brightness = config.get('brightness',1)
 
 	def is_bypassed(self, num):
 		return self.layout[num] == 0

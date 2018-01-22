@@ -16,7 +16,7 @@ class LandMines(Base):
 		self.pixels = []
 		self.mines = []
 		self.palette = color.get_random_palette(self.max_value)
-		logger.debug('Palette:{}'.format(self.palette))
+		logger.info('Palette:{}'.format(self.palette))
 		self.palette_length = len(self.palette)
 
 	def initialise_processor(self):
@@ -70,6 +70,8 @@ class LandMines(Base):
 
 						#don't divide by zero :)
 						if radius>0:
+							if (velocity * delta_time / radius) > 1:
+								logger.warning("Velocity {} x Time {} / radius {} too big".format(velocity,delta_time,radius))
 							delta = toggle * velocity * delta_time / radius
 							next_red = next_pixel[0] + delta*color[0]
 							next_blue = next_pixel[1] + delta*color[1]

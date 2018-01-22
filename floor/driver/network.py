@@ -27,6 +27,9 @@ class Network(Base):
 		self.gridwidth = self.layout.gridwidth
 		self.origin = self.layout.origin
 		logger.info('Strip direction, height, width, origin = {} {} {} {}'.format(self.stripdirection, self.gridheight, self.gridwidth,self.origin))
+		self.ledbrightness = self.layout.ledbrightness
+		self.brightness = self.layout.brightness
+		logger.info('LED Brightness = {} Array: {}'.format(self.brightness, self.ledbrightness))
 		self.stripindex = []
 		i = 0
 		self.maxledindex = 999999
@@ -34,8 +37,9 @@ class Network(Base):
 		for i in range(self.FLOOR_HEIGHT*self.FLOOR_WIDTH):
 			x = i % self.FLOOR_WIDTH
 			y = i / self.FLOOR_WIDTH
-			led_index = self.get_pixel_number(x ,y)
-			self.stripindex.append(led_index)
+			led_index,brightness = self.get_pixel_number(x ,y)
+			self.stripindex.append((led_index,brightness))
+			#logger.debug("Adding index {} {} brightness {}".format(i,led_index,brightness))
 			maxi = max(maxi,led_index)
 		self.maxledindex = maxi+4
 		logger.debug('Max index = {}'.format(maxi+1))
@@ -76,18 +80,23 @@ class Network(Base):
 		#logger.debug('set_pixel {} {} {}'.format(x,y,c))
 		i = y*self.FLOOR_WIDTH + x
 		r,g,b = c
-		self.set_data_pixel(self.stripindex[i], int(r),int(g),int(b))
+		index,brightness = self.stripindex[i]
+		self.set_data_pixel(index, int(r*brightness),int(g*brightness),int(b*brightness))
 
 	def set_data_pixel(self,i,r,g,b):
 		#logger.debug('set_data_pixel {} {} {} {} {}'.format(self.maxledindex,i,r,g,b))
 		if (int(r) > 255 or int(g) > 255 or int(b) > 255 or int(r) < 0 or int(g) < 0 or int(b) < 0):
 			logger.error('rgb too big {} {} {}'.format(r,g,b))
-
+		max_total = (255.0+255.0+255.0) * 10.0 / 14.0
+		scale = min(1.0, max_total / (r+g+b+1))
+		if (scale < 1.0):
+			logger.debug('rgb quite big {} {} {}, scaling by {}'.format(r,g,b,scale))
 		if (not (int(r) == 0 and int(g) == 0 and int(b) == 0)):
-			logger.debug("Set pixel data for index {}".format(i))
-		self.multisocketdata[i*4] = chr(int(b))
-		self.multisocketdata[i*4+1] = chr(int(g))
-		self.multisocketdata[i*4+2] = chr(int(r))
+			a = 1
+			#logger.debug("Set pixel data for index {}".format(i))
+		self.multisocketdata[i*4] = chr(int(b * scale))
+		self.multisocketdata[i*4+1] = chr(int(g * scale))
+		self.multisocketdata[i*4+2] = chr(int(r * scale))
 
 	def send_data(self):
 		"""
@@ -103,7 +112,8 @@ class Network(Base):
 
 			for i in range(self.FLOOR_HEIGHT*self.FLOOR_WIDTH):
 				led = self.leds[i]
-				self.set_data_pixel(self.stripindex[i], int(led[0]),int(led[1]),int(led[2]))
+				index,brightness = self.stripindex[i]
+				self.set_data_pixel(index, int(led[0]*brightness),int(led[1]*brightness),int(led[2]*brightness))
 				#print i,x,y
 		else:
 			logger.debug('LEDs set through driver')
@@ -152,6 +162,7 @@ class Network(Base):
 		if (pixnum >= self.maxledindex):
 			print "Pixnum too big ",x_coordinate,y_coordinate,pixnum
 			sys.exit(0)
-		
-		return pixnum
+		#logger.debug("Pixel for {},{} = {} Strip = {}".format(x_coordinate,y_coordinate,pixnum, int(pixnum/150)))
+		brightness = self.ledbrightness[int(pixnum / 150)]*self.brightness/255
+		return pixnum,brightness
 
