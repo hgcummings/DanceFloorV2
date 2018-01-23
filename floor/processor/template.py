@@ -15,6 +15,8 @@ class Template(Base):
 		# QQ Change the class name in the super function below to match the name of THIS class
 		super(Template, self).__init__(**kwargs)
 		logger.debug('__init__')
+		# Set up any instance variables
+		self.brightness = 255
 	
 	# Optional initialiser that is called once when the class is first created.  The following base variables are available in this function (but not in the __init__ constructor)
 	# self.FLOOR_HEIGHT
@@ -36,10 +38,14 @@ class Template(Base):
 # If the clocked decorator is used the get_next_frame will be called base on the Beats per minute setting
 #	@clocked(frames_per_beat=3)
 	def get_next_frame(self, weights):
+		# Reduce brightness by 2 and then loop back to 255 if < 0
+		self.brightness = self.brightness - 2
+		if (self.brightness < 0):
+			self.brightness = 255
+			
+		# Fill frame with RED of the required brightness
 		frame = [None] * self.FLOOR_HEIGHT * self.FLOOR_WIDTH
 		for y in range(0, self.FLOOR_HEIGHT):
 			for x in range(0, self.FLOOR_WIDTH):
-				frame[self.idx((x, y))] = (0,0,0)
-		frame[self.idx((0,0))] = RED 
-		frame[self.idx((self.FLOOR_WIDTH-1, self.FLOOR_HEIGHT-1))] = GREEN
+				frame[self.idx((x, y))] = (self.brightness,0,0)
 		return frame
