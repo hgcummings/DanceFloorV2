@@ -5,8 +5,8 @@ from utils import clocked
 import logging
 logger = logging.getLogger('randomdecay')
 
-DECAY_COUNT = 6
-DECAY_RATE = 0.7
+DECAY_COUNT = 40
+DECAY_RATE = 0.92
 
 class RandomDecay(Base):
 	def __init__(self, **kwargs):
@@ -28,10 +28,10 @@ class RandomDecay(Base):
 					self.max_value / 2 + self.max_value*random.random()/2
 				))
 
-	def is_clocked(self):
-		return True
+	#def is_clocked(self):
+	#	return True
 		
-	@clocked(frames_per_beat = DECAY_COUNT+1)
+	#@clocked(frames_per_beat = DECAY_COUNT+1)
 	def get_next_frame(self, weights):
 		logger.debug('Count = {}'.format(self.count))
 		next_pixels = []
