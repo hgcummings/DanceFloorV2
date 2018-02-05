@@ -68,6 +68,8 @@ class Network(Base):
 		self.multisocketdata = bytearray(chr(0)) * self.maxledindex * 4
 		self.multisocketport = args['network_port']
 		logger.info('Network driver sending on port {}'.format(self.multisocketport))
+		self.brightness_array = None
+		self.setup_brightness_arrays()
 
 	def get_raw_pixel_data(self):
 		return self.multisocketdata[:]
@@ -77,11 +79,16 @@ class Network(Base):
 
 	def set_pixel(self,x,y,c):
 		super(Network, self).set_pixel(x,y,c)
-		#logger.debug('set_pixel {} {} {}'.format(x,y,c))
+		logger.debug('set_pixel {} {} {}'.format(x,y,c))
 		i = y*self.FLOOR_WIDTH + x
 		r,g,b = c
 		index,brightness = self.stripindex[i]
-		self.set_data_pixel(index, int(r*brightness),int(g*brightness),int(b*brightness))
+		logger.debug('index,brightness = {} {}'.format(index,brightness))
+		ba = self.brightness_array[brightness]
+		logger.debug('brightness array = {}'.format(ba))
+		self.set_data_pixel(index,  int(self.brightness_array[brightness][int(r*self.brightness)]),\
+									int(self.brightness_array[brightness][int(g*self.brightness)]),\
+									int(self.brightness_array[brightness][int(b*self.brightness)]))
 
 	def set_data_pixel(self,i,r,g,b):
 		#logger.debug('set_data_pixel {} {} {} {} {}'.format(self.maxledindex,i,r,g,b))
@@ -113,7 +120,12 @@ class Network(Base):
 			for i in range(self.FLOOR_HEIGHT*self.FLOOR_WIDTH):
 				led = self.leds[i]
 				index,brightness = self.stripindex[i]
-				self.set_data_pixel(index, int(led[0]*brightness),int(led[1]*brightness),int(led[2]*brightness))
+				self.set_data_pixel(index,  int(self.brightness_array[brightness][int(led[0]*self.brightness)]),\
+											int(self.brightness_array[brightness][int(led[1]*self.brightness)]),\
+											int(self.brightness_array[brightness][int(led[2]*self.brightness)]))
+
+									
+				#self.set_data_pixel(index, int(led[0]*brightness),int(led[1]*brightness),int(led[2]*brightness))
 				#print i,x,y
 		else:
 			logger.debug('LEDs set through driver')
@@ -163,6 +175,28 @@ class Network(Base):
 			print "Pixnum too big ",x_coordinate,y_coordinate,pixnum
 			sys.exit(0)
 		#logger.debug("Pixel for {},{} = {} Strip = {}".format(x_coordinate,y_coordinate,pixnum, int(pixnum/150)))
-		brightness = self.ledbrightness[int(pixnum / 150)]*self.brightness/255
+		brightness = self.ledbrightness[int(pixnum / 150)]
 		return pixnum,brightness
 
+	def setup_brightness_arrays(self):
+		a1 = []
+		for i in range(256):
+			a1.append(i)
+
+		#0
+		a2 = []
+		a2.append(0)
+		a2.append(8)
+		a2.append(10)
+		a2.append(12)
+		a2.append(14)
+		#5
+		a2.append(16)
+		a2.append(17)
+		a2.append(19)
+
+		for i in range (8,256):
+			a2.append(i+12)
+
+		logger.info("Addend arrays of length {} and {}".format(len(a1),len(a2)))
+		self.brightness_array = [a1,a2]
