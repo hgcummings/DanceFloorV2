@@ -1,12 +1,14 @@
 {
   "rows": 36,
-  "cols": 36,
+  "cols": 72,
   "stripdirection": "vertical",
   "gridheight": 36,
-  "gridwidth": 36,
+  "gridwidth": 72,
   "origin":"bottomleft",
   "brightness":0.5,
   "ledbrightness": 
 	[1,1,1,1,0,1,1,1,0,
+	0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,
 	0,0,0,0,0,0,0,0,0]
 }
