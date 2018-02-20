@@ -104,7 +104,7 @@ if __name__ == '__main__':
 	s = socket(AF_INET, SOCK_DGRAM)
 	s.bind(('', network_port))
 
-	bufsize = 1024 * 16
+	bufsize = 1024 * 32
 	buf = np.empty(bufsize / 4,dtype=int)
 	view = memoryview(buf)
 	while True:
