@@ -1,6 +1,7 @@
 from PIL import Image,ImageDraw
 from StringIO import StringIO
 import urllib
+import sys
 
 import logging
 logger = logging.getLogger('processor.Base')
@@ -86,6 +87,8 @@ class Base(object):
 		self.downbeat = downbeat
 
 	def show_image(self,im,offset=[0,0],whitetoblack=True):
+		if (im.mode == 'P'):
+			im = im.convert('RGB')
 		for x in range(im.size[0]):
 				for y in range(im.size[1]):
 					if (im.mode == 'RGB'):
@@ -111,12 +114,20 @@ class Base(object):
 		elif (file != ''):
 			im_in = Image.open(file)
 
-		im_in = im_in.rotate(rotation,expand=True)
-		percent = min (self.FLOOR_WIDTH / float(im_in.size[0]), self.FLOOR_HEIGHT / float(im_in.size[1]))
-		wsize = int((float(im_in.size[0])*float(percent)))
-		hsize = int((float(im_in.size[1])*float(percent)))
-		im_sized = im_in.resize((wsize,hsize), Image.ANTIALIAS)
-		return im_sized
+		if (rotation != 0):
+			im_in = im_in.rotate(rotation,expand=True)
+
+		# To resize animated GIFS we need to use https://stackoverflow.com/questions/41718892/pillow-resizing-a-gif
+		if ((im_in.size[0] != self.FLOOR_WIDTH) or (im_in.size[1] != self.FLOOR_HEIGHT)):
+			percent = min (self.FLOOR_WIDTH / float(im_in.size[0]), self.FLOOR_HEIGHT / float(im_in.size[1]))
+			wsize = int((float(im_in.size[0])*float(percent)))
+			hsize = int((float(im_in.size[1])*float(percent)))
+			im_sized = im_in.resize((wsize,hsize), Image.ANTIALIAS)
+			logger.debug('Image scaled')
+			return im_sized
+		else:	
+			logger.debug('Image not scaled')
+			return im_in
 
 	def get_rectangle_image(self,size,outline,fill=(0,0,0,0),buffer=0):
 		img = Image.new("RGB",(size+buffer*2,size+buffer*2),(0,0,0,0))
