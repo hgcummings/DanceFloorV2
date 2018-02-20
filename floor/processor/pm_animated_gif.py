@@ -38,23 +38,29 @@ class PMAnimatedGIF(Base):
 
 	def initialise_processor(self):
 		for f in self.files:
-			im_in = Image.open(f)
+			try:
+				logger.info("======= Processing File {} ".format(f))
+				im_in = Image.open(f)
 			
-			all_frames = []
-			if ((im_in.size[0] != self.FLOOR_WIDTH) or (im_in.size[1] != self.FLOOR_HEIGHT)):
-				percent = min (self.FLOOR_WIDTH / float(im_in.size[0]), self.FLOOR_HEIGHT / float(im_in.size[1]))
-				wsize = int((float(im_in.size[0])*float(percent)))
-				hsize = int((float(im_in.size[1])*float(percent)))
-				all_frames = self.resize_gif(im_in,(wsize,hsize))
-			else:
-				for frame in ImageSequence.Iterator(im_in):
-					all_frames.append(frame) 
-			
-			for frame in all_frames:
-				logger.info("Processing frame from file : {} {}x{}".format(f,frame.size[0],frame.size[1]))
-				self.show_image(frame)
-				self.raw_array.append(self.get_raw_pixel_data())
+				all_frames = []
+				if ((im_in.size[0] != self.FLOOR_WIDTH) or (im_in.size[1] != self.FLOOR_HEIGHT)):
+					percent = min (self.FLOOR_WIDTH / float(im_in.size[0]), self.FLOOR_HEIGHT / float(im_in.size[1]))
+					wsize = int((float(im_in.size[0])*float(percent)))
+					hsize = int((float(im_in.size[1])*float(percent)))
+					logger.info("Resizing gif to size {}x{}".format(wsize,hsize))
+					all_frames = self.resize_gif(im_in,(wsize,hsize))
+				else:
+					for frame in ImageSequence.Iterator(im_in):
+						all_frames.append(frame) 
+				
+				for frame in all_frames:
+					logger.info("Processing frame from file : {} {}x{}".format(f,frame.size[0],frame.size[1]))
+					self.show_image(frame)
+					self.raw_array.append(self.get_raw_pixel_data())
 
+			except:
+				logger.error("Failed to open file {}".format(f))
+				
 
 	#def is_clocked(self):
 	#	return True
@@ -68,18 +74,6 @@ class PMAnimatedGIF(Base):
 		
 		
 	# Taken from https://stackoverflow.com/questions/41718892/pillow-resizing-a-gif
-	def resize_gif(self, im, resize_to):	
-		"""
-		Resizes the GIF to a given length:
-
-		Args:
-			path: the path to the GIF file
-			resize_to (optional): new size of the gif. Format: (int, int). If not set, the original GIF will be resized to
-								  half of its size.
-		"""
-		all_frames = self.extract_and_resize_frames(im, resize_to)
-
-		return all_frames
 
 	def analyseImage(self,im):
 		"""
@@ -105,8 +99,7 @@ class PMAnimatedGIF(Base):
 			pass
 		return results
 
-
-	def extract_and_resize_frames(self, im, resize_to):
+	def resize_gif(self, im, resize_to):	
 		"""
 		Iterate the GIF, extracting each frame and resizing them
 
@@ -123,7 +116,7 @@ class PMAnimatedGIF(Base):
 
 		try:
 			while True:
-				# print("saving %s (%s) frame %d, %s %s" % (path, mode, i, im.size, im.tile))
+				logger.info("saving {} frame {}, size:{} tile:{}".format(mode, i, im.size, im.tile))
 
 				'''
 				If the GIF uses local colour tables, each frame will have its own palette.
@@ -150,6 +143,7 @@ class PMAnimatedGIF(Base):
 				last_frame = new_frame
 				im.seek(im.tell() + 1)
 		except EOFError:
+			logger.info("Reached end at frame {}".format(len(all_frames)))
 			pass
 
 		return all_frames
