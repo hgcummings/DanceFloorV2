@@ -11,6 +11,7 @@ logger = logging.getLogger('pmrotatingsquare')
 RED = (0xff, 0x00, 0x00)
 GREEN = (0x00, 0xff, 0x00)
 BLUE = (0, 0, 0xff)
+TEST_COLOUR = (0x25,0,0)
 
 class PMTest(Base):
 	init = False;
@@ -23,7 +24,7 @@ class PMTest(Base):
 		frame = [None] * self.FLOOR_HEIGHT * self.FLOOR_WIDTH
 		for y in range(0, self.FLOOR_HEIGHT):
 			for x in range(0, self.FLOOR_WIDTH):
-				frame[self.idx((x, y))] = (0,0,0)
+				frame[self.idx((x, y))] = TEST_COLOUR
 		frame[self.idx((0,0))] = RED 
 		frame[self.idx((self.FLOOR_WIDTH-1, self.FLOOR_HEIGHT-1))] = GREEN
 		return frame
