@@ -16,7 +16,7 @@ TWITTER_KEY='966345121410224128-0gr09sZX2BIiKzFXOx7bvXcbqbgSLHu'
 TWITTER_SECRET='ozwGu2xM2KybLPxQ7NPoR3sgTC6LglorjgTR183ZI0Zsx'
 
 DEFAULT_MESSAGES = ["Softwire","Silent Disco"]			
-TWITTER_TAG = '#SoftwireDisco'
+TWITTER_TAG = u'#SoftwireDisco'
 MAX_CHARS_PER_LINE = 12
 
 class StreamListener(tweepy.StreamListener):
@@ -36,6 +36,7 @@ class StreamListener(tweepy.StreamListener):
 		logger.info("Message Q : {}".format(Twitter.TWITTER_MESSAGES))
 		
 	def on_error(self, status_code):
+		logger.error("Stream error")
 		if status_code == 420:
 			return False
 
@@ -52,6 +53,7 @@ class StreamListener(tweepy.StreamListener):
 class Twitter(Base):
 	TWITTER_MESSAGES = []		
 	twitter_listening = False;
+	twitter_stream = None
 
 	# The font to use
 	DEFAULT_FONT = "synchronizer"
@@ -65,18 +67,20 @@ class Twitter(Base):
 		auth = tweepy.OAuthHandler(TWITTER_APP_KEY, TWITTER_APP_SECRET)
 		auth.set_access_token(TWITTER_KEY, TWITTER_SECRET)
 
-		if (Twitter.twitter_listening == False):
-			logger.info("Initialise twitter")
-			api = tweepy.API(auth)
-						
-			stream_listener = StreamListener()
-			stream = tweepy.Stream(auth=api.auth, listener=stream_listener)
-			logger.info("Filtering on {}".format(TWITTER_TAG))
-			stream.filter(track=[TWITTER_TAG],async=True)
-			logger.info("Filtering complete")
-			Twitter.twitter_listening = True
-		else:
-			logger.info("Already listening")
+		if (not Twitter.twitter_stream is None):
+			logger.info("Disconnect Stream")
+			Twitter.twitter_stream.disconnect()
+
+		logger.info("Initialise twitter")
+		api = tweepy.API(auth)
+			
+		stream_listener = StreamListener()
+		Twitter.twitter_stream = tweepy.Stream(auth=api.auth, listener=stream_listener)
+		logger.info("Filtering on {}".format(TWITTER_TAG))
+		Twitter.twitter_stream.filter(track=[TWITTER_TAG],async=True)
+		logger.info("Filtering complete")
+		Twitter.twitter_listening = True
+		
 
 		font_module = importlib.import_module("processor.fonts.{}".format(self.DEFAULT_FONT))
 
