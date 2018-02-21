@@ -8,6 +8,14 @@ import sys
 import logging
 logger = logging.getLogger('pmrotatingsquare')
 
+OUTLINE_FILL_ARRAY = [
+((128,128,128,0),(255,0,0,0)),
+((128,128,128,0),(0,255,0,0)),
+((128,128,128,0),(0,0,255,0)),
+((128,128,128,0),(128,128,0,0)),
+((128,128,128,0),(128,0,128,0)),
+((128,128,128,0),(0,128,128,0)),
+]
 
 class PMRotatingSquare(Base):
 	raw_array = None
@@ -22,16 +30,18 @@ class PMRotatingSquare(Base):
 			PMRotatingSquare.raw_array = []
 			squares_per_box = 2
 			square_size = min(self.FLOOR_HEIGHT,self.FLOOR_WIDTH)/squares_per_box
-			img1 = self.get_rectangle_image(int(square_size * 2/3),outline=(255,0,0,0),fill=(0,255,0,0),buffer=int(square_size * 1/(6)))
-			speed = 5
-			for i in range(0,360,speed):
-				logger.debug("Pre generating image for theta = {}".format(i))
-				img = img1.rotate(i,resample=Image.BILINEAR)
-				for x in range(self.FLOOR_WIDTH / square_size):
-					for y in range(self.FLOOR_HEIGHT / square_size):
-						self.show_image(img,offset=[x*square_size,y*square_size])
-				#self.show_image(img,offset=[18,0])
-				PMRotatingSquare.raw_array.append(self.get_raw_pixel_data())
+			for c in OUTLINE_FILL_ARRAY:
+				oc,fc = c
+				img1 = self.get_rectangle_image(int(square_size * 2/3),outline=oc,fill=fc,buffer=int(square_size * 1/(6)))
+				speed = 5
+				for i in range(0,360,speed):
+					logger.debug("Pre generating image for theta = {}".format(i))
+					img = img1.rotate(i,resample=Image.BILINEAR)
+					for x in range(self.FLOOR_WIDTH / square_size):
+						for y in range(self.FLOOR_HEIGHT / square_size):
+							self.show_image(img,offset=[x*square_size,y*square_size])
+					#self.show_image(img,offset=[18,0])
+					PMRotatingSquare.raw_array.append(self.get_raw_pixel_data())
 
 	def get_next_frame(self, weights):
 		logger.debug('** Setting raw pixel data for frame {}'.format(self.img_index))
