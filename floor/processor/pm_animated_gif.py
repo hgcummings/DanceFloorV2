@@ -55,19 +55,20 @@ class PMAnimatedGIF(Base):
 						for frame in ImageSequence.Iterator(im_in):
 							all_frames.append(frame) 
 					
-					for frame in all_frames:
-						logger.info("Processing frame from file : {} {}x{}".format(f,frame.size[0],frame.size[1]))
-						self.show_image(frame)
-						PMAnimatedGIF.raw_array.append(self.get_raw_pixel_data())
+					for i in range(3):
+						for frame in all_frames:
+							logger.info("Processing frame from file : {} {}x{}".format(f,frame.size[0],frame.size[1]))
+							self.show_image(frame)
+							PMAnimatedGIF.raw_array.append(self.get_raw_pixel_data())
 
 				except:
 					logger.error("Failed to open file {}".format(f))
 					
 
-	#def is_clocked(self):
-	#	return True
+	def is_clocked(self):
+		return True
 
-	#@clocked(frames_per_beat=0.5)
+	@clocked(frames_per_beat=2)
 	def get_next_frame(self, weights):
 		logger.debug('** Setting raw pixel data for frame {}'.format(self.img_index))
 		self.set_raw_pixel_data(PMAnimatedGIF.raw_array[self.img_index])
@@ -90,10 +91,12 @@ class PMAnimatedGIF(Base):
 		try:
 			while True:
 				if im.tile:
+					logger.info("check tile")
 					tile = im.tile[0]
 					update_region = tile[1]
 					update_region_dimensions = update_region[2:]
 					if update_region_dimensions != im.size:
+						logger.info("partial")
 						results['mode'] = 'partial'
 						break
 				im.seek(im.tell() + 1)
@@ -109,6 +112,7 @@ class PMAnimatedGIF(Base):
 			An array of all frames
 		"""
 		mode = self.analyseImage(im)['mode']
+		im.seek(0)
 
 		i = 0
 		p = im.getpalette()
