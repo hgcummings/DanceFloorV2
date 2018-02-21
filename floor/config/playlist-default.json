@@ -40,6 +40,10 @@
     {
       "name": "fishies",
       "duration": "20"
+    },
+    {
+      "name": "twitter",
+      "duration": "60"
     }
   ]
 }
