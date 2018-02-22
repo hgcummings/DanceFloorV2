@@ -50,7 +50,7 @@ class PMImage(Base):
 	def is_clocked(self):
 		return True
 
-	@clocked(frames_per_beat=0.5)
+	@clocked(frames_per_beat=0.1)
 	def get_next_frame(self, weights):
 		logger.debug('** Setting raw pixel data for frame {}'.format(self.img_index))
 		self.set_raw_pixel_data(self.raw_array[self.img_index])
