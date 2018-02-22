@@ -1,5 +1,6 @@
 from utils import clocked
 from base import Base
+import time
 import os.path
 import colorsys
 import importlib
@@ -19,25 +20,33 @@ DEFAULT_MESSAGES = ["Softwire","Silent Disco"]
 TWITTER_TAG = u'#SoftwireDisco'
 MAX_CHARS_PER_LINE = 12
 
+TWITTER_RATELIMIT = 300
+
 class StreamListener(tweepy.StreamListener):
 
 	def on_status(self, status):
-		msg = self.ireplace(TWITTER_TAG,'',status.text)
-		logger.info("Message received : {} == {}".format(status.text,msg))
-		line = ''
-		for word in msg.split():
-			if len(line) + len(word) < MAX_CHARS_PER_LINE:
-				line = line + word + ' '
-			else:
-				Twitter.TWITTER_MESSAGES.append(line)
-				line = word + ' '
-		Twitter.TWITTER_MESSAGES.append(line)
-			
-		logger.info("Message Q : {}".format(Twitter.TWITTER_MESSAGES))
+		try:
+			msg = self.ireplace(TWITTER_TAG,'',status.text)
+			logger.info("Message received : {} == {}".format(status.text,msg))
+			line = ''
+			for word in msg.split():
+				if len(line) + len(word) < MAX_CHARS_PER_LINE:
+					line = line + word + ' '
+				else:
+					Twitter.TWITTER_MESSAGES.append(line)
+					line = word + ' '
+			Twitter.TWITTER_MESSAGES.append(line)
+				
+			logger.info("Message Q : {}".format(Twitter.TWITTER_MESSAGES))
+		except:
+			logger.error("Message Error")
+			pass
 		
 	def on_error(self, status_code):
-		logger.error("Stream error")
+		logger.error("Stream error {}".format(status_code))
 		if status_code == 420:
+			# Rate limited
+			Twitter.twitter_stream = None
 			return False
 
 	def ireplace(self, old, new, text):
@@ -52,8 +61,8 @@ class StreamListener(tweepy.StreamListener):
 		
 class Twitter(Base):
 	TWITTER_MESSAGES = []		
-	twitter_listening = False;
 	twitter_stream = None
+	twitter_last_api_call = 0.0
 
 	# The font to use
 	DEFAULT_FONT = "synchronizer"
@@ -62,25 +71,6 @@ class Twitter(Base):
 
 	def __init__(self, **kwargs):
 		super(Twitter, self).__init__(**kwargs)
-
-		logger.info("Settingup twitter")
-		auth = tweepy.OAuthHandler(TWITTER_APP_KEY, TWITTER_APP_SECRET)
-		auth.set_access_token(TWITTER_KEY, TWITTER_SECRET)
-
-		if (not Twitter.twitter_stream is None):
-			logger.info("Disconnect Stream")
-			Twitter.twitter_stream.disconnect()
-
-		logger.info("Initialise twitter")
-		api = tweepy.API(auth)
-			
-		stream_listener = StreamListener()
-		Twitter.twitter_stream = tweepy.Stream(auth=api.auth, listener=stream_listener)
-		logger.info("Filtering on {}".format(TWITTER_TAG))
-		Twitter.twitter_stream.filter(track=[TWITTER_TAG],async=True)
-		logger.info("Filtering complete")
-		Twitter.twitter_listening = True
-		
 
 		font_module = importlib.import_module("processor.fonts.{}".format(self.DEFAULT_FONT))
 
@@ -101,7 +91,26 @@ class Twitter(Base):
 		# The current window position on the wall
 		self.window = 0
 		
+	def reset_twitter_stream(self):
+		now_time = time.time()
+		elapsed = now_time - Twitter.twitter_last_api_call
+		if (elapsed > TWITTER_RATELIMIT):
+			logger.info("Initialise twitter listener")
+			Twitter.twitter_last_api_call = now_time
+			auth = tweepy.OAuthHandler(TWITTER_APP_KEY, TWITTER_APP_SECRET)
+			auth.set_access_token(TWITTER_KEY, TWITTER_SECRET)
 
+			if (not Twitter.twitter_stream is None):
+				logger.info("Disconnect old stream")
+				Twitter.twitter_stream.disconnect()
+
+			api = tweepy.API(auth)
+				
+			stream_listener = StreamListener()
+			Twitter.twitter_stream = tweepy.Stream(auth=api.auth, listener=stream_listener)
+			logger.info("Filtering on {}".format(TWITTER_TAG))
+			Twitter.twitter_stream.filter(track=[TWITTER_TAG],async=True)
+			logger.info("Filtering complete")
 			
 	def is_clocked(self):
 		return True
@@ -110,6 +119,7 @@ class Twitter(Base):
 		self.load_wall()
 
 	def load_wall(self):
+		self.reset_twitter_stream()
 		if len(Twitter.TWITTER_MESSAGES) > 0:
 			self.messages = copy.copy(Twitter.TWITTER_MESSAGES)
 			Twitter.TWITTER_MESSAGES = []
