@@ -6,8 +6,10 @@ import argparse
 import os
 import sys
 import logging
+from logging.handlers import RotatingFileHandler
 
 LOG_FORMAT = '%(asctime)-15s | %(name)-12s (%(levelname)s): %(message)s'
+logger = logging.getLogger('run_show')
 
 def main():
 	parser = argparse.ArgumentParser(description='Run the disco dance floor')
@@ -62,12 +64,35 @@ def main():
 		help='Network server port;',
 		default=50999
 	)
+	parser.add_argument(
+		'--noconsole',
+		dest='noconsole',
+		action='store_true',
+		help='Disable logging to console',
+		default=False,
+	)
 	parser.set_defaults(opc_input=True, server_port=1977)
 	args = parser.parse_args()
 
 	log_level = logging.DEBUG if args.verbose else logging.INFO
-	logging.basicConfig(level=log_level, format=LOG_FORMAT)
+	logging.getLogger('').setLevel(log_level)
+	#define a Handler which writes INFO messages or higher to the sys.stderr
+	formatter = logging.Formatter(LOG_FORMAT)
 
+	if (not args.noconsole):
+		console = logging.StreamHandler(stream=sys.stdout)
+		console.setLevel(log_level)
+		console.setFormatter(formatter)
+		logging.getLogger('').addHandler(console)
+
+	handler = RotatingFileHandler('floor.log',maxBytes = 100000000,backupCount = 5)
+	handler.setFormatter(formatter)
+	handler.setLevel(log_level)
+	logging.getLogger('').addHandler(handler)
+
+	logging.getLogger('').info("Start")
+	logger.info("Start")
+	
 	config_dir = get_config_dir()
 	playlist = Playlist(config_dir, args.processor_name)
 	layout = Layout(config_dir)

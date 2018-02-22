@@ -180,4 +180,4 @@ class Controller(object):
 			time.sleep(self.frame_seconds - elapsed)
 		else:
 			if (not self.processor.is_clocked()):
-				logger.info("Cant keep up with {}fps. Elapsed:{}ms Max:{}ms".format(self.fps,1000*(elapsed),1000*self.frame_seconds))
+				logger.debug("Cant keep up with {}fps. Elapsed:{}ms Max:{}ms".format(self.fps,1000*(elapsed),1000*self.frame_seconds))
