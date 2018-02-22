@@ -2,31 +2,31 @@
   "queue": [
     {
       "name": "pmrotatingsquare",
-      "duration": "20"
+      "duration": "60"
     },
     {
       "name": "chachacha",
-      "duration": "20"
+      "duration": "60"
     },
     {
       "name": "flashbang",
-      "duration": "20"
+      "duration": "60"
     },
     {
       "name": "landmines",
-      "duration": "20"
+      "duration": "60"
     },
     {
       "name": "raverplaid",
-      "duration": "20"
+      "duration": "60"
     },
     {
       "name": "randomdecay",
-      "duration": "20"
+      "duration": "60"
     },
     {
       "name": "stripes",
-      "duration": "20",
+      "duration": "60",
       "args": {
         "length": 18,
         "max_speed": 1.0,
@@ -35,14 +35,22 @@
     },
     {
       "name": "hyperspace",
-      "duration": "20"
+      "duration": "60"
     },
     {
       "name": "fishies",
-      "duration": "20"
+      "duration": "60"
     },
     {
       "name": "twitter",
+      "duration": "60"
+    },
+    {
+      "name": "pmanimatedgif",
+      "duration": "60"
+    },
+    {
+      "name": "pmimages",
       "duration": "60"
     }
   ]
