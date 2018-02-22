@@ -52,12 +52,19 @@ class PMAnimatedGIF(Base):
 						logger.info("Resizing gif to size {}x{}".format(wsize,hsize))
 						all_frames = self.resize_gif(im_in,(wsize,hsize))
 					else:
-						for frame in ImageSequence.Iterator(im_in):
-							all_frames.append(frame) 
+						im_in.seek(0)
+						try:
+							while True:
+								frame = im_in.convert('RGBA')
+								logger.info("Extract raw frame (no resize) {}".format(frame))
+								all_frames.append(frame) 
+								im_in.seek(im_in.tell() + 1)
+						except:
+							pass
 					
-					for i in range(3):
+					for i in range(1):
 						for frame in all_frames:
-							logger.info("Processing frame from file : {} {}x{}".format(f,frame.size[0],frame.size[1]))
+							logger.info("Processing {} frame from file : {} {}x{}".format(i,f,frame.size[0],frame.size[1]))
 							self.show_image(frame)
 							PMAnimatedGIF.raw_array.append(self.get_raw_pixel_data())
 
