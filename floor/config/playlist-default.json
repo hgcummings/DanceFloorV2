@@ -54,7 +54,10 @@
     },
     {
       "name": "pmimage",
-      "duration": "10"
+      "duration": "10",
+	  "args": {}
+		"directory" : "floor/processor/images/pmimages"
+	  }
     }
   ]
 }
