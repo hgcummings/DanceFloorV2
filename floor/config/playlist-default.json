@@ -50,8 +50,8 @@
       "duration": "60"
     },
     {
-      "name": "pmimages",
-      "duration": "60"
+      "name": "pmimage",
+      "duration": "10"
     }
   ]
 }
