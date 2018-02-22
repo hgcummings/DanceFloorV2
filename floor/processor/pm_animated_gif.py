@@ -68,7 +68,7 @@ class PMAnimatedGIF(Base):
 	def is_clocked(self):
 		return True
 
-	@clocked(frames_per_beat=2)
+	@clocked(frames_per_beat=0.5)
 	def get_next_frame(self, weights):
 		logger.debug('** Setting raw pixel data for frame {}'.format(self.img_index))
 		self.set_raw_pixel_data(PMAnimatedGIF.raw_array[self.img_index])
