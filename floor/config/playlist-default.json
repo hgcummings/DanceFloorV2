@@ -55,7 +55,7 @@
     {
       "name": "pmimage",
       "duration": "10",
-	  "args": {}
+	  "args": {
 		"directory" : "floor/processor/images/pmimages"
 	  }
     }
