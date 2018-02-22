@@ -47,7 +47,7 @@
     },
     {
       "name": "pmanimatedgif",
-      "duration": "60"
+      "duration": "60",
 	  "args": {
 		"directory" : "floor/processor/images/pmanimatedgifs"
 	  }
