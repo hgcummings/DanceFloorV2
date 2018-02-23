@@ -1,5 +1,6 @@
 from utils import clocked
 from base import Base
+import json
 import time
 import os.path
 import colorsys
@@ -20,7 +21,7 @@ DEFAULT_MESSAGES = ["Softwire","Silent Disco"]
 TWITTER_TAG = u'#SoftwireDisco'
 MAX_CHARS_PER_LINE = 12
 
-TWITTER_RATELIMIT = 300
+TWITTER_RATELIMIT = 30
 
 class StreamListener(tweepy.StreamListener):
 
@@ -46,6 +47,7 @@ class StreamListener(tweepy.StreamListener):
 		logger.error("Stream error {}".format(status_code))
 		if status_code == 420:
 			# Rate limited
+			logger.info("Rate Limit info : {}".format(json.dumps(Twitter.limits,indent=2)))
 			Twitter.twitter_stream = None
 			return False
 
@@ -63,6 +65,7 @@ class Twitter(Base):
 	TWITTER_MESSAGES = []		
 	twitter_stream = None
 	twitter_last_api_call = 0.0
+	twitter_limits = None
 
 	# The font to use
 	DEFAULT_FONT = "synchronizer"
@@ -104,8 +107,10 @@ class Twitter(Base):
 				logger.info("Disconnect old stream")
 				Twitter.twitter_stream.disconnect()
 
-			api = tweepy.API(auth)
-				
+			api = tweepy.API(auth,wait_on_rate_limit_notify=False,wait_on_rate_limit=False)
+			Twitter.limits = api.rate_limit_status()
+			
+		
 			stream_listener = StreamListener()
 			Twitter.twitter_stream = tweepy.Stream(auth=api.auth, listener=stream_listener)
 			logger.info("Filtering on {}".format(TWITTER_TAG))
