@@ -21,7 +21,7 @@ DEFAULT_MESSAGES = ["Softwire","Silent Disco"]
 TWITTER_TAG = u'#SoftwireDisco'
 MAX_CHARS_PER_LINE = 12
 
-TWITTER_RATELIMIT = 30
+TWITTER_RATELIMIT = 60 * 60 * 24
 
 class StreamListener(tweepy.StreamListener):
 
