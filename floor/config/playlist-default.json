@@ -45,12 +45,6 @@
       "name": "twitter",
       "duration": "60"
     },
-    {
-      "name": "pmanimatedgif",
-      "duration": "60",
-	  "args": {
-		"directory" : "floor/processor/images/pmanimatedgifs"
-	  }
     },
     {
       "name": "pmimage",
