@@ -5,7 +5,7 @@
   "gridheight": 36,
   "gridwidth": 72,
   "origin":"bottomleft",
-  "brightness":0.5,
+  "brightness":0.9,
   "ledbrightness": 
 	[0,0,0,0,0,0,0,0,0,
 	1,1,1,1,0,1,1,1,0,
