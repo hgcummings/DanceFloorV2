@@ -47,7 +47,7 @@ class Network(Base):
 	 	self.multisocket = socket(AF_INET, SOCK_DGRAM)
 	   	self.multisocket.bind(('', 0))
 	   	self.multisocket.setsockopt(SOL_SOCKET, SO_BROADCAST, 1)
-		# Don't broadcast on 10.210.255.255 as that breaks the alarm/door system.  Use 10.210.15.255 (10.210.8.1 - 10.210.15.255)
+		# Don't broadcast on 10.210.255.255 as that breaks the alarm/door system. 
 		# On Raspberry Pi edit /etc/network/interfaces:
 		#
 		#auto eth0
@@ -64,7 +64,7 @@ class Network(Base):
 		#	netmask 255.255.255.0
 
 		#self.multisocketaddr='10.2.2.255'
-		self.multisocketaddr='10.210.255.255'
+		self.multisocketaddr='10.233.255.255'
 		self.multisocketdata = bytearray(chr(0)) * self.maxledindex * 4
 		self.multisocketport = args['network_port']
 		logger.info('Network driver sending on port {}'.format(self.multisocketport))
