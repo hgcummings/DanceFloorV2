@@ -147,6 +147,19 @@ def api_playlist_position(position):
 	else:
 		return jsonify(playlist.queue[position])
 
+@app.route('/api/delegate', methods=['POST'])
+def api_delegate():
+	"""Delegate processing to another server.
+
+	   Framedata will be retrieved by a TCP connection to the specified host and port.
+	   """
+	content = request.get_json(silent=True)
+	host = content.get('host', False) or '127.0.0.1'
+	port = int(content.get('port'))
+	playlist = app.controller.playlist
+	position = playlist.append('delegate', 0, { 'host': host, 'port': port})
+	playlist.go_to(position)
+	return 'OK'
 
 @app.route('/api/tempo', methods=['GET', 'POST'])
 def api_tempo():
