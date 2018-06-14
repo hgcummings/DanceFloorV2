@@ -8,11 +8,15 @@ Set system environment variables
 
 Install Pip:
 
-``pip install virtualenv virtualenvwrapper-win flask ``
+``pip install virtualenv virtualenvwrapper-win``
+
+``mkvirtualenv dance``
 
 ``pip install git+https://github.com/dpallot/simple-websocket-server.git``
 
-``mkvirtualenv dance``
+``pip install flask``
+
+``pip install pillow``
 
 ``deactivate``
 
