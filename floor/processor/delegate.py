@@ -30,6 +30,12 @@ class Delegate(Base):
 		""" Requests the next frame from the delegate server via TCP
 			"""
 		self.connection.send(self.dimensions)
-		self.connection.recv_into(self.frame_data)
+
+		toread = len(self.frame_data)
+		view = memoryview(self.frame_data)
+		while toread:
+			nbytes = self.connection.recv_into(view, toread)
+			view = view[nbytes:]
+			toread -= nbytes
 
 		return [self.frame_data[i:i+3] for i in range(0, len(self.frame_data), 3)]
