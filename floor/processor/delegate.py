@@ -1,6 +1,7 @@
 from base import Base
 from utils import clocked
 import socket
+import select
 import logging
 logger = logging.getLogger('delegate')
 
@@ -20,12 +21,25 @@ class Delegate(Base):
 
 		logger.info("Connecting to delegate server tcp:%s:%d" % (self.host, self.port))
 		self.connection = socket.create_connection((self.host, self.port))
+		self.connection.setblocking(0)
+		self.connection.settimeout(0.01)
+		self.input = [self.connection]
+
+	def initialise_processor(self):
+		self.dimensions = bytearray([self.FLOOR_WIDTH, self.FLOOR_HEIGHT])
+		self.frame_data = bytearray(self.FLOOR_HEIGHT * self.FLOOR_WIDTH * 3)
+
+	def clear_stale_data(self):
+		while 1:
+			inputready, o, e = select.select(self.input,[],[], 0.0)
+			if len(inputready) == 0: break
+			for s in inputready: s.recv(4096)
 
 	def get_next_frame(self, weights):
 		""" Requests the next frame from the delegate server via TCP
 			"""
-		self.connection.send(bytearray([self.FLOOR_WIDTH, self.FLOOR_HEIGHT]))
-		frame_data = bytearray(self.FLOOR_HEIGHT * self.FLOOR_WIDTH * 3)
-		self.connection.recv_into(frame_data)
+		self.clear_stale_data()
+		self.connection.send(self.dimensions)
+		self.connection.recv_into(self.frame_data)
 
-		return [frame_data[i:i+3] for i in range(0, len(frame_data), 3)]
+		return [self.frame_data[i:i+3] for i in range(0, len(self.frame_data), 3)]
