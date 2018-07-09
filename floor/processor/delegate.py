@@ -3,6 +3,7 @@ from utils import clocked
 import socket
 import select
 import logging
+import time
 logger = logging.getLogger('delegate')
 
 class Delegate(Base):
@@ -33,9 +34,12 @@ class Delegate(Base):
 
 		toread = len(self.frame_data)
 		view = memoryview(self.frame_data)
+		start_time = time.time()
 		while toread:
 			nbytes = self.connection.recv_into(view, toread)
 			view = view[nbytes:]
 			toread -= nbytes
+			if (time.time() > start_time + 0.1):
+				raise Exception('Unable to read frame from socket')
 
 		return [self.frame_data[i:i+3] for i in range(0, len(self.frame_data), 3)]
