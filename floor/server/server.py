@@ -1,5 +1,6 @@
 import time
 import threading
+import messages
 from flask import Flask, jsonify, request, abort, render_template, send_from_directory
 
 MIN_BPM = 40
@@ -159,6 +160,25 @@ def api_delegate():
 	playlist = app.controller.playlist
 	position = playlist.append('delegate', 0, { 'host': host, 'port': port})
 	playlist.go_to(position)
+	return 'OK'
+
+@app.route('/api/message', methods=['GET'])
+def get_message_route():
+	return jsonify(messages.get_all())
+
+@app.route('/api/message', methods=['POST'])
+def post_message():
+	message = request.get_json(silent=True)
+	return jsonify(messages.add(message))
+
+@app.route('/api/message', methods=['DELETE'])
+def delete_messages_route():
+	messages.delete_all(request.args.get('source'))
+	return 'OK'
+
+@app.route('/api/message/<message_id>', methods=['DELETE'])
+def delete_message_route(message_id):
+	messages.delete(message_id)
 	return 'OK'
 
 @app.route('/api/tempo', methods=['GET', 'POST'])

@@ -2,6 +2,7 @@ from base import Base
 from utils import clocked
 import logging
 import importlib
+import messages
 logger = logging.getLogger('ticker')
 
 ICONS = {
@@ -36,12 +37,6 @@ ICONS = {
 		((0, 0, 0), (0, 0, 0), (0, 0, 0), (255,216,0), (255,216,0), (0, 0, 0), (0, 0, 0), (0, 0, 0))
 	)
 }
-
-MESSAGES = [
-	{ 'type': 'announcement', 'text': 'Watch this space' },
-	{ 'type': 'praise', 'text': 'Thanks to Phil for creating the dancefloor' },
-	{ 'type': 'sale', 'text': 'Congratulations to the sales team for closing another deal' }
-]
 
 class Ticker(Base):
 	DEFAULT_FONT = "seven_plus"
@@ -105,8 +100,9 @@ class Ticker(Base):
 		return pixels
 
 	def next_message(self):
-		self.message_index = (self.message_index + 1) % len(MESSAGES)
-		self.render_message(MESSAGES[self.message_index])
+		all_messages = messages.get_all()
+		self.message_index = (self.message_index + 1) % len(all_messages)
+		self.render_message(all_messages[self.message_index])
 
 	def render_message(self, message):
 		self.current_text = []
