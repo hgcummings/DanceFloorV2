@@ -44,7 +44,7 @@ MESSAGES = [
 ]
 
 class Ticker(Base):
-	DEFAULT_FONT = "synchronizer"
+	DEFAULT_FONT = "seven_plus"
 
 	def __init__(self, **kwargs):
 		super(Ticker, self).__init__(**kwargs)
@@ -80,7 +80,7 @@ class Ticker(Base):
 		pixels.extend([(0, 0, 0) for x in range(0, self.FLOOR_WIDTH)])
 		
 		for row_index in range(0, self.font.height()):
-			icon_pixels = self.current_icon[row_index]
+			icon_pixels = self.current_icon[row_index] if (row_index < len(self.current_icon)) else [(0,0,0) for i in range(0, len(self.current_icon[0]))]
 			pixels.append((0,0,0))
 			pixels.extend(icon_pixels)
 			pixels.append((0,0,0))
