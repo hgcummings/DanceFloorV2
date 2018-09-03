@@ -1,12 +1,6 @@
-<html>
-<head>
-  <title>Softwire Dance!</title>
+{% extends 'base.html' %}
 
-  <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css" />
-  <script src="/static/jquery-3.2.1.min.js"></script>
-  <script src="/static/bootstrap/js/bootstrap.min.js"></script>
-  <script src="/static/axios-0.16.2.min.js"></script>
-
+{% block header %}
   <style>
     body {
       padding-top: 50px;
@@ -29,12 +23,9 @@
       font-style: italic;
     }
   </style>
+{% endblock %}
 
-</head>
-
-<body>
-
-<div class="container-fluid">
+{% block content %}
   <div class="row">
     <div class="col-md-3">
       <h2>Now Playing</h2>
@@ -137,8 +128,9 @@
 
   </div>
 
-</div><!-- /.container -->
+{% endblock %}
 
+{% block scripts %}
 <script>
   var refreshHandle;
   var bpmSamples = [];
@@ -408,4 +400,4 @@
 
 </script>
 
-</body>
+{% endblock %}

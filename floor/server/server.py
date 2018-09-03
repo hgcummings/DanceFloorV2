@@ -13,6 +13,9 @@ app = Flask('server')
 def main():
 	return render_template('index.html')
 
+@app.route('/messages')
+def message_admin():
+	return render_template('messages.html')
 
 @app.route('/static/<path:path>')
 def static_assets(path):

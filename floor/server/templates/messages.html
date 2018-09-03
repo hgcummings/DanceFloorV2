@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+{% endblock %}
+
+{% block content %}
+<div id="app" class="row">
+    <div class="col-md-6">
+        <h2>Ticker messages</h2>
+        <div class="list-group">
+            <div v-for="(message, index) in messages" class="list-group-item">
+                <div class="row">
+                    <div class="col-md-10">
+                        ${messageTypes[message.type]} ${message.text}
+                    </div>
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-block btn-danger" v-on:click="deleteMessage(message)">Delete</button>
+                    </div>
+                </div>
+            </div>
+            <form class="list-group-item" v-on:submit.prevent="addMessage">
+                <div class="row">
+                    <div class="col-md-4">
+                        <select name="type" class="form-control" v-model="newMessage.type">
+                            <option v-for="(icon, type) in messageTypes" v-bind:value="type">${icon} (${type})</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" name="text" placeholder="New message" v-model="newMessage.text" />
+                    </div>
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-block btn-success" v-bind:disabled="newMessage.text.length === 0">Add</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const app = new Vue({
+        delimiters: ['${', '}'],
+        el: '#app',
+        data: {
+            messageTypes: {
+                'announcement': '📢',
+                'praise': '🏆',
+                'sale': '🔔'
+            },
+            messages: [],
+            newMessage: {
+                'source': 'manual',
+                'type': 'announcement',
+                'text': ''
+            }
+        },
+        methods: {
+            addMessage: function() {
+                axios
+                    .post('/api/message', this.newMessage)
+                    .then(() => this.refreshMessages());
+            },
+            deleteMessage: function(message) {
+                axios
+                    .delete(`/api/message/${message.id}`)
+                    .then(() => this.refreshMessages());
+            },
+            refreshMessages: function() {
+                axios
+                    .get('/api/message')
+                    .then(response => this.messages = response.data);
+            }
+        },
+        created: function() {
+            this.refreshMessages();
+        }
+    })
+</script>
+{% endblock %}
