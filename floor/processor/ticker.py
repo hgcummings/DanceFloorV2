@@ -3,6 +3,7 @@ from utils import clocked
 import logging
 import importlib
 import messages
+from components.clock import Clock
 logger = logging.getLogger('ticker')
 
 ICONS = {
@@ -40,6 +41,7 @@ ICONS = {
 
 class Ticker(Base):
 	DEFAULT_FONT = "seven_plus"
+	CLOCK_SCALE = 2
 
 	def __init__(self, **kwargs):
 		super(Ticker, self).__init__(**kwargs)
@@ -55,6 +57,7 @@ class Ticker(Base):
 	# If you want to pre-calculate frames then you can do so in here and store the output of self.get_raw_pixel_data()
 	def initialise_processor(self):
 		logger.debug('initialise_processor')
+		self.clock = Clock(self.FLOOR_WIDTH, self.FLOOR_HEIGHT - 1 - self.font.height(), self.CLOCK_SCALE)
 		self.next_message()
 		
 
@@ -89,8 +92,7 @@ class Ticker(Base):
 					pixel = (255, 255, 255)
 				pixels.append(pixel)
 		
-		remaining_rows = self.FLOOR_HEIGHT - len(pixels)
-		pixels.extend([(0, 0, 0) for i in range(0, remaining_rows * self.FLOOR_WIDTH)])
+		pixels.extend(self.clock.generate_pixels())
 
 		self.current_offset += 1
 
