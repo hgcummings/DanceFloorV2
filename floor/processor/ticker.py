@@ -42,6 +42,10 @@ ICONS = {
 class Ticker(Base):
 	DEFAULT_FONT = "seven_plus"
 	CLOCK_SCALE = 2
+	DEFAULT_MESSAGE = {
+		'type': 'announcement',
+		'text': 'Watch this space...'
+	}
 
 	def __init__(self, **kwargs):
 		super(Ticker, self).__init__(**kwargs)
@@ -103,8 +107,12 @@ class Ticker(Base):
 
 	def next_message(self):
 		all_messages = messages.get_all()
-		self.message_index = (self.message_index + 1) % len(all_messages)
-		self.render_message(all_messages[self.message_index])
+		if (len(all_messages) == 0):
+			self.message_index = 0
+			self.render_message(self.DEFAULT_MESSAGE)
+		else:
+			self.message_index = (self.message_index + 1) % len(all_messages)
+			self.render_message(all_messages[self.message_index])
 
 	def render_message(self, message):
 		self.current_text = []
