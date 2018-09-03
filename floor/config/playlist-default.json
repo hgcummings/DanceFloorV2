@@ -1,7 +1,7 @@
 {
   "queue": [
     {
-      "name": "clock",
+      "name": "ticker",
       "duration": "0"
     }
   ]
