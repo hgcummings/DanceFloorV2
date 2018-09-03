@@ -2,6 +2,11 @@
 
 {% block header %}
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<style>
+    .btn {
+        padding: 6px 3px;
+    }
+</style>
 {% endblock %}
 
 {% block content %}
@@ -11,8 +16,11 @@
         <div class="list-group">
             <div v-for="(message, index) in messages" class="list-group-item">
                 <div class="row">
-                    <div class="col-md-10">
+                    <div class="col-md-7">
                         ${messageTypes[message.type]} ${message.text}
+                    </div>
+                    <div class="col-md-3 text-muted">
+                        (from: ${message.source})
                     </div>
                     <div class="col-md-2">
                         <button type="submit" class="btn btn-block btn-danger" v-on:click="deleteMessage(message)">Delete</button>
@@ -52,7 +60,6 @@
             },
             messages: [],
             newMessage: {
-                'source': 'manual',
                 'type': 'announcement',
                 'text': ''
             }

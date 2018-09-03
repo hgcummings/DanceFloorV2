@@ -5,8 +5,6 @@ import os
 from flask import Flask, jsonify, request, abort, render_template, send_from_directory
 from flask_htpasswd import HtPasswdAuth
 
-
-
 MIN_BPM = 40
 MAX_BPM = 220
 
@@ -184,6 +182,7 @@ def get_message_route():
 @htpasswd.required
 def post_message(user):
 	message = request.get_json(silent=True)
+	message['source'] = user
 	return jsonify(messages.add(message))
 
 @app.route('/api/message', methods=['DELETE'])
