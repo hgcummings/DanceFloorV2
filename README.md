@@ -16,6 +16,8 @@ Install Pip:
 
 ``pip install flask``
 
+``pip install flask-htpasswd``
+
 ``pip install pillow``
 
 ``deactivate``
@@ -23,6 +25,8 @@ Install Pip:
 ``git clone git@github.com:PhilMarsden/DanceFloorV2.git``
 
 ``cd DanceFloorV2``
+
+``cp flask_secret.dev flask_secret``
 
 See ``floor\processor\template.py`` for an example template for making a processor
 
@@ -34,3 +38,11 @@ See ``floor\processor\template.py`` for an example template for making a process
 http://localhost:1979
 
 http://localhost:1977
+
+## Authentication
+
+If you want to access any of the protected endpoints locally, you'll need to specify a .htpasswd file.
+
+The .htpasswd.example file contains a user named "admin" with the password "password". For local development, you can just use this file, e.g.:
+
+``cp .htpasswd.example .htpasswd``

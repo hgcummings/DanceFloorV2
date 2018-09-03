@@ -1,20 +1,31 @@
 import time
 import threading
 import messages
+import os
 from flask import Flask, jsonify, request, abort, render_template, send_from_directory
+from flask_htpasswd import HtPasswdAuth
+
+
 
 MIN_BPM = 40
 MAX_BPM = 220
 
 app = Flask('server')
 
+app.config['FLASK_HTPASSWD_PATH'] = '.htpasswd'
+
+with open('flask_secret', 'r') as flask_secret:
+	app.config['FLASK_SECRET'] = flask_secret.read().replace('\n', '')
+
+htpasswd = HtPasswdAuth(app)
 
 @app.route('/')
 def main():
 	return render_template('index.html')
 
 @app.route('/messages')
-def message_admin():
+@htpasswd.required
+def message_admin(user):
 	return render_template('messages.html')
 
 @app.route('/static/<path:path>')
@@ -170,17 +181,20 @@ def get_message_route():
 	return jsonify(messages.get_all())
 
 @app.route('/api/message', methods=['POST'])
-def post_message():
+@htpasswd.required
+def post_message(user):
 	message = request.get_json(silent=True)
 	return jsonify(messages.add(message))
 
 @app.route('/api/message', methods=['DELETE'])
-def delete_messages_route():
+@htpasswd.required
+def delete_messages_route(user):
 	messages.delete_all(request.args.get('source'))
 	return 'OK'
 
 @app.route('/api/message/<message_id>', methods=['DELETE'])
-def delete_message_route(message_id):
+@htpasswd.required
+def delete_message_route(user, message_id):
 	messages.delete(message_id)
 	return 'OK'
 
