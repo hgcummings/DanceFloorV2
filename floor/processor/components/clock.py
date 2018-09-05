@@ -33,14 +33,17 @@ class Clock():
             for row in range(0, self.font.height()):
                 pixels[row].extend(char_data[row])
                 pixels[row].extend([0] * self.KERNING)
+            if (char == ':'):
+                colon_end = len(pixels[0]) - self.KERNING
+                colon_width = len(char_data[0])
 
-        return pixels
+        return (pixels, colon_end, colon_width)
 
     def generate_pixels(self):
         pixels = []
-        time_pixels = self.generate_time_pixels()
+        (time_pixels, mid_char_end, mid_char_width) = self.generate_time_pixels()
         top = (self.HEIGHT - len(time_pixels) * self.SCALE) / 2
-        left = (self.WIDTH - len(time_pixels[0]) * self.SCALE) / 2
+        left = ((self.WIDTH / 2) - (mid_char_end * self.SCALE) + (mid_char_width * self.SCALE / 2))
         for row in range(self.HEIGHT):
             for col in range(self.WIDTH):
                 time_row = (row - top) / self.SCALE
