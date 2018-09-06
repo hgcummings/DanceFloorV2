@@ -42,7 +42,7 @@ class Clock():
     def generate_pixels(self):
         pixels = []
         (time_pixels, mid_char_end, mid_char_width) = self.generate_time_pixels()
-        top = (self.HEIGHT - len(time_pixels) * self.SCALE) / 2
+        top = (self.HEIGHT - len(time_pixels) * self.SCALE) / 3
         left = ((self.WIDTH / 2) - (mid_char_end * self.SCALE) + (mid_char_width * self.SCALE / 2))
         for row in range(self.HEIGHT):
             for col in range(self.WIDTH):

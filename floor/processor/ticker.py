@@ -42,6 +42,7 @@ ICONS = {
 class Ticker(Base):
 	DEFAULT_FONT = "seven_plus"
 	CLOCK_SCALE = 2
+	ICON_MARGIN = 1
 	DEFAULT_MESSAGE = {
 		'type': 'announcement',
 		'text': 'Watch this space...'
@@ -83,16 +84,16 @@ class Ticker(Base):
 		
 		for row_index in range(0, self.font.height()):
 			icon_pixels = self.current_icon[row_index] if (row_index < len(self.current_icon)) else [(0,0,0) for i in range(0, len(self.current_icon[0]))]
-			pixels.append((0,0,0))
+			pixels.extend([(0, 0, 0) for x in range(0, self.ICON_MARGIN)])
 			pixels.extend(icon_pixels)
-			pixels.append((0,0,0))
-			margin = 1 + len(icon_pixels) + 1
+			pixels.extend([(0, 0, 0) for x in range(0, self.ICON_MARGIN)])
+			margin = len(icon_pixels) + 2 * self.ICON_MARGIN
 
 			text_pixels = self.current_text[row_index]
 			for column_index in range(0, self.FLOOR_WIDTH - margin):
 				pixel_index = column_index + self.current_offset
 				pixel = (0, 0, 0)
-				if (pixel_index < len(text_pixels) and text_pixels[pixel_index]):
+				if (pixel_index >= 0 and pixel_index < len(text_pixels) and text_pixels[pixel_index]):
 					pixel = (255, 255, 255)
 				pixels.append(pixel)
 		
@@ -116,9 +117,8 @@ class Ticker(Base):
 
 	def render_message(self, message):
 		self.current_text = []
-		self.current_offset = 0
-
 		self.current_icon = ICONS[message['type']]
+		self.current_offset = len(self.current_icon[0]) + 2 * self.ICON_MARGIN - self.FLOOR_WIDTH
 
 		for row_index in range(0, self.font.height()):
 			self.current_text.append([])
