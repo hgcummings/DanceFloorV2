@@ -11,7 +11,7 @@ logger = logging.getLogger('pmrotatingsquare')
 RED = (0xff, 0x00, 0x00)
 GREEN = (0x00, 0xff, 0x00)
 BLUE = (0, 0, 0xff)
-TEST_COLOUR = (0x25,0,0)
+TEST_COLOUR = (0xff,0xff,0xff)
 
 class PMTest(Base):
 	init = False;
