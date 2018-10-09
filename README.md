@@ -20,6 +20,8 @@ Install Pip:
 
 ``pip install pillow``
 
+``pip install tweepy``
+
 ``deactivate``
 
 ``git clone git@github.com:PhilMarsden/DanceFloorV2.git``
