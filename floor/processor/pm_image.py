@@ -12,7 +12,6 @@ logger = logging.getLogger('pmimage')
 
 class PMImage(Base):
 	init = False;
-	raw_array = []
 
 	def __init__(self, **kwargs):
 		super(PMImage, self).__init__(**kwargs)
@@ -20,6 +19,7 @@ class PMImage(Base):
 		logger.debug('__init__')
 		self.images = []
 		self.files = []
+		self.raw_array = []
 		if "file" in kwargs:
 			# Load a single message from the args
 			logger.info("File : {}".format(kwargs["file"]))

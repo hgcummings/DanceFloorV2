@@ -12,7 +12,6 @@ logger = logging.getLogger('pmimage')
 
 class PMAnimatedGIF(Base):
 	init = False;
-	raw_array = None
 
 	def __init__(self, **kwargs):
 		super(PMAnimatedGIF, self).__init__(**kwargs)
@@ -20,6 +19,7 @@ class PMAnimatedGIF(Base):
 		logger.debug('__init__')
 		self.images = []
 		self.files = []
+		self.raw_array = []
 		if "file" in kwargs:
 			# Load a single message from the args
 			logger.info("File : {}".format(kwargs["file"]))
@@ -37,39 +37,37 @@ class PMAnimatedGIF(Base):
 					logger.info("Ignored file {}".format(filename))
 
 	def initialise_processor(self):
-		if (PMAnimatedGIF.raw_array is None):
-			PMAnimatedGIF.raw_array = []
-			for f in self.files:
-				try:
-					logger.info("======= Processing File {} ".format(f))
-					im_in = Image.open(f)
+		for f in self.files:
+			try:
+				logger.info("======= Processing File {} ".format(f))
+				im_in = Image.open(f)
+			
+				all_frames = []
+				if ((im_in.size[0] != self.FLOOR_WIDTH) or (im_in.size[1] != self.FLOOR_HEIGHT)):
+					percent = min (self.FLOOR_WIDTH / float(im_in.size[0]), self.FLOOR_HEIGHT / float(im_in.size[1]))
+					wsize = int((float(im_in.size[0])*float(percent)))
+					hsize = int((float(im_in.size[1])*float(percent)))
+					logger.info("Resizing gif to size {}x{}".format(wsize,hsize))
+					all_frames = self.resize_gif(im_in,(wsize,hsize))
+				else:
+					im_in.seek(0)
+					try:
+						while True:
+							frame = im_in.convert('RGBA')
+							logger.info("Extract raw frame (no resize) {}".format(frame))
+							all_frames.append(frame) 
+							im_in.seek(im_in.tell() + 1)
+					except:
+						pass
 				
-					all_frames = []
-					if ((im_in.size[0] != self.FLOOR_WIDTH) or (im_in.size[1] != self.FLOOR_HEIGHT)):
-						percent = min (self.FLOOR_WIDTH / float(im_in.size[0]), self.FLOOR_HEIGHT / float(im_in.size[1]))
-						wsize = int((float(im_in.size[0])*float(percent)))
-						hsize = int((float(im_in.size[1])*float(percent)))
-						logger.info("Resizing gif to size {}x{}".format(wsize,hsize))
-						all_frames = self.resize_gif(im_in,(wsize,hsize))
-					else:
-						im_in.seek(0)
-						try:
-							while True:
-								frame = im_in.convert('RGBA')
-								logger.info("Extract raw frame (no resize) {}".format(frame))
-								all_frames.append(frame) 
-								im_in.seek(im_in.tell() + 1)
-						except:
-							pass
-					
-					for i in range(1):
-						for frame in all_frames:
-							logger.info("Processing {} frame from file : {} {}x{}".format(i,f,frame.size[0],frame.size[1]))
-							self.show_image(frame)
-							PMAnimatedGIF.raw_array.append(self.get_raw_pixel_data())
+				for i in range(1):
+					for frame in all_frames:
+						logger.info("Processing {} frame from file : {} {}x{}".format(i,f,frame.size[0],frame.size[1]))
+						self.show_image(frame)
+						self.raw_array.append(self.get_raw_pixel_data())
 
-				except:
-					logger.error("Failed to open file {}".format(f))
+			except:
+				logger.error("Failed to open file {}".format(f))
 					
 
 	def is_clocked(self):
@@ -78,9 +76,9 @@ class PMAnimatedGIF(Base):
 	@clocked(frames_per_beat=0.5)
 	def get_next_frame(self, weights):
 		logger.debug('** Setting raw pixel data for frame {}'.format(self.img_index))
-		self.set_raw_pixel_data(PMAnimatedGIF.raw_array[self.img_index])
+		self.set_raw_pixel_data(self.raw_array[self.img_index])
 		logger.debug('** Pixel data set for frame {}'.format(self.img_index))
-		self.img_index = (self.img_index +1) % len(PMAnimatedGIF.raw_array)
+		self.img_index = (self.img_index +1) % len(self.raw_array)
 		
 		
 	# Taken from https://stackoverflow.com/questions/41718892/pillow-resizing-a-gif
