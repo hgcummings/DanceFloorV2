@@ -28,7 +28,7 @@ class FloorWebsocketHandler(WebSocket):
 	WEBSOCKET_CLIENTS = []
 
 	# Singleton set of weights.
-	WEIGHTS = [0] * 64
+	WEIGHTS = []
 
 	@classmethod
 	def broadcast(cls, message):
@@ -36,9 +36,15 @@ class FloorWebsocketHandler(WebSocket):
 			client.sendMessage(unicode(json.dumps(message)))
 
 	@classmethod
+	def setDimensions(cls, width, height):
+		cls.FLOOR_WIDTH = width
+		cls.FLOOR_HEIGHT = height
+		cls.WEIGHTS = [0] * width * height
+
+	@classmethod
 	def getAndClearWeights(cls):
 		ret = cls.WEIGHTS
-		cls.WEIGHTS = [0] * 64
+		cls.WEIGHTS = [0] * cls.FLOOR_WIDTH * cls.FLOOR_HEIGHT
 		return ret
 
 	def handleMessage(self):
@@ -95,6 +101,7 @@ class Devserver(Base):
 	def __init__(self, args):
 		super(Devserver, self).__init__(args)
 		self.websocket_server = SimpleWebSocketServer('', 1980, FloorWebsocketHandler)
+		FloorWebsocketHandler.setDimensions(self.FLOOR_WIDTH, self.FLOOR_HEIGHT)
 		SocketServer.TCPServer.allow_reuse_address = True
 		self.web_server = SocketServer.TCPServer(("", 1979), WebserverHandler)
 

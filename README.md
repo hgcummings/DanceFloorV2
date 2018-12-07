@@ -45,6 +45,6 @@ http://localhost:1977
 
 If you want to access any of the protected endpoints locally, you'll need to specify a .htpasswd file.
 
-The .htpasswd.example file contains a user named "admin" with the password "password". For local development, you can just use this file, e.g.:
+The .htpasswd.dev file contains a user named "admin" with the password "password". For local development, you can just use this file, e.g.:
 
-``cp .htpasswd.example .htpasswd``
+``cp .htpasswd.dev .htpasswd``
