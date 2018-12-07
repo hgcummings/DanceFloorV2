@@ -1,0 +1,68 @@
+{
+  "queue": [
+    {
+      "name": "counter",
+      "args": { "delay": 32, "multiplier": 1, "reset": true }
+    },
+    {
+      "name": "counter",
+      "args": { "delay": 16, "multiplier": 1 }
+    },
+    {
+      "name": "counter",
+      "args": { "delay": 8, "multiplier": 1 }
+    },
+    {
+      "name": "counter",
+      "args": { "delay": 4, "multiplier": 1 }
+    },
+    {
+      "name": "counter",
+      "args": { "delay": 2, "multiplier": 1 }
+    },
+    {
+      "name": "counter",
+      "args": { "delay": 1, "multiplier": 1 }
+    },
+    {
+      "name": "counter",
+      "args": { "delay": 1, "multiplier": 11 }
+    },
+    {
+      "name": "counter",
+      "args": { "delay": 1, "multiplier": 111 }
+    },
+    {
+      "name": "counter",
+      "args": { "delay": 1, "multiplier": 1111 }
+    },
+    {
+      "name": "counter",
+      "args": { "delay": 1, "multiplier": 11111 }
+    },
+    {
+      "name": "counter",
+      "args": { "delay": 1, "multiplier": 111111 }
+    },
+    {
+      "name": "counter",
+      "args": { "delay": 1, "multiplier": 1111111 }
+    },
+    {
+      "name": "counter",
+      "args": { "delay": 1, "multiplier": 11111111 }
+    },
+    {
+      "name": "counter",
+      "args": { "delay": 1, "multiplier": 111111111 }
+    },
+    {
+      "name": "counter",
+      "args": { "delay": 1, "multiplier": 1111111111 }
+    },
+    {
+      "name": "counter",
+      "args": { "delay": 1, "multiplier": 11111111111 }
+    }
+  ]
+}
