@@ -15,7 +15,7 @@ class Paint(Base):
         self.PIXELS = [1] * self.FLOOR_WIDTH * self.FLOOR_HEIGHT
 
     def get_next_frame(self, weights):
-        for i in range(0, self.FLOOR_WIDTH * self.FLOOR_HEIGHT):
+        for i in range(0, min(self.FLOOR_WIDTH * self.FLOOR_HEIGHT, len(weights) - 1)):
             self.PIXELS[i] ^= weights[i]
 
         return [(i * 255, i * 255, i * 255) for i in self.PIXELS]

@@ -98,19 +98,18 @@ def main():
 	layout = Layout(config_dir)
 
 	show = Controller(playlist)
-	if (args.networkdriver):
-		show.add_driver('network', {
-			"opc_input": args.opc_input,
-			"layout": layout,
-			"network_port" : args.network_port
-		})
-	
 	if (args.devserver):
 		show.add_driver('devserver', {
 			"opc_input": args.opc_input,
 			"layout": layout
 		})
 	
+	if (args.networkdriver):
+		show.add_driver('network', {
+			"opc_input": args.opc_input,
+			"layout": layout,
+			"network_port" : args.network_port
+		})
 
 	if args.server_port >= 0:
 		run_server(show, port=args.server_port)
