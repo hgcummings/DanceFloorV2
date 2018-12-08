@@ -2,6 +2,10 @@
   "queue": [
     {
       "name": "counter",
+      "args": { "delay": 65536, "multiplier": 1, "reset": true }
+    },
+    {
+      "name": "counter",
       "args": { "delay": 32, "multiplier": 1, "reset": true }
     },
     {

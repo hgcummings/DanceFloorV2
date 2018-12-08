@@ -48,17 +48,36 @@ class Counter(Base):
 
         items = []
 
-        items.append({
-            'pixels': self.generate_text_pixels("{:>16,}".format(SCORE)),
-            'top': 1,
-            'left': 0
-        })
+        if SCORE > 0 or (datetime.now().microsecond / 500000) % 2 == 0:
+            pixels = self.generate_text_pixels("{:0>2,}".format(SCORE))
+            scale = 1
+            if SCORE < 1000000:
+                scale = 2
+            items.append({
+                'pixels': pixels,
+                'scale': scale,
+                'top': 1,
+                'colour': (255,64,0),
+                'left': max(0, (self.FLOOR_WIDTH - scale * len(pixels[0])) / 2)
+            })
+
+        if SCORE == 0:
+            pixels = self.generate_text_pixels("BALL 1")
+            items.append({
+                'pixels': pixels,
+                'scale': 1,
+                'top': self.font.height() * 5 / 2,
+                'colour': (64,64,255),
+                'left': (self.FLOOR_WIDTH - len(pixels[0])) / 2
+            })
 
         if SCORE == self.MAX and (datetime.now().microsecond / 500000) % 2 == 0:
             pixels = self.generate_text_pixels("HIGH SCORE!")
             items.append({
                 'pixels': pixels,
+                'scale': 1,
                 'top': self.font.height() * 2,
+                'colour': (64,255,0),
                 'left': (self.FLOOR_WIDTH - len(pixels[0])) / 2
             })
 
@@ -83,18 +102,15 @@ class Counter(Base):
 
         for row in range(self.FLOOR_HEIGHT):
             for col in range(self.FLOOR_WIDTH):
-                lit = False
+                colour = (0,0,0)
                 for item in items:
-                    item_row = (row - item['top'])
-                    item_col = (col - item['left'])
+                    item_row = (row - item['top']) / item['scale']
+                    item_col = (col - item['left']) / item['scale']
                     if (item_row >= 0 and item_row < len(item['pixels']) and
                         item_col >= 0 and item_col < len(item['pixels'][item_row]) and
                         item['pixels'][item_row][item_col]):
-                        lit = True
+                        colour = item['colour']
                         break
-                if lit:
-                    pixels.append((255,128,0))
-                else:
-                    pixels.append((0, 0, 0))
+                pixels.append(colour)
 
         return pixels
