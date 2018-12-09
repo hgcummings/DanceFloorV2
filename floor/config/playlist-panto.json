@@ -15,21 +15,21 @@
     },
     {
       "name": "animatedgif",
-      "args": { "file": "floor/panto/castle.gif" }
+      "args": { "file": "floor/panto/castle_darker.gif" }
     },
     {
       "name": "blank"
     },
     {
       "name": "animatedgif",
-      "args": { "file": "floor/panto/castle.gif" }
+      "args": { "file": "floor/panto/castle_darker.gif" }
     },
     {
       "name": "blank"
     },
     {
       "name": "animatedgif",
-      "args": { "file": "floor/panto/castle.gif" }
+      "args": { "file": "floor/panto/castle_darker.gif" }
     },
     {
       "name": "blank"
@@ -115,21 +115,21 @@
     },
     {
       "name": "animatedgif",
-      "args": { "file": "floor/panto/castle.gif" }
+      "args": { "file": "floor/panto/castle_darker.gif" }
     },
     {
       "name": "blank"
     },
     {
       "name": "animatedgif",
-      "args": { "file": "floor/panto/castle.gif" }
+      "args": { "file": "floor/panto/castle_darker.gif" }
     },
     {
       "name": "blank"
     },
     {
       "name": "pmimage",
-      "args": { "file": "floor/panto/PANTOS.png" }
+      "args": { "file": "floor/panto/pantos.png" }
     },
     {
       "name": "blank"
