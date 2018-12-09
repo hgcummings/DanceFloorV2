@@ -1,6 +1,40 @@
 {
   "queue": [
     {
+      "name": "ticker"
+    },
+    {
+      "name": "blank"
+    },
+    {
+      "name": "animatedgif",
+      "args": { "file": "floor/panto/climb.gif" }
+    },
+    {
+      "name": "blank"
+    },
+    {
+      "name": "animatedgif",
+      "args": { "file": "floor/panto/castle.gif" }
+    },
+    {
+      "name": "blank"
+    },
+    {
+      "name": "animatedgif",
+      "args": { "file": "floor/panto/castle.gif" }
+    },
+    {
+      "name": "blank"
+    },
+    {
+      "name": "animatedgif",
+      "args": { "file": "floor/panto/castle.gif" }
+    },
+    {
+      "name": "blank"
+    },
+    {
       "name": "pantocounter",
       "args": { "delay": 65536, "multiplier": 1, "reset": true }
     },
@@ -49,6 +83,10 @@
       "args": { "delay": 1, "multiplier": 111111 }
     },
     {
+      "name": "animatedgif",
+      "args": { "file": "floor/panto/pinball_knights.gif" }
+    },
+    {
       "name": "pantocounter",
       "args": { "delay": 1, "multiplier": 1111111 }
     },
@@ -65,8 +103,64 @@
       "args": { "delay": 1, "multiplier": 1111111111 }
     },
     {
+      "name": "animatedgif",
+      "args": { "file": "floor/panto/pinball_multiball.gif" }
+    },
+    {
       "name": "pantocounter",
       "args": { "delay": 1, "multiplier": 11111111111 }
+    },
+    {
+      "name": "blank"
+    },
+    {
+      "name": "animatedgif",
+      "args": { "file": "floor/panto/castle.gif" }
+    },
+    {
+      "name": "blank"
+    },
+    {
+      "name": "animatedgif",
+      "args": { "file": "floor/panto/castle.gif" }
+    },
+    {
+      "name": "blank"
+    },
+    {
+      "name": "pmimage",
+      "args": { "file": "floor/panto/PANTOS.png" }
+    },
+    {
+      "name": "blank"
+    },
+    {
+      "name": "animatedgif",
+      "args": { "file": "floor/panto/bluescreen_kitty.gif" }
+    },
+    {
+      "name": "blank"
+    },
+    {
+      "name": "animatedgif",
+      "args": { "file": "floor/panto/matrix_extended_clean.gif" }
+    },
+    {
+      "name": "blank"
+    },
+    {
+      "name": "animatedgif",
+      "args": { "file": "floor/panto/castle_window_reveal.gif" }
+    },
+    {
+      "name": "blank"
+    },
+    {
+      "name": "animatedgif",
+      "args": { "file": "floor/panto/castle_window_exit.gif" }
+    },
+    {
+      "name": "blank"
     }
   ]
 }
