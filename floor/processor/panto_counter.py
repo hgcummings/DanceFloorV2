@@ -5,7 +5,7 @@ from datetime import datetime
 logger = logging.getLogger('counter')
 SCORE = 0L
 
-class Counter(Base):
+class PantoCounter(Base):
     """ Processor that shows a pinball-like score counter
 
         """
@@ -17,7 +17,7 @@ class Counter(Base):
 
     def __init__(self, **kwargs):
         global SCORE
-        super(Counter, self).__init__(**kwargs)
+        super(PantoCounter, self).__init__(**kwargs)
 
         logger.info(kwargs)
         self.delay = kwargs.get('delay')
