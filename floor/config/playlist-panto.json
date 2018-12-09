@@ -132,9 +132,6 @@
       "args": { "file": "floor/panto/pantos.png" }
     },
     {
-      "name": "blank"
-    },
-    {
       "name": "animatedgif",
       "args": { "file": "floor/panto/bluescreen_kitty.gif" }
     },
@@ -151,9 +148,6 @@
     {
       "name": "animatedgif",
       "args": { "file": "floor/panto/castle_window_reveal.gif" }
-    },
-    {
-      "name": "blank"
     },
     {
       "name": "animatedgif",
