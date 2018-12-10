@@ -129,6 +129,10 @@
     },
     {
       "name": "pmimage",
+      "args": { "file": "floor/panto/star_b0rked.png" }
+    },
+    {
+      "name": "pmimage",
       "args": { "file": "floor/panto/pantos.png" }
     },
     {
