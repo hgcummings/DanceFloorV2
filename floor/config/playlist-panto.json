@@ -43,6 +43,10 @@
       "args": { "file": "floor/panto/memebot_url.gif" }
     },
     {
+      "name": "animatedgif",
+      "args": { "file": "floor/panto/castle_darker.gif" }
+    },
+    {
       "name": "blank"
     },
     {
