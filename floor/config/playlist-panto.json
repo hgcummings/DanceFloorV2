@@ -8,7 +8,14 @@
     },
     {
       "name": "animatedgif",
-      "args": { "file": "floor/panto/climb.gif" }
+      "args": { "file": "floor/panto/beanstalk_climb.gif" }
+    },
+    {
+      "name": "blank"
+    },
+    {
+      "name": "animatedgif",
+      "args": { "file": "floor/panto/the_more_you_know.gif" }
     },
     {
       "name": "blank"
@@ -22,7 +29,18 @@
     },
     {
       "name": "animatedgif",
+      "args": { "file": "floor/panto/beanstalk_descent.gif" }
+    },
+    {
+      "name": "blank"
+    },
+    {
+      "name": "animatedgif",
       "args": { "file": "floor/panto/castle_darker.gif" }
+    },
+    {
+      "name": "animatedgif",
+      "args": { "file": "floor/panto/memebot_url.gif" }
     },
     {
       "name": "blank"
@@ -128,16 +146,20 @@
       "name": "blank"
     },
     {
-      "name": "pmimage",
-      "args": { "file": "floor/panto/star_b0rked.png" }
-    },
-    {
-      "name": "pmimage",
-      "args": { "file": "floor/panto/pantos.png" }
+      "name": "animatedgif",
+      "args": { "file": "floor/panto/noise_03.gif" }
     },
     {
       "name": "animatedgif",
-      "args": { "file": "floor/panto/bluescreen_kitty.gif" }
+      "args": { "file": "floor/panto/star_b0rked.gif" }
+    },
+    {
+      "name": "animatedgif",
+      "args": { "file": "floor/panto/noise_02.gif" }
+    },
+    {
+      "name": "animatedgif",
+      "args": { "file": "floor/panto/pantos.gif" }
     },
     {
       "name": "blank"
@@ -145,6 +167,13 @@
     {
       "name": "animatedgif",
       "args": { "file": "floor/panto/matrix_extended_clean.gif" }
+    },
+    {
+      "name": "blank"
+    },
+    {
+      "name": "animatedgif",
+      "args": { "file": "floor/panto/venyan_bus.gif" }
     },
     {
       "name": "blank"
