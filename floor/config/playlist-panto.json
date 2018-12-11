@@ -177,7 +177,7 @@
     },
     {
       "name": "animatedgif",
-      "args": { "file": "floor/panto/venyan_bus.gif" }
+      "args": { "file": "floor/panto/venyan_bus_cropped.gif" }
     },
     {
       "name": "blank"
