@@ -35,14 +35,6 @@
     <div class="col-md-9">
       <h2>Control Panel</h2>
       <div id="playlist">
-        <div class="col-md-6">
-          <h3>Current item:</h3>
-          <pre id="current-item"></pre>
-        </div>
-        <div class="col-md-6">
-          <h3>Next item:</h3>
-          <pre id="next-item"></pre>
-        </div>
         <div class="btn-group btn-group-justified" role="group" aria-label="...">
           <div class="btn-group" role="group">
             <button class="btn btn-default btn-block playlist-button" id="previous-button">
@@ -70,7 +62,16 @@
           </button>
         </div>
       </div>
-
+      <div class="row">
+        <div class="col-md-6">
+            <h4>Current item:</h4>
+            <pre id="current-item"></pre>
+        </div>
+        <div class="col-md-6">
+          <h4>Next item:</h4>
+          <pre id="next-item"></pre>
+        </div>
+      </div>
       <hr/>
       <h4>Advanced Disco Zone <span class="glyphicon glyphicon-fire" aria-hidden="true"></span></h4>
 
