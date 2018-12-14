@@ -1,7 +1,19 @@
 {
   "queue": [
     {
-      "name": "ticker"
+      "name": "animatedgif",
+      "args": { "file": "floor/panto/get_hyped.gif" }
+    },
+    {
+      "name": "blank"
+    },
+    {
+      "name": "animatedgif",
+      "args": { "file": "floor/panto/glow_start.gif" }
+    },
+    {
+      "name": "animatedgif",
+      "args": { "file": "floor/panto/glow_loop.gif" }
     },
     {
       "name": "blank"
@@ -176,6 +188,13 @@
     {
       "name": "animatedgif",
       "args": { "file": "floor/panto/castle_window_exit.gif" }
+    },
+    {
+      "name": "blank"
+    },
+    {
+      "name": "animatedgif",
+      "args": { "file": "floor/panto/christmas.gif" }
     },
     {
       "name": "blank"
