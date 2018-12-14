@@ -35,6 +35,14 @@
     <div class="col-md-9">
       <h2>Control Panel</h2>
       <div id="playlist">
+        <div class="col-md-6">
+          <h3>Current item:</h3>
+          <pre id="current-item"></pre>
+        </div>
+        <div class="col-md-6">
+          <h3>Next item:</h3>
+          <pre id="next-item"></pre>
+        </div>
         <div class="btn-group btn-group-justified" role="group" aria-label="...">
           <div class="btn-group" role="group">
             <button class="btn btn-default btn-block playlist-button" id="previous-button">
@@ -186,6 +194,11 @@
 
     playlistDiv.innerHTML = '';
     playlistDiv.appendChild(listGroup);
+
+    document.getElementById('current-item').innerText =
+      JSON.stringify(playlist.queue[playlist.current_position], null, 2);
+    document.getElementById('next-item').innerText =
+      JSON.stringify(playlist.queue[playlist.current_position+1], null, 2);
   }
 
   function handleError(error) {
