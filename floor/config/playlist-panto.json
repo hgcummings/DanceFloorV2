@@ -124,6 +124,13 @@
     },
     {
       "name": "animatedgif",
+      "args": { "file": "floor/panto/village.gif" }
+    },
+    {
+      "name": "blank"
+    },
+    {
+      "name": "animatedgif",
       "args": { "file": "floor/panto/castle_darker.gif" }
     },
     {
