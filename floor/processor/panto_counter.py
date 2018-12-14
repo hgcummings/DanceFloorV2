@@ -22,6 +22,7 @@ class PantoCounter(Base):
         logger.info(kwargs)
         self.delay = kwargs.get('delay')
         self.multiplier = kwargs.get('multiplier')
+        self.pips = kwargs.get('pips', 0)
         self.count = self.delay
 
         font_module = importlib.import_module("processor.fonts.{}".format(self.DEFAULT_FONT))
@@ -79,6 +80,16 @@ class PantoCounter(Base):
                 'top': self.font.height() * 2,
                 'colour': (64,255,0),
                 'left': (self.FLOOR_WIDTH - len(pixels[0])) / 2
+            })
+
+        if self.pips > 0:
+            pixels = self.generate_text_pixels('.' * self.pips)
+            items.append({
+                'colour': (32,0,0),
+                'pixels': pixels,
+                'scale': 1,
+                'top': self.FLOOR_HEIGHT - len(pixels) - 1,
+                'left': 1
             })
 
         return self.compose_frame(items)

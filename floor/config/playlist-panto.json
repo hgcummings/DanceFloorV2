@@ -62,47 +62,23 @@
     },
     {
       "name": "pantocounter",
-      "args": { "delay": 32, "multiplier": 1, "reset": true }
+      "args": { "delay": 1, "multiplier": 1, "pips": 4 }
     },
     {
       "name": "pantocounter",
-      "args": { "delay": 16, "multiplier": 1 }
+      "args": { "delay": 1, "multiplier": 11, "pips": 3 }
     },
     {
       "name": "pantocounter",
-      "args": { "delay": 8, "multiplier": 1 }
+      "args": { "delay": 1, "multiplier": 111, "pips": 2 }
     },
     {
       "name": "pantocounter",
-      "args": { "delay": 4, "multiplier": 1 }
+      "args": { "delay": 1, "multiplier": 1111, "pips": 1 }
     },
     {
       "name": "pantocounter",
-      "args": { "delay": 2, "multiplier": 1 }
-    },
-    {
-      "name": "pantocounter",
-      "args": { "delay": 1, "multiplier": 1 }
-    },
-    {
-      "name": "pantocounter",
-      "args": { "delay": 1, "multiplier": 11 }
-    },
-    {
-      "name": "pantocounter",
-      "args": { "delay": 1, "multiplier": 111 }
-    },
-    {
-      "name": "pantocounter",
-      "args": { "delay": 1, "multiplier": 1111 }
-    },
-    {
-      "name": "pantocounter",
-      "args": { "delay": 1, "multiplier": 11111 }
-    },
-    {
-      "name": "pantocounter",
-      "args": { "delay": 1, "multiplier": 111111 }
+      "args": { "delay": 1, "multiplier": 11111, "pips": 0 }
     },
     {
       "name": "animatedgif",
@@ -110,19 +86,23 @@
     },
     {
       "name": "pantocounter",
-      "args": { "delay": 1, "multiplier": 1111111 }
+      "args": { "delay": 1, "multiplier": 111111, "pips": 4 }
     },
     {
       "name": "pantocounter",
-      "args": { "delay": 1, "multiplier": 11111111 }
+      "args": { "delay": 1, "multiplier": 1111111, "pips": 3 }
     },
     {
       "name": "pantocounter",
-      "args": { "delay": 1, "multiplier": 111111111 }
+      "args": { "delay": 1, "multiplier": 11111111, "pips": 2 }
     },
     {
       "name": "pantocounter",
-      "args": { "delay": 1, "multiplier": 1111111111 }
+      "args": { "delay": 1, "multiplier": 111111111, "pips": 1 }
+    },
+    {
+      "name": "pantocounter",
+      "args": { "delay": 1, "multiplier": 1111111111, "pips": 0 }
     },
     {
       "name": "animatedgif",
