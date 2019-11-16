@@ -27,10 +27,20 @@ class Flight(Base):
         
         pygame.event.pump()
         
-        transformed = pygame.transform.rotate(self.surface, -30 * round(self.joystick.get_axis(0), 2))
-        pixels = pygame.PixelArray(transformed.subsurface(pygame.Rect(
-            (transformed.get_width() / 2) - self.FLOOR_WIDTH / 2,
-            (transformed.get_height() / 2) - 6 - self.FLOOR_HEIGHT / 2,
+        surface = self.surface
+
+        offset_y = round(12 * self.joystick.get_axis(1)) + 6
+
+        # pygame.transform uses the top-left pixel as the fill colour when rotating, but if
+        # the horizon is high, we want to use the ground colour as the fill, so flip before
+        # rotating to make the top-left pixel a ground pixel (and flip back afterwards)
+        surface = pygame.transform.flip(surface, offset_y < 0, offset_y < 0)
+        surface = pygame.transform.rotate(surface, - 30 * round(self.joystick.get_axis(0), 2))
+        surface = pygame.transform.flip(surface, offset_y < 0, offset_y < 0)
+
+        pixels = pygame.PixelArray(surface.subsurface(pygame.Rect(
+            (surface.get_width() / 2) - self.FLOOR_WIDTH / 2,
+            (surface.get_height() / 2) - offset_y - self.FLOOR_HEIGHT / 2,
             self.FLOOR_WIDTH,
             self.FLOOR_HEIGHT)))
 
