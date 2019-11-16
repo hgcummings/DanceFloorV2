@@ -29,7 +29,7 @@ class Flight(Base):
         
         surface = self.surface
 
-        offset_y = round(12 * self.joystick.get_axis(1)) + 6
+        offset_y = round(self.FLOOR_HEIGHT / 3 * self.joystick.get_axis(1)) + self.FLOOR_HEIGHT / 6
 
         # pygame.transform uses the top-left pixel as the fill colour when rotating, but if
         # the horizon is high, we want to use the ground colour as the fill, so flip before
