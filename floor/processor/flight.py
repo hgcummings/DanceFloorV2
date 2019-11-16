@@ -4,25 +4,26 @@ import logging
 import time
 logger = logging.getLogger('flight')
 
+# See https://github.com/PyCQA/pylint/issues/2144
+# pylint: disable=too-many-function-args
+
 class Flight(Base):
     def __init__(self, **kwargs):
         super(Flight, self).__init__(**kwargs)
         logger.debug('__init__')
-        # Set up any instance variables
-        self.brightness = 255
 
     def initialise_processor(self):
         self.surface = pygame.Surface((self.FLOOR_WIDTH * 2, self.FLOOR_HEIGHT * 2))
-        pygame.init()
+        pygame.init() # pylint: disable=no-member
         pygame.joystick.init()
         self.joystick = pygame.joystick.Joystick(0)
         self.joystick.init()
 
     def get_next_frame(self, weights):
-        pygame.draw.rect(self.surface, (64, 64, 0),
+        pygame.draw.rect(self.surface, (32, 32, 0),
             pygame.Rect(0, 0, self.surface.get_width(), self.surface.get_height()))
 
-        pygame.draw.rect(self.surface, (0, 64, 255),
+        pygame.draw.rect(self.surface, (0, 32, 128),
             pygame.Rect(0, 0, self.surface.get_width(), self.surface.get_height() / 2))
         
         pygame.event.pump()
