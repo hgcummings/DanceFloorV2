@@ -1,7 +1,16 @@
 {
   "queue": [
     {
-      "name": "flight"
+      "name": "flight",
+      "args": {
+        "scene": "clouds"
+      }
+    },
+    {
+      "name": "flight",
+      "args": {
+        "scene": "orchard"
+      }
     }
   ]
 }
