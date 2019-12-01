@@ -3,6 +3,12 @@
     {
       "name": "flight",
       "args": {
+        "scene": "arch"
+      }
+    },
+    {
+      "name": "flight",
+      "args": {
         "scene": "clouds"
       }
     },
