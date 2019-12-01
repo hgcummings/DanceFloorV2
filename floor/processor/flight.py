@@ -26,9 +26,11 @@ class Flight(Base):
         
         surface = self.surface
 
+        surface.fill(pygame.Color('black'))
         pygame.draw.line(surface, pygame.Color('white'), (0, 36), (144, 36), 1)
 
-        self.orchard.Draw(surface)
+        self.orchard.update()
+        self.orchard.draw(surface)
 
         offset_y = round(self.FLOOR_HEIGHT / 3 * self.joystick.get_axis(1)) + self.FLOOR_HEIGHT / 6
 
