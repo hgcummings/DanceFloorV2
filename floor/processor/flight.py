@@ -22,6 +22,7 @@ class Flight(Base):
 
         self.orchard = Orchard([self.FLOOR_WIDTH * 2, self.FLOOR_HEIGHT * 2])
         self.clouds = Clouds([self.FLOOR_WIDTH * 2, self.FLOOR_HEIGHT * 2])
+        self.orchard.set_active(True)
 
     def get_next_frame(self, weights):
         pygame.event.pump()
@@ -33,6 +34,8 @@ class Flight(Base):
 
         self.clouds.update()
         self.clouds.draw(surface)
+        self.orchard.update()
+        self.orchard.draw(surface)
 
         offset_y = round(self.FLOOR_HEIGHT / 3 * self.joystick.get_axis(1)) + self.FLOOR_HEIGHT / 6
 
