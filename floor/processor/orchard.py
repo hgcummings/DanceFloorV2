@@ -20,7 +20,6 @@ class Orchard:
         self.tree_small_spawn_timer = random.randint(tree_small_spawn_timer_low, tree_small_spawn_timer_high)
 
     def update(self):
-        print "Big tree spawn timer: " + str(self.tree_big_spawn_timer)
         self.trees_big.update()
         self.trees_small.update()
 
