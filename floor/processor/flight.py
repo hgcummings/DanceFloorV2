@@ -1,8 +1,8 @@
 from base import Base
 import pygame
 import logging
-from orchard import Orchard
-from clouds import Clouds
+from Panto2019.orchard import Orchard
+from Panto2019.clouds import Clouds
 logger = logging.getLogger('flight')
 
 # See https://github.com/PyCQA/pylint/issues/2144
