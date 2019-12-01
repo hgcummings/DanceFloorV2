@@ -2,6 +2,7 @@ from base import Base
 import pygame
 import logging
 import time
+from orchard import Orchard
 logger = logging.getLogger('flight')
 
 # See https://github.com/PyCQA/pylint/issues/2144
@@ -18,17 +19,16 @@ class Flight(Base):
         pygame.joystick.init()
         self.joystick = pygame.joystick.Joystick(0)
         self.joystick.init()
+        self.orchard = Orchard([self.FLOOR_WIDTH * 2, self.FLOOR_HEIGHT * 2])
 
     def get_next_frame(self, weights):
-        pygame.draw.rect(self.surface, (32, 32, 0),
-            pygame.Rect(0, 0, self.surface.get_width(), self.surface.get_height()))
-
-        pygame.draw.rect(self.surface, (0, 32, 128),
-            pygame.Rect(0, 0, self.surface.get_width(), self.surface.get_height() / 2))
-        
         pygame.event.pump()
         
         surface = self.surface
+
+        pygame.draw.line(surface, pygame.Color('white'), (0, 36), (144, 36), 1)
+
+        self.orchard.Draw(surface)
 
         offset_y = round(self.FLOOR_HEIGHT / 3 * self.joystick.get_axis(1)) + self.FLOOR_HEIGHT / 6
 
