@@ -17,6 +17,12 @@
       "args": {
         "scene": "orchard"
       }
+    },
+    {
+      "name": "flight",
+      "args": {
+        "scene": "desert"
+      }
     }
   ]
 }
