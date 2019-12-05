@@ -1,7 +1,7 @@
 import perspective
 
 horizon_level = 32
-desert_spawn_range = [20, 40]
+desert_spawn_range = [15, 30]
 
 
 class Desert(perspective.Perspective):

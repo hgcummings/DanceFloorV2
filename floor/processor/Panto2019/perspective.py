@@ -5,6 +5,7 @@ import random
 random.seed(4)
 
 base_speed = 1
+max_scale = 1
 
 
 class Perspective(object):
@@ -28,7 +29,7 @@ class Perspective(object):
             self.spawn_timer -= 1
             if self.spawn_timer <= 0:
                 angle = random.uniform(0, math.pi)
-                new_sprite = PerspectiveSprite(self.screen_size, self.horizon_level, angle, "floor/processor/images/Panto2019/Desert/Rock_S.png")
+                new_sprite = PerspectiveSprite(self.screen_size, self.horizon_level, angle, "floor/processor/images/Panto2019/Desert/Rock_M.png")
                 self.sprite_group.add(new_sprite)
                 self.spawn_timer = random.randint(self.spawn_delay_range[0], self.spawn_delay_range[1])
 
@@ -42,8 +43,16 @@ class PerspectiveSprite(pg.sprite.Sprite):
         super(PerspectiveSprite, self).__init__()
 
         self.screen_size = screen_size
-        self.image = pg.image.load(sprite_file)
-        self.rect = self.image.get_rect()
+        self.horizon_level = horizon_level
+        self.horizon_height = self.screen_size[1] - self.horizon_level
+
+        self.scale = 0
+
+        self.source_image = pg.image.load(sprite_file)
+        self.source_size = self.source_image.get_size()
+        self.image = pg.transform.scale(self.source_image, (int(self.source_size[0] * self.scale), int(self.source_size[1] * self.scale)))
+
+        self.rect = self.source_image.get_rect()
         self.rect.x = screen_size[0] / 2
         self.rect.y = horizon_level
 
@@ -52,8 +61,15 @@ class PerspectiveSprite(pg.sprite.Sprite):
 
         self.h_movement_partial = 0
         self.v_movement_partial = 0
+        self.distance_travelled = 0
 
     def update(self):
+        self.scale = max_scale * (self.distance_travelled / float(self.horizon_height))
+
+        # print "Scale: " + str(max_scale) + " * " + str(distance_travelled) + " / " + str(self.horizon_height) + " = " + str(self.scale)
+
+        self.image = pg.transform.scale(self.source_image, (int(math.ceil(self.source_size[0] * self.scale)), int(math.ceil(self.source_size[1] * self.scale))))
+
         self.h_movement_partial += self.h_speed
         if abs(self.h_movement_partial) >= 1:
             self.rect.x += int(self.h_movement_partial)
@@ -63,6 +79,8 @@ class PerspectiveSprite(pg.sprite.Sprite):
         if abs(self.v_movement_partial) >= 1:
             self.rect.y += int(self.v_movement_partial)
             self.v_movement_partial = 0
+
+        self.distance_travelled += base_speed
 
         if self.rect.x < 0 or self.rect.x > self.screen_size[0] or self.rect.y > self.screen_size[1]:
             self.kill()
