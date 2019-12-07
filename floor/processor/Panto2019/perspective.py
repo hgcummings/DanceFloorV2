@@ -7,6 +7,9 @@ random.seed(4)
 base_speed = 1
 max_scale = 1
 
+pi = math.pi
+spawn_angles = [0, pi/6, pi/4, 3*pi/4, 5*pi/6, pi]
+
 
 class Perspective(object):
     def __init__(self, screen_size, horizon_level, spawn_delay_range):
@@ -28,7 +31,7 @@ class Perspective(object):
         if self.is_active:
             self.spawn_timer -= 1
             if self.spawn_timer <= 0:
-                angle = random.uniform(0, math.pi)
+                angle = random.choice(spawn_angles)
                 new_sprite = PerspectiveSprite(self.screen_size, self.horizon_level, angle, "floor/processor/images/Panto2019/Desert/Rock_M.png")
                 self.sprite_group.add(new_sprite)
                 self.spawn_timer = random.randint(self.spawn_delay_range[0], self.spawn_delay_range[1])
