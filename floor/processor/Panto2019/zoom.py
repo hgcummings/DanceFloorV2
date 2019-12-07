@@ -14,19 +14,15 @@ class Zoom(object):
 
         self.sprite_group = pg.sprite.Group()
 
-        self.spawn_timer = default_spawn_delay
-
     def update(self):
         self.sprite_group.update()
 
-        self.spawn_timer -= 1
-        if self.spawn_timer <= 0:
-            new_sprite = ZoomSprite((self.screen_size[0] / 2, self.horizon_level), self.sprite_filename)
-            self.sprite_group.add(new_sprite)
-            self.spawn_timer = default_spawn_delay
-
     def draw(self, surface):
         self.sprite_group.draw(surface)
+
+    def spawn(self):
+        new_sprite = ZoomSprite((self.screen_size[0] / 2, self.horizon_level), self.sprite_filename)
+        self.sprite_group.add(new_sprite)
 
 
 class ZoomSprite(pg.sprite.Sprite):

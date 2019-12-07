@@ -22,3 +22,6 @@ class Desert(object):
 
     def set_active(self, active):
         self.perspective_layer.set_active(active)
+
+    def spawn_arch(self):
+        self.arch.spawn()
