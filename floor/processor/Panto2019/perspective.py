@@ -8,14 +8,42 @@ base_speed = 1
 max_scale = 1
 
 pi = math.pi
-spawn_angles = [0, pi/6, pi/4, 3*pi/4, 5*pi/6, pi]
+spawn_angles = [0, pi/8, pi/4, 3*pi/4, 7*pi/8, pi]
+
+
+class PerspectiveCreationModel(object):
+    def __init__(self, spawn_delay_range, sprite_filename):
+        self.spawn_delay_range = spawn_delay_range
+        self.sprite_filename = sprite_filename
 
 
 class Perspective(object):
-    def __init__(self, screen_size, horizon_level, spawn_delay_range):
+    def __init__(self, screen_size, horizon_level, perspective_creation_models):
+        self.perspective_groups = []
+
+        for creation_model in perspective_creation_models:
+            self.perspective_groups.append(PerspectiveGroup(screen_size, horizon_level, creation_model.spawn_delay_range, creation_model.sprite_filename))
+
+    def set_active(self, active):
+        for perspective_group in self.perspective_groups:
+            perspective_group.set_active(active)
+
+    def update(self):
+        for perspective_group in self.perspective_groups:
+            perspective_group.update()
+
+    def draw(self, surface):
+        for perspective_group in self.perspective_groups:
+            perspective_group.draw(surface)
+
+
+class PerspectiveGroup(object):
+    def __init__(self, screen_size, horizon_level, spawn_delay_range, sprite_filename):
         self.screen_size = screen_size
         self.horizon_level = horizon_level
         self.spawn_delay_range = spawn_delay_range
+
+        self.sprite_filename = sprite_filename
 
         self.sprite_group = pg.sprite.Group()
 
@@ -32,7 +60,7 @@ class Perspective(object):
             self.spawn_timer -= 1
             if self.spawn_timer <= 0:
                 angle = random.choice(spawn_angles)
-                new_sprite = PerspectiveSprite(self.screen_size, self.horizon_level, angle, "floor/processor/images/Panto2019/Desert/Rock_M.png")
+                new_sprite = PerspectiveSprite(self.screen_size, self.horizon_level, angle, self.sprite_filename)
                 self.sprite_group.add(new_sprite)
                 self.spawn_timer = random.randint(self.spawn_delay_range[0], self.spawn_delay_range[1])
 
