@@ -89,7 +89,6 @@ class PerspectiveSprite(pg.sprite.Sprite):
 
         self.rect = self.source_image.get_rect(center=(screen_size[0] / 2,horizon_level))
 
-        self.should_scale_at_centre = angle == 0 or angle == pi
         self.h_speed = base_speed * math.cos(angle)
         self.v_speed = base_speed * math.sin(angle)
 
