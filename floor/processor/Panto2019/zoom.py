@@ -3,6 +3,7 @@ import math
 
 max_scale = 10
 default_spawn_delay = 200
+speed_increment = 0.0001
 
 
 class Zoom(object):
@@ -36,7 +37,7 @@ class ZoomSprite(pg.sprite.Sprite):
         self.zoom_centre = zoom_centre
 
         self.scale = 0
-        self.zoom_speed = 0.01
+        self.zoom_speed = speed_increment
 
         self.source_image = pg.image.load(sprite_filename)
         self.source_size = self.source_image.get_size()
@@ -44,9 +45,11 @@ class ZoomSprite(pg.sprite.Sprite):
 
         self.rect = self.source_image.get_rect(center=zoom_centre)
 
+        self.v_speed = self.zoom_speed
+        self.v_movement_partial = 0
+
     def update(self):
         self.scale += self.zoom_speed
-        self.zoom_speed += 0.01
 
         if self.scale > max_scale:
             self.kill()
@@ -54,4 +57,11 @@ class ZoomSprite(pg.sprite.Sprite):
         self.image = pg.transform.scale(self.source_image, (int(math.ceil(self.source_size[0] * self.scale)), int(math.ceil(self.source_size[1] * self.scale))))
         self.rect = self.image.get_rect(center=self.rect.center)
 
+        # Move up a little to prevent lingering zoom in shot
+        self.v_movement_partial += self.v_speed
+        if abs(self.v_movement_partial) >= 1:
+            self.rect.y -= int(self.v_movement_partial)
+            self.v_movement_partial = 0
 
+        self.zoom_speed += speed_increment * 2
+        self.v_speed = self.zoom_speed * 5

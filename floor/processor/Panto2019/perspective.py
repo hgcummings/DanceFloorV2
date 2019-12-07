@@ -3,11 +3,10 @@ import math
 import random
 
 random.seed(4)
-
-base_speed = 1
-max_scale = 1
-
 pi = math.pi
+
+max_scale = 1
+speed_increment = 0.02
 spawn_angles = [0, pi/8, pi/4, 3*pi/4, 7*pi/8, pi]
 
 
@@ -77,20 +76,25 @@ class PerspectiveSprite(pg.sprite.Sprite):
     def __init__(self, screen_size, horizon_level, angle, sprite_file):
         super(PerspectiveSprite, self).__init__()
 
+        # Screen dimensions
         self.screen_size = screen_size
         self.horizon_level = horizon_level
         self.horizon_height = self.screen_size[1] - self.horizon_level
 
-        self.scale = 0
+        # Sprite stuff
 
+        self.scale = 0
         self.source_image = pg.image.load(sprite_file)
         self.source_size = self.source_image.get_size()
         self.image = pg.transform.scale(self.source_image, (int(self.source_size[0] * self.scale), int(self.source_size[1] * self.scale)))
 
         self.rect = self.source_image.get_rect(center=(screen_size[0] / 2,horizon_level))
 
-        self.h_speed = base_speed * math.cos(angle)
-        self.v_speed = base_speed * math.sin(angle)
+        # Movement
+        self.angle = angle
+        self.base_speed = speed_increment
+        self.h_speed = self.base_speed * math.cos(angle)
+        self.v_speed = self.base_speed * math.sin(angle)
 
         self.h_movement_partial = 0
         self.v_movement_partial = 0
@@ -98,8 +102,6 @@ class PerspectiveSprite(pg.sprite.Sprite):
 
     def update(self):
         self.scale = max_scale * (self.distance_travelled / float(self.horizon_height))
-
-        # print "Scale: " + str(max_scale) + " * " + str(distance_travelled) + " / " + str(self.horizon_height) + " = " + str(self.scale)
 
         self.image = pg.transform.scale(self.source_image, (int(math.ceil(self.source_size[0] * self.scale)), int(math.ceil(self.source_size[1] * self.scale))))
         self.rect = self.image.get_rect(center=self.rect.center)
@@ -114,7 +116,11 @@ class PerspectiveSprite(pg.sprite.Sprite):
             self.rect.y += int(self.v_movement_partial)
             self.v_movement_partial = 0
 
-        self.distance_travelled += base_speed
+        self.distance_travelled += self.base_speed
+
+        self.base_speed += speed_increment
+        self.h_speed = self.base_speed * math.cos(self.angle)
+        self.v_speed = self.base_speed * math.sin(self.angle)
 
         if self.rect.x < 0 or self.rect.x > self.screen_size[0] or self.rect.y > self.screen_size[1]:
             self.kill()
