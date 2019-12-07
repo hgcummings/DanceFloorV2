@@ -9,6 +9,12 @@
     {
       "name": "flight",
       "args": {
+        "scene": "transition_to_sky"
+      }
+    },
+    {
+      "name": "flight",
+      "args": {
         "scene": "clouds"
       }
     },
