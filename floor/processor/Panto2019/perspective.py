@@ -38,6 +38,10 @@ class Perspective(object):
 
     def draw(self, surface):
         pg.draw.line(surface, pg.Color('white'), (0, self.horizon_level), (self.screen_size[0], self.horizon_level), 1)
+
+        for sprite in self.sprite_group:
+            sprite.draw_pixel(surface)
+
         self.sprite_group.draw(surface)
 
 
@@ -87,3 +91,7 @@ class PerspectiveSprite(pg.sprite.Sprite):
 
         if self.rect.x < 0 or self.rect.x > self.screen_size[0] or self.rect.y > self.screen_size[1]:
             self.kill()
+
+    # draw a single pixel under the sprite, to make sure the object is always visible (when sprite scale is < 1 pixel)
+    def draw_pixel(self, surface):
+        surface.set_at(self.rect.center, pg.Color('white'))
