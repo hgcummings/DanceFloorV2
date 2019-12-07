@@ -5,9 +5,8 @@ import random
 random.seed(4)
 pi = math.pi
 
-max_scale = 1
-speed_increment = 0.02
-spawn_angles = [0, pi/8, pi/4, 3*pi/4, 7*pi/8, pi]
+max_scale = 2
+base_speed = 0.1
 
 
 class PerspectiveCreationModel(object):
@@ -44,6 +43,13 @@ class PerspectiveGroup(object):
 
         self.sprite_filename = sprite_filename
 
+        self.spawn_points = [(-10, horizon_level),
+                             (-10, screen_size[1] + 10),
+                             (screen_size[0] / 4, screen_size[1] + 10),
+                             (3 * screen_size[0] / 4, screen_size[1] + 10),
+                             (screen_size[0] + 10, screen_size[1] + 10),
+                             (screen_size[0] + 10, horizon_level)]
+
         self.sprite_group = pg.sprite.Group()
 
         self.spawn_timer = random.randint(self.spawn_delay_range[0], self.spawn_delay_range[1])
@@ -58,8 +64,8 @@ class PerspectiveGroup(object):
         if self.is_active:
             self.spawn_timer -= 1
             if self.spawn_timer <= 0:
-                angle = random.choice(spawn_angles)
-                new_sprite = PerspectiveSprite(self.screen_size, self.horizon_level, angle, self.sprite_filename)
+                spawn_point = random.choice(self.spawn_points)
+                new_sprite = PerspectiveSprite(self.screen_size, self.horizon_level, spawn_point, self.sprite_filename)
                 self.sprite_group.add(new_sprite)
                 self.spawn_timer = random.randint(self.spawn_delay_range[0], self.spawn_delay_range[1])
 
@@ -73,39 +79,41 @@ class PerspectiveGroup(object):
 
 
 class PerspectiveSprite(pg.sprite.Sprite):
-    def __init__(self, screen_size, horizon_level, angle, sprite_file):
+    def __init__(self, screen_size, horizon_level, spawn_point, sprite_file):
         super(PerspectiveSprite, self).__init__()
 
-        # Screen dimensions
+        # Scene constants
         self.screen_size = screen_size
         self.horizon_level = horizon_level
-        self.horizon_height = self.screen_size[1] - self.horizon_level
+        self.vanishing_point = (screen_size[0] / 2, horizon_level)
+        self.initial_distance_to_vp = self.distance_to_vp()
 
         # Sprite stuff
+        self.started_on_left = spawn_point[0] < screen_size[0] / 2
 
-        self.scale = 0
+        self.scale = max_scale
         self.source_image = pg.image.load(sprite_file)
         self.source_size = self.source_image.get_size()
         self.image = pg.transform.scale(self.source_image, (int(self.source_size[0] * self.scale), int(self.source_size[1] * self.scale)))
 
-        self.rect = self.source_image.get_rect(center=(screen_size[0] / 2,horizon_level))
+        self.rect = self.source_image.get_rect(center=spawn_point)
 
         # Movement
-        self.angle = angle
-        self.base_speed = speed_increment
-        self.h_speed = self.base_speed * math.cos(angle)
-        self.v_speed = self.base_speed * math.sin(angle)
+        self.h_speed = base_speed * (self.vanishing_point[0] - spawn_point[0])
+        self.v_speed = base_speed * (self.vanishing_point[1] - spawn_point[1])
 
         self.h_movement_partial = 0
         self.v_movement_partial = 0
-        self.distance_travelled = 0
 
     def update(self):
-        self.scale = max_scale * (self.distance_travelled / float(self.horizon_height))
+        # Scale sprite
+        distance_to_vp = self.distance_to_vp()
+        self.scale = max_scale * distance_to_vp / float(self.initial_distance_to_vp)
 
         self.image = pg.transform.scale(self.source_image, (int(math.ceil(self.source_size[0] * self.scale)), int(math.ceil(self.source_size[1] * self.scale))))
         self.rect = self.image.get_rect(center=self.rect.center)
 
+        # Move sprite
         self.h_movement_partial += self.h_speed
         if abs(self.h_movement_partial) >= 1:
             self.rect.x += int(self.h_movement_partial)
@@ -116,15 +124,23 @@ class PerspectiveSprite(pg.sprite.Sprite):
             self.rect.y += int(self.v_movement_partial)
             self.v_movement_partial = 0
 
-        self.distance_travelled += self.base_speed
+        # Update variables
+        self.h_speed = base_speed * (self.vanishing_point[0] - self.rect.center[0])
+        self.v_speed = base_speed * (self.vanishing_point[1] - self.rect.center[1])
 
-        self.base_speed += speed_increment
-        self.h_speed = self.base_speed * math.cos(self.angle)
-        self.v_speed = self.base_speed * math.sin(self.angle)
-
-        if self.rect.x < 0 or self.rect.x > self.screen_size[0] or self.rect.y > self.screen_size[1]:
-            self.kill()
+        # Check end-of-life conditions
+        if self.started_on_left:
+            if self.rect.center[0] > self.screen_size[0] / 2:
+                self.kill()
+        else:
+            if self.rect.center[0] < self.screen_size[0] / 2:
+                self.kill()
 
     # draw a single pixel under the sprite, to make sure the object is always visible (when sprite scale is < 1 pixel)
     def draw_pixel(self, surface):
         surface.set_at(self.rect.center, pg.Color('white'))
+
+    def distance_to_vp(self):
+        dist_x = self.vanishing_point[0] - self.rect.center[0]
+        dist_y = self.vanishing_point[1] - self.rect.center[1]
+        return math.sqrt(dist_x * dist_x + dist_y * dist_y)
