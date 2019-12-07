@@ -14,9 +14,9 @@ class Orchard(parallax.Parallax):
 
 class TreeBig(parallax.ParallaxSprite):
     def __init__(self, screen_size):
-        super(TreeBig, self).__init__(screen_size[0], [12, 17], "floor/processor/images/Panto2019/Tree_big.png", 2)
+        super(TreeBig, self).__init__(screen_size[0], [12, 17], "floor/processor/images/Panto2019/Orchard/Tree_big.png", 2)
 
 
 class TreeSmall(parallax.ParallaxSprite):
     def __init__(self, screen_size):
-        super(TreeSmall, self).__init__(screen_size[0], [22, 25], "floor/processor/images/Panto2019/Tree_small.png", 1)
+        super(TreeSmall, self).__init__(screen_size[0], [22, 25], "floor/processor/images/Panto2019/Orchard/Tree_small.png", 1)
