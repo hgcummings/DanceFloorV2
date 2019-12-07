@@ -55,10 +55,9 @@ class PerspectiveSprite(pg.sprite.Sprite):
         self.source_size = self.source_image.get_size()
         self.image = pg.transform.scale(self.source_image, (int(self.source_size[0] * self.scale), int(self.source_size[1] * self.scale)))
 
-        self.rect = self.source_image.get_rect()
-        self.rect.x = screen_size[0] / 2
-        self.rect.y = horizon_level
+        self.rect = self.source_image.get_rect(center=(screen_size[0] / 2,horizon_level))
 
+        self.should_scale_at_centre = angle == 0 or angle == pi
         self.h_speed = base_speed * math.cos(angle)
         self.v_speed = base_speed * math.sin(angle)
 
@@ -72,6 +71,7 @@ class PerspectiveSprite(pg.sprite.Sprite):
         # print "Scale: " + str(max_scale) + " * " + str(distance_travelled) + " / " + str(self.horizon_height) + " = " + str(self.scale)
 
         self.image = pg.transform.scale(self.source_image, (int(math.ceil(self.source_size[0] * self.scale)), int(math.ceil(self.source_size[1] * self.scale))))
+        self.rect = self.image.get_rect(center=self.rect.center)
 
         self.h_movement_partial += self.h_speed
         if abs(self.h_movement_partial) >= 1:
