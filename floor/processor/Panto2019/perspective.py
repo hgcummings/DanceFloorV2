@@ -86,7 +86,6 @@ class PerspectiveSprite(pg.sprite.Sprite):
         self.screen_size = screen_size
         self.horizon_level = horizon_level
         self.vanishing_point = (screen_size[0] / 2, horizon_level)
-        self.initial_distance_to_vp = self.distance_to_vp()
 
         # Sprite stuff
         self.started_on_left = spawn_point[0] < screen_size[0] / 2
@@ -104,6 +103,8 @@ class PerspectiveSprite(pg.sprite.Sprite):
 
         self.h_movement_partial = 0
         self.v_movement_partial = 0
+
+        self.initial_distance_to_vp = self.distance_to_vp()
 
     def update(self):
         # Scale sprite
