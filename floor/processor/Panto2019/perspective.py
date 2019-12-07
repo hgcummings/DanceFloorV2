@@ -70,7 +70,6 @@ class PerspectiveGroup(object):
                 self.spawn_timer = random.randint(self.spawn_delay_range[0], self.spawn_delay_range[1])
 
     def draw(self, surface):
-        pg.draw.line(surface, pg.Color('white'), (0, self.horizon_level), (self.screen_size[0], self.horizon_level), 1)
 
         for sprite in self.sprite_group:
             sprite.draw_pixel(surface)
