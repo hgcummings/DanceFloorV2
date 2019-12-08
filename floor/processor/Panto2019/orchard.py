@@ -1,15 +1,30 @@
+import pygame as pg
+
+import panto_constants
 import parallax
 
 tree_big_spawn_delay = [10, 25]
 tree_small_spawn_delay = [8, 20]
 
 
-class Orchard(parallax.Parallax):
+class Orchard(object):
     def __init__(self, screen_size):
+        self.screen_size = screen_size
+
         trees_big_layer = parallax.ParallaxLayer(screen_size, TreeBig, tree_big_spawn_delay)
         trees_small_layer = parallax.ParallaxLayer(screen_size, TreeSmall, tree_small_spawn_delay)
+        self.parallax_effect = parallax.Parallax([trees_small_layer, trees_big_layer])
 
-        super(Orchard, self).__init__([trees_small_layer, trees_big_layer])
+    def update(self):
+        self.parallax_effect.update()
+
+    def draw(self, surface):
+        pg.draw.line(surface, pg.Color('white'), (0, panto_constants.horizon_level), (self.screen_size[0], panto_constants.horizon_level), 1)
+
+        self.parallax_effect.draw(surface)
+
+    def set_active(self, active):
+        self.parallax_effect.set_active(active)
 
 
 class TreeBig(parallax.ParallaxSprite):

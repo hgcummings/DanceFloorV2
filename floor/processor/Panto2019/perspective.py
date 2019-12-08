@@ -76,8 +76,6 @@ class PerspectiveGroup(object):
                     sprite.increment_offset()
 
     def draw(self, surface):
-        pg.draw.line(surface, pg.Color('white'), (0, self.horizon_level + self.offset), (self.screen_size[0], self.horizon_level + self.offset), 1)
-
         for sprite in self.sprite_group:
             sprite.draw_pixel(surface)
 
