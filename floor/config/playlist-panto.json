@@ -17,6 +17,13 @@
     {
       "name": "flight",
       "args": {
+        "scene": "flock",
+        "z_index": 2
+      }
+    },
+    {
+      "name": "flight",
+      "args": {
         "scene": "starfield",
         "z_index": -1
       }
