@@ -74,18 +74,28 @@ class ParallaxLayerSingle(object):
 
 
 class ParallaxSprite(pg.sprite.Sprite):
-    def __init__(self, screen_width, range_y, sprite_file, h_speed):
+    def __init__(self, screen_width, range_y, sprite_files, h_speed):
         super(ParallaxSprite, self).__init__()
         y = random.randint(range_y[0], range_y[1])
 
-        self.image = pg.image.load(sprite_file)
+        if (isinstance(sprite_files, basestring)):
+            self.images = [pg.image.load(sprite_files)]
+        else:
+            self.images = [pg.image.load(sprite_file) for sprite_file in sprite_files]
+
+        self.image = self.images[0]
         self.rect = self.image.get_rect()
         self.rect.x = screen_width
         self.rect.y = y
         self.h_speed = h_speed
         self.h_movement_partial = 0
 
+        self.image_index = 0
+
     def update(self):
+        self.image_index = (self.image_index + 1) % len(self.images)
+        self.image = self.images[self.image_index]
+
         self.h_movement_partial += self.h_speed
         if self.h_movement_partial >= 1:
             self.rect.x -= self.h_movement_partial

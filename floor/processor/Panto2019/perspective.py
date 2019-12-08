@@ -22,6 +22,10 @@ class Perspective(object):
         for creation_model in perspective_creation_models:
             self.perspective_groups.append(PerspectiveGroup(screen_size, horizon_level, creation_model.spawn_delay_range, creation_model.sprite_filename))
 
+    def increment_offset(self):
+        for perspective_group in self.perspective_groups:
+            perspective_group.increment_offset()
+
     def set_active(self, active):
         for perspective_group in self.perspective_groups:
             perspective_group.set_active(active)
@@ -54,9 +58,14 @@ class PerspectiveGroup(object):
 
         self.spawn_timer = random.randint(self.spawn_delay_range[0], self.spawn_delay_range[1])
         self.is_active = False
+        self.offset = 0
 
     def set_active(self, active):
         self.is_active = active
+
+    def increment_offset(self):
+        for sprite in self.sprite_group:
+            sprite.increment_offset()
 
     def update(self):
         self.sprite_group.update()
@@ -70,7 +79,6 @@ class PerspectiveGroup(object):
                 self.spawn_timer = random.randint(self.spawn_delay_range[0], self.spawn_delay_range[1])
 
     def draw(self, surface):
-
         for sprite in self.sprite_group:
             sprite.draw_pixel(surface)
 
@@ -85,6 +93,7 @@ class PerspectiveSprite(pg.sprite.Sprite):
         self.screen_size = screen_size
         self.horizon_level = horizon_level
         self.vanishing_point = (screen_size[0] / 2, horizon_level)
+        self.offset = 0
 
         # Sprite stuff
         self.started_on_left = spawn_point[0] < screen_size[0] / 2
@@ -104,6 +113,10 @@ class PerspectiveSprite(pg.sprite.Sprite):
         self.v_movement_partial = 0
 
         self.initial_distance_to_vp = self.distance_to_vp()
+
+    def increment_offset(self):
+        self.vanishing_point = (self.vanishing_point[0], self.vanishing_point[1] + 1)
+        self.rect.center = (self.rect.center[0], self.rect.center[1] + 1)
 
     def update(self):
         # Scale sprite
@@ -138,7 +151,7 @@ class PerspectiveSprite(pg.sprite.Sprite):
 
     # draw a single pixel under the sprite, to make sure the object is always visible (when sprite scale is < 1 pixel)
     def draw_pixel(self, surface):
-        surface.set_at(self.rect.center, pg.Color('white'))
+        surface.set_at((self.rect.center[0], self.rect.center[1]), pg.Color('white'))
 
     def distance_to_vp(self):
         dist_x = self.vanishing_point[0] - self.rect.center[0]

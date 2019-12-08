@@ -16,14 +16,14 @@ class Clouds(parallax.Parallax):
 
 class CloudBig(parallax.ParallaxSprite):
     def __init__(self, screen_size):
-        super(CloudBig, self).__init__(screen_size[0], [0, screen_size[1]], "floor/processor/images/Panto2019/Clouds/Cloud_big.png", 2)
+        super(CloudBig, self).__init__(screen_size[0], [0, screen_size[1]], "floor/processor/images/Panto2019/Sky/Cloud_big.png", 2)
 
 
 class CloudSmall(parallax.ParallaxSprite):
     def __init__(self, screen_size):
-        super(CloudSmall, self).__init__(screen_size[0], [0, screen_size[1]], "floor/processor/images/Panto2019/Clouds/Cloud_small.png", 1)
+        super(CloudSmall, self).__init__(screen_size[0], [0, screen_size[1]], "floor/processor/images/Panto2019/Sky/Cloud_small.png", 1)
 
 
 class CloudDistant(parallax.ParallaxSprite):
     def __init__(self, screen_size):
-        super(CloudDistant, self).__init__(screen_size[0], [0, screen_size[1]], "floor/processor/images/Panto2019/Clouds/Cloud_distant.png", 0.2)
+        super(CloudDistant, self).__init__(screen_size[0], [0, screen_size[1]], "floor/processor/images/Panto2019/Sky/Cloud_distant.png", 0.2)
