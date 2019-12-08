@@ -13,8 +13,8 @@ class Flock(parallax.Parallax):
 
 class Cloud(parallax.ParallaxSprite):
     def __init__(self, screen_size):
-        super(Cloud, self).__init__(screen_size[0], [screen_size[1] / 4, screen_size[1]], "floor/processor/images/Panto2019/Clouds/Cloud_big.png", 1)
+        super(Cloud, self).__init__(screen_size[0], [screen_size[1] / 4, screen_size[1]], "floor/processor/images/Panto2019/Sky/Cloud_big.png", 1)
 
 class Pterodactyl(parallax.ParallaxSprite):
     def __init__(self, screen_size):
-        super(Pterodactyl, self).__init__(screen_size[0], [0, screen_size[1] / 3], ["floor/processor/images/Panto2019/Dino/pterodactyl_1.png", "floor/processor/images/Panto2019/Dino/pterodactyl_2.png"], 3)
+        super(Pterodactyl, self).__init__(screen_size[0], [0, screen_size[1] / 3], ["floor/processor/images/Panto2019/Sky/pterodactyl_1.png", "floor/processor/images/Panto2019/Sky/pterodactyl_2.png"], 3)

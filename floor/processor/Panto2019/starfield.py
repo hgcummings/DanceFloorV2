@@ -7,7 +7,7 @@ base_speed = 2
 
 class Starfield(animation.Animation):
     def __init__(self, screen_size):
-        super(Starfield, self).__init__(screen_size, 'starfield.gif')
+        super(Starfield, self).__init__(screen_size, '../images/Panto2019/Sky/starfield.gif')
         self.screen_size = screen_size
 
         self.horizon_level = self.screen_size[1] + 1
