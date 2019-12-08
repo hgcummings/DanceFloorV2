@@ -11,13 +11,13 @@ class Moon(object):
         self.screen_size = screen_size
 
         self.sprite_group = pg.sprite.Group()
-        self.sprite_group.add(EaseInSprite(screen_size[0], moon_height, "floor/processor/images/Panto2019/Finale/Moon.png"))
+        self.sprite_group.add(EaseInSprite(screen_size[0], moon_height, "floor/processor/images/Panto2019/Finale/Moon_S.png"))
 
         self.sprite_group_reflection = pg.sprite.Group()
         self.sprite_group_reflection.add(AnimatedEaseInSprite(
             screen_size[0],
             moon_height + 25,
-            ["floor/processor/images/Panto2019/Finale/Moon_reflection1.png", "floor/processor/images/Panto2019/Finale/Moon_reflection2.png"],
+            ["floor/processor/images/Panto2019/Finale/Moon_S_Reflection1.png", "floor/processor/images/Panto2019/Finale/Moon_S_Reflection2.png"],
             10))
 
     def set_active(self, active):
