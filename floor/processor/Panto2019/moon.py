@@ -3,7 +3,7 @@ import pygame as pg
 import panto_constants
 
 moon_height = 20
-base_speed = 2
+base_speed = 4
 
 
 class Moon(object):
@@ -13,18 +13,27 @@ class Moon(object):
         self.sprite_group = pg.sprite.Group()
         self.sprite_group.add(EaseInSprite(screen_size[0], moon_height, "floor/processor/images/Panto2019/Finale/Moon.png"))
 
+        self.sprite_group_reflection = pg.sprite.Group()
+        self.sprite_group_reflection.add(EaseInSprite(screen_size[0], moon_height + 25, "floor/processor/images/Panto2019/Finale/Moon_reflection1.png"))
+
     def set_active(self, active):
         for sprite in self.sprite_group:
             sprite.set_active(active)
 
+        for sprite in self.sprite_group_reflection:
+            sprite.set_active(active)
+
     def update(self):
         self.sprite_group.update()
+        self.sprite_group_reflection.update()
 
     def draw(self, surface):
         self.sprite_group.draw(surface)
 
         pg.draw.rect(surface, pg.Color('black'), pg.Rect(0, panto_constants.horizon_level, self.screen_size[0], self.screen_size[1] - panto_constants.horizon_level))
         pg.draw.line(surface, pg.Color('white'), (0, panto_constants.horizon_level), (self.screen_size[0], panto_constants.horizon_level), 1)
+
+        self.sprite_group_reflection.draw(surface)
 
 
 class EaseInSprite(pg.sprite.Sprite):
@@ -34,7 +43,7 @@ class EaseInSprite(pg.sprite.Sprite):
         self.screen_width = screen_width
 
         self.image = pg.image.load(sprite_file)
-        self.rect = self.image.get_rect(center=(screen_width + self.image.get_size()[0], y_pos))
+        self.rect = self.image.get_rect(center=(screen_width + self.image.get_size()[0] / 2, y_pos))
 
         self.speed = base_speed
         self.movement_partial = 0
