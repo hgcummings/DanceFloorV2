@@ -3,6 +3,8 @@ import pygame
 import logging
 import importlib
 import Panto2019
+import time
+
 logger = logging.getLogger('flight')
 last_scene = None
 last_z_index = 0
@@ -18,6 +20,7 @@ class Flight(Base):
         logger.debug('__init__')
         self.scene_name = kwargs["scene"]
         self.z_index = kwargs.get("z_index", self.DEFAULT_Z_INDEX)
+        self.trigger_time = 0
 
     def initialise_processor(self):
         global last_scene, last_z_index
@@ -46,6 +49,10 @@ class Flight(Base):
         surface = self.surface
 
         surface.fill(pygame.Color('black'))
+
+        if (self.joystick.get_button(0) and time.time() - self.trigger_time > 1.0):
+            self.scene.trigger_special()
+            self.trigger_time = time.time()
 
         if (self.last_scene is not None and self.last_z_index <= self.z_index):
             self.last_scene.update()

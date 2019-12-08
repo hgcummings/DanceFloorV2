@@ -40,5 +40,5 @@ class Desert(object):
         self.is_active = active
         self.perspective_layer.set_active(active)
 
-    def spawn_arch(self):
+    def trigger_special(self):
         self.arch.spawn()
