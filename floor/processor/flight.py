@@ -20,7 +20,6 @@ class Flight(Base):
         logger.debug('__init__')
         self.scene_name = kwargs["scene"]
         self.z_index = kwargs.get("z_index", self.DEFAULT_Z_INDEX)
-        self.trigger_time = 0
 
     def initialise_processor(self):
         global last_scene, last_z_index
@@ -40,7 +39,11 @@ class Flight(Base):
         if (last_scene is not None):
             self.last_scene.set_active(False)
         last_scene = self.scene
-        
+
+        self.trigger_time = 0
+        self.spinning = False
+        self.spin_start_time = 0
+
         self.scene.set_active(True)
 
     def get_next_frame(self, weights):
@@ -53,6 +56,10 @@ class Flight(Base):
         if (self.joystick.get_button(0) and time.time() - self.trigger_time > 1.0):
             self.scene.trigger_special()
             self.trigger_time = time.time()
+        
+        if (self.joystick.get_button(1) and time.time() - self.spin_start_time > 2.0):
+            self.spinning = True
+            self.spin_start_time = time.time()
 
         if (self.last_scene is not None and self.last_z_index <= self.z_index):
             self.last_scene.update()
@@ -66,12 +73,20 @@ class Flight(Base):
             self.last_scene.draw(surface)
 
         offset_y = round(self.FLOOR_HEIGHT / 3 * self.joystick.get_axis(1)) + self.FLOOR_HEIGHT / 6
+        rotation = 0
+        if (self.spinning):
+            rotation = 180 * (time.time() - self.spin_start_time)
+            if (rotation >= 360):
+                self.spinning = False
+                rotation = 0
+        else:
+            rotation = -30 * round(self.joystick.get_axis(0), 2)
 
         # pygame.transform uses the top-left pixel as the fill colour when rotating, but if
         # the horizon is high, we want to use the ground colour as the fill, so flip before
         # rotating to make the top-left pixel a ground pixel (and flip back afterwards)
         surface = pygame.transform.flip(surface, offset_y < 0, offset_y < 0)
-        surface = pygame.transform.rotate(surface, - 30 * round(self.joystick.get_axis(0), 2))
+        surface = pygame.transform.rotate(surface, rotation)
         surface = pygame.transform.flip(surface, offset_y < 0, offset_y < 0)
 
         pixels = pygame.PixelArray(surface.subsurface(pygame.Rect(
