@@ -24,13 +24,6 @@
     {
       "name": "flight",
       "args": {
-        "scene": "transition_to_ground",
-        "z-index:" 1
-      }
-    },
-    {
-      "name": "flight",
-      "args": {
         "scene": "orchard",
         "z_index": 1
       }

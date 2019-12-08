@@ -22,6 +22,10 @@ class Perspective(object):
         for creation_model in perspective_creation_models:
             self.perspective_groups.append(PerspectiveGroup(screen_size, horizon_level, creation_model.spawn_delay_range, creation_model.sprite_filename))
 
+    def increment_offset(self):
+        for perspective_group in self.perspective_groups:
+            perspective_group.increment_offset()
+
     def set_active(self, active):
         for perspective_group in self.perspective_groups:
             perspective_group.set_active(active)
@@ -59,6 +63,10 @@ class PerspectiveGroup(object):
     def set_active(self, active):
         self.is_active = active
 
+    def increment_offset(self):
+        for sprite in self.sprite_group:
+            sprite.increment_offset()
+
     def update(self):
         self.sprite_group.update()
 
@@ -69,11 +77,6 @@ class PerspectiveGroup(object):
                 new_sprite = PerspectiveSprite(self.screen_size, self.horizon_level, spawn_point, self.sprite_filename)
                 self.sprite_group.add(new_sprite)
                 self.spawn_timer = random.randint(self.spawn_delay_range[0], self.spawn_delay_range[1])
-        else:
-            if self.offset < self.screen_size[1]:
-                self.offset += 1
-                for sprite in self.sprite_group:
-                    sprite.increment_offset()
 
     def draw(self, surface):
         for sprite in self.sprite_group:

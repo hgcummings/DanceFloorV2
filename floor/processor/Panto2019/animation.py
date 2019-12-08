@@ -21,7 +21,9 @@ class Animation(object):
         self.frame_end_millis = 0
         self.active_end_millis = 0
         self.is_active = False
+
         self.intensity = 1.0
+        self.offset = 0
 
         if self.file in CACHE:
             logger.info("======= Using cached version of file {}".format(self.file))
@@ -88,7 +90,6 @@ class Animation(object):
             self.intensity = 255 - ((current_millis - self.active_end_millis) / 16)
             if self.intensity < 0:
                 self.intensity = 0
-            logger.info(self.intensity)
 
     def draw(self, surface):
         logger.debug('** Drawing frame {}'.format(self.frame_index))
@@ -100,4 +101,4 @@ class Animation(object):
             fade_surface.fill(pygame.Color(self.intensity, self.intensity, self.intensity))
             frame_surface.blit(fade_surface, (0,0), None, pygame.BLEND_RGB_MULT)
 
-        surface.blit(frame_surface, (0, 0))
+        surface.blit(frame_surface, (0, self.offset))

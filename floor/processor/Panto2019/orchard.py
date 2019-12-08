@@ -19,8 +19,6 @@ class Orchard(object):
         self.parallax_effect.update()
 
     def draw(self, surface):
-        pg.draw.line(surface, pg.Color('white'), (0, panto_constants.horizon_level), (self.screen_size[0], panto_constants.horizon_level), 1)
-
         self.parallax_effect.draw(surface)
 
     def set_active(self, active):
