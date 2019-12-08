@@ -22,8 +22,6 @@ class Transition_To_Ground(object):
         distance_to_ground = self.horizon_level - panto_constants.horizon_level
         self.speed = base_speed * distance_to_ground / float(self.initial_distance_to_ground)
 
-        print "Distance to ground: " + str(distance_to_ground)
-
         if self.is_active and self.horizon_level > panto_constants.horizon_level:
             self.horizon_level_partial += self.speed
             if self.horizon_level_partial >= 1:
