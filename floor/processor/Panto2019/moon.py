@@ -14,7 +14,11 @@ class Moon(object):
         self.sprite_group.add(EaseInSprite(screen_size[0], moon_height, "floor/processor/images/Panto2019/Finale/Moon.png"))
 
         self.sprite_group_reflection = pg.sprite.Group()
-        self.sprite_group_reflection.add(EaseInSprite(screen_size[0], moon_height + 25, "floor/processor/images/Panto2019/Finale/Moon_reflection1.png"))
+        self.sprite_group_reflection.add(AnimatedEaseInSprite(
+            screen_size[0],
+            moon_height + 25,
+            ["floor/processor/images/Panto2019/Finale/Moon_reflection1.png", "floor/processor/images/Panto2019/Finale/Moon_reflection2.png"],
+            10))
 
     def set_active(self, active):
         for sprite in self.sprite_group:
@@ -36,13 +40,22 @@ class Moon(object):
         self.sprite_group_reflection.draw(surface)
 
 
-class EaseInSprite(pg.sprite.Sprite):
-    def __init__(self, screen_width, y_pos, sprite_file):
-        super(EaseInSprite, self).__init__()
+class AnimatedEaseInSprite(pg.sprite.Sprite):
+    def __init__(self, screen_width, y_pos, sprite_files, frame_delay):
+        super(AnimatedEaseInSprite, self).__init__()
 
         self.screen_width = screen_width
 
-        self.image = pg.image.load(sprite_file)
+        self.frame_delay = frame_delay
+        self.frame_timer = 0
+
+        self.frames = []
+        for sprite_file in sprite_files:
+            self.frames.append(pg.image.load(sprite_file))
+
+        self.index = 0
+        self.image = self.frames[self.index]
+        # All frames must have the same dimensions
         self.rect = self.image.get_rect(center=(screen_width + self.image.get_size()[0] / 2, y_pos))
 
         self.speed = base_speed
@@ -62,6 +75,18 @@ class EaseInSprite(pg.sprite.Sprite):
                 self.rect.x -= int(self.movement_partial)
                 self.movement_partial = 0
 
+        if self.frame_delay != 0:
+            self.frame_timer += 1
+            if self.frame_timer == self.frame_delay:
+                # Advance to the next frame
+                self.index = (self.index + 1) % len(self.frames)
+                self.image = self.frames[self.index]
+                self.frame_timer = 0
+
     def set_active(self, active):
         self.is_active = active
 
+
+class EaseInSprite(AnimatedEaseInSprite):
+    def __init__(self, screen_width, y_pos, sprite_file):
+        super(EaseInSprite, self).__init__(screen_width, y_pos, [sprite_file], 0)
