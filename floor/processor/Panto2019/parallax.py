@@ -1,5 +1,7 @@
 import pygame as pg
 import random
+import logging
+logger = logging.getLogger('parallax')
 
 random.seed(13)
 
@@ -76,6 +78,9 @@ class ParallaxLayerSingle(object):
 class ParallaxSprite(pg.sprite.Sprite):
     def __init__(self, screen_width, range_y, sprite_files, h_speed):
         super(ParallaxSprite, self).__init__()
+        x = 0
+        if h_speed > 0:
+            x = screen_width
         y = random.randint(range_y[0], range_y[1])
 
         if (isinstance(sprite_files, basestring)):
@@ -83,9 +88,10 @@ class ParallaxSprite(pg.sprite.Sprite):
         else:
             self.images = [pg.image.load(sprite_file) for sprite_file in sprite_files]
 
+        self.screen_width = screen_width
         self.image = self.images[0]
         self.rect = self.image.get_rect()
-        self.rect.x = screen_width
+        self.rect.x = x
         self.rect.y = y
         self.h_speed = h_speed
         self.h_movement_partial = 0
@@ -97,9 +103,9 @@ class ParallaxSprite(pg.sprite.Sprite):
         self.image = self.images[self.image_index]
 
         self.h_movement_partial += self.h_speed
-        if self.h_movement_partial >= 1:
+        if abs(self.h_movement_partial) >= 1:
             self.rect.x -= self.h_movement_partial
             self.h_movement_partial = 0
 
-        if self.rect.right < 0:
+        if (self.rect.right < 0) or (self.rect.left > self.screen_width):
             self.kill()

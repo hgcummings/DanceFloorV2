@@ -1,7 +1,7 @@
 import parallax
 
 cloud_spawn_delay = [2, 5]
-pterodactly_spawn_delay = [4, 8]
+pterodactly_spawn_delay = [21, 25]
 
 class Flock(parallax.Parallax):
     def __init__(self, screen_size):
@@ -13,8 +13,8 @@ class Flock(parallax.Parallax):
 
 class Cloud(parallax.ParallaxSprite):
     def __init__(self, screen_size):
-        super(Cloud, self).__init__(screen_size[0], [screen_size[1] / 4, screen_size[1]], "floor/processor/images/Panto2019/Sky/Cloud_big.png", 1)
+        super(Cloud, self).__init__(screen_size[0], [screen_size[1] / 4, screen_size[1]], "floor/processor/images/Panto2019/Sky/Cloud_big.png", 2)
 
 class Pterodactyl(parallax.ParallaxSprite):
     def __init__(self, screen_size):
-        super(Pterodactyl, self).__init__(screen_size[0], [0, screen_size[1] / 3], ["floor/processor/images/Panto2019/Sky/pterodactyl_1.png", "floor/processor/images/Panto2019/Sky/pterodactyl_2.png"], 3)
+        super(Pterodactyl, self).__init__(screen_size[0], [0, screen_size[1] / 3], ["floor/processor/images/Panto2019/Sky/pterodactyl_1.png", "floor/processor/images/Panto2019/Sky/pterodactyl_2.png"], -1)
