@@ -3,31 +3,50 @@
     {
       "name": "flight",
       "args": {
-        "scene": "desert"
+        "scene": "desert",
+        "z_index": -1
       }
     },
     {
       "name": "flight",
       "args": {
-        "scene": "transition_to_sky"
+        "scene": "clouds",
+        "z_index": 1
       }
     },
     {
       "name": "flight",
       "args": {
-        "scene": "clouds"
+        "scene": "starfield",
+        "z_index": -1
       }
     },
     {
       "name": "flight",
       "args": {
-        "scene": "transition_to_ground"
+        "scene": "transition_to_ground",
+        "z-index:" 1
       }
     },
     {
       "name": "flight",
       "args": {
-        "scene": "orchard"
+        "scene": "orchard",
+        "z_index": 1
+      }
+    },
+    {
+      "name": "flight",
+      "args": {
+        "scene": "moon",
+        "z_index": -1
+      }
+    },
+    {
+      "name": "flight",
+      "args": {
+        "scene": "blank",
+        "z_index": -2
       }
     }
   ]
