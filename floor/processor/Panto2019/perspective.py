@@ -54,6 +54,7 @@ class PerspectiveGroup(object):
 
         self.spawn_timer = random.randint(self.spawn_delay_range[0], self.spawn_delay_range[1])
         self.is_active = False
+        self.offset = 0
 
     def set_active(self, active):
         self.is_active = active
@@ -68,9 +69,14 @@ class PerspectiveGroup(object):
                 new_sprite = PerspectiveSprite(self.screen_size, self.horizon_level, spawn_point, self.sprite_filename)
                 self.sprite_group.add(new_sprite)
                 self.spawn_timer = random.randint(self.spawn_delay_range[0], self.spawn_delay_range[1])
+        else:
+            if self.offset < self.screen_size[1]:
+                self.offset += 1
+                for sprite in self.sprite_group:
+                    sprite.increment_offset()
 
     def draw(self, surface):
-        pg.draw.line(surface, pg.Color('white'), (0, self.horizon_level), (self.screen_size[0], self.horizon_level), 1)
+        pg.draw.line(surface, pg.Color('white'), (0, self.horizon_level + self.offset), (self.screen_size[0], self.horizon_level + self.offset), 1)
 
         for sprite in self.sprite_group:
             sprite.draw_pixel(surface)
@@ -86,6 +92,7 @@ class PerspectiveSprite(pg.sprite.Sprite):
         self.screen_size = screen_size
         self.horizon_level = horizon_level
         self.vanishing_point = (screen_size[0] / 2, horizon_level)
+        self.offset = 0
 
         # Sprite stuff
         self.started_on_left = spawn_point[0] < screen_size[0] / 2
@@ -105,6 +112,10 @@ class PerspectiveSprite(pg.sprite.Sprite):
         self.v_movement_partial = 0
 
         self.initial_distance_to_vp = self.distance_to_vp()
+
+    def increment_offset(self):
+        self.vanishing_point = (self.vanishing_point[0], self.vanishing_point[1] + 1)
+        self.rect.center = (self.rect.center[0], self.rect.center[1] + 1)
 
     def update(self):
         # Scale sprite
@@ -139,7 +150,7 @@ class PerspectiveSprite(pg.sprite.Sprite):
 
     # draw a single pixel under the sprite, to make sure the object is always visible (when sprite scale is < 1 pixel)
     def draw_pixel(self, surface):
-        surface.set_at(self.rect.center, pg.Color('white'))
+        surface.set_at((self.rect.center[0], self.rect.center[1]), pg.Color('white'))
 
     def distance_to_vp(self):
         dist_x = self.vanishing_point[0] - self.rect.center[0]

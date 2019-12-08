@@ -3,19 +3,29 @@
     {
       "name": "flight",
       "args": {
-        "scene": "desert"
+        "scene": "desert",
+        "z_index": -1
       }
     },
     {
       "name": "flight",
       "args": {
-        "scene": "clouds"
+        "scene": "clouds",
+        "z_index": 1
       }
     },
     {
       "name": "flight",
       "args": {
-        "scene": "orchard"
+        "scene": "starfield",
+        "z_index": -1
+      }
+    },
+    {
+      "name": "flight",
+      "args": {
+        "scene": "orchard",
+        "z_index": 1
       }
     }
   ]
