@@ -47,6 +47,32 @@ class ParallaxLayer(object):
         self.sprite_group.draw(surface)
 
 
+class ParallaxLayerSingle(object):
+    def __init__(self, screen_size, parallax_sprite, spawn_delay):
+        self.screen_size = screen_size
+        self.parallax_sprite = parallax_sprite
+        self.spawn_delay = spawn_delay
+
+        self.sprite_group = pg.sprite.Group()
+        self.spawn_timer = spawn_delay
+        self.is_active = False
+
+    def set_active(self, active):
+        self.is_active = active
+
+    def update(self):
+        self.sprite_group.update()
+
+        if self.is_active:
+            self.spawn_timer -= 1
+            if self.spawn_timer <= 0:
+                self.sprite_group.add(self.parallax_sprite(self.screen_size))
+                self.is_active = False
+
+    def draw(self, surface):
+        self.sprite_group.draw(surface)
+
+
 class ParallaxSprite(pg.sprite.Sprite):
     def __init__(self, screen_width, range_y, sprite_file, h_speed):
         super(ParallaxSprite, self).__init__()
@@ -65,5 +91,5 @@ class ParallaxSprite(pg.sprite.Sprite):
             self.rect.x -= self.h_movement_partial
             self.h_movement_partial = 0
 
-        if self.rect.x < 0:
+        if self.rect.right < 0:
             self.kill()

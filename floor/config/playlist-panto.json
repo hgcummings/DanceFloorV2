@@ -27,6 +27,12 @@
     {
       "name": "flight",
       "args": {
+        "scene": "sphinx"
+      }
+    },
+    {
+      "name": "flight",
+      "args": {
         "scene": "orchard"
       }
     }
