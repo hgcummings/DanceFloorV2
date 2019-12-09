@@ -54,22 +54,36 @@
     {
       "name": "flight",
       "args": {
+        "scene": "dino",
+        "z_index": 2
+      }
+    },
+    {
+      "name": "flight",
+      "args": {
         "scene": "orchard",
-        "z_index": 0
+        "z_index": 3
+      }
+    },
+    {
+      "name": "flight",
+      "args": {
+        "scene": "horizon",
+        "z_index": 2
       }
     },
     {
       "name": "flight",
       "args": {
         "scene": "moon",
-        "z_index": -1
+        "z_index": 1
       }
     },
     {
       "name": "flight",
       "args": {
         "scene": "blank",
-        "z_index": -2
+        "z_index": 0
       }
     }
   ]

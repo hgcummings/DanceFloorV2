@@ -16,9 +16,9 @@ class Starfield(animation.Animation):
         self.is_active = False
 
     def update(self):
-        distance_to_ground = self.horizon_level - panto_constants.horizon_level
+        distance_to_ground = self.horizon_level - panto_constants.horizon_level_low
 
-        if (not self.is_active) and self.horizon_level > panto_constants.horizon_level:
+        if (not self.is_active) and self.horizon_level > panto_constants.horizon_level_low:
             self.horizon_level -= 1
             self.offset -= 1
 
@@ -26,7 +26,7 @@ class Starfield(animation.Animation):
 
     def draw(self, surface):
         super(Starfield, self).draw(surface)
-        pg.draw.line(surface, pg.Color('white'), (0, self.horizon_level), (self.screen_size[0], self.horizon_level), 1)
+        pg.draw.line(surface, pg.Color(83, 83, 83), (0, self.horizon_level), (self.screen_size[0], self.horizon_level), 1)
 
     def set_active(self, active):
         super(Starfield, self).set_active(active)

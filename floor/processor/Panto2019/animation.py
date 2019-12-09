@@ -72,7 +72,6 @@ class Animation(object):
             self.intensity = 255
         else:
             self.active_end_millis = int(time.time() * 1000)
-        return
 
     def update(self):
         current_millis = int(time.time() * 1000)

@@ -24,13 +24,15 @@ class Parallax(object):
 
 
 class ParallaxLayer(object):
-    def __init__(self, screen_size, parallax_sprite, spawn_delay_range):
+    def __init__(self, screen_size, parallax_sprite, spawn_delay_range, spawn_immediate = False):
         self.screen_size = screen_size
         self.parallax_sprite = parallax_sprite
         self.spawn_delay_range = spawn_delay_range
 
         self.sprite_group = pg.sprite.Group()
         self.spawn_timer = random.randint(self.spawn_delay_range[0], self.spawn_delay_range[1])
+        if spawn_immediate:
+            self.spawn_timer = 0
         self.is_active = False
 
     def set_active(self, active):

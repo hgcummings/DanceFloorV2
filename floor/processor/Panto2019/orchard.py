@@ -6,7 +6,6 @@ import parallax
 tree_big_spawn_delay = [10, 25]
 tree_small_spawn_delay = [8, 20]
 
-
 class Orchard(object):
     def __init__(self, screen_size):
         self.screen_size = screen_size
@@ -19,8 +18,6 @@ class Orchard(object):
         self.parallax_effect.update()
 
     def draw(self, surface):
-        pg.draw.line(surface, pg.Color('white'), (0, panto_constants.horizon_level), (self.screen_size[0], panto_constants.horizon_level), 1)
-
         self.parallax_effect.draw(surface)
 
     def set_active(self, active):
@@ -34,4 +31,4 @@ class TreeBig(parallax.ParallaxSprite):
 
 class TreeSmall(parallax.ParallaxSprite):
     def __init__(self, screen_size):
-        super(TreeSmall, self).__init__(screen_size[0], [22, 25], "floor/processor/images/Panto2019/Orchard/Tree_small.png", 1)
+        super(TreeSmall, self).__init__(screen_size[0], [24, 26], "floor/processor/images/Panto2019/Orchard/Tree_small.png", 1)

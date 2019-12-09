@@ -1,10 +1,10 @@
 import pygame as pg
+import time
 
 import panto_constants
 
 moon_height = 30
 base_speed = 4
-
 
 class Moon(object):
     def __init__(self, screen_size):
@@ -16,11 +16,21 @@ class Moon(object):
         self.sprite_group_reflection = pg.sprite.Group()
         self.sprite_group_reflection.add(AnimatedEaseInSprite(
             screen_size[0],
-            moon_height + 15,
+            moon_height + 17,
             ["floor/processor/images/Panto2019/Finale/Moon_S_Reflection1.png", "floor/processor/images/Panto2019/Finale/Moon_S_Reflection2.png"],
             10))
 
+        self.is_active = False
+        self.intensity = 255
+        self.active_end_millis = 0
+
     def set_active(self, active):
+        self.is_active = active
+        if (active):
+            self.intensity = 255
+        else:
+            self.active_end_millis = int(time.time() * 1000)
+
         for sprite in self.sprite_group:
             sprite.set_active(active)
 
@@ -31,14 +41,28 @@ class Moon(object):
         self.sprite_group.update()
         self.sprite_group_reflection.update()
 
+        if ((not self.is_active) and self.intensity > 0):
+            self.intensity = 255 - ((int(time.time() * 1000) - self.active_end_millis) / 16)
+            if self.intensity < 0:
+                self.intensity = 0
+
     def draw(self, surface):
-        self.sprite_group.draw(surface)
+        frame_surface = surface
+        
+        if (self.intensity < 255):
+            frame_surface = pg.Surface(surface.get_size())
 
-        pg.draw.rect(surface, pg.Color('black'), pg.Rect(0, panto_constants.horizon_level, self.screen_size[0], self.screen_size[1] - panto_constants.horizon_level))
-        pg.draw.line(surface, pg.Color('white'), (0, panto_constants.horizon_level), (self.screen_size[0], panto_constants.horizon_level), 1)
+        self.sprite_group.draw(frame_surface)
 
-        self.sprite_group_reflection.draw(surface)
+        pg.draw.line(frame_surface, pg.Color(83, 83, 83), (0, panto_constants.horizon_level_low), (self.screen_size[0], panto_constants.horizon_level_low), 1)
 
+        self.sprite_group_reflection.draw(frame_surface)
+
+        if (self.intensity < 255):
+            fade_surface = pg.Surface(frame_surface.get_size())
+            fade_surface.fill(pg.Color(self.intensity, self.intensity, self.intensity))
+            frame_surface.blit(fade_surface, (0,0), None, pg.BLEND_RGB_MULT)
+            surface.blit(frame_surface, (0, 0))
 
 class AnimatedEaseInSprite(pg.sprite.Sprite):
     def __init__(self, screen_width, y_pos, sprite_files, frame_delay):
