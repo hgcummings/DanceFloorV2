@@ -99,6 +99,15 @@
     {
       "name": "animatedgif",
       "args": {
+        "file": "floor/processor/images/Panto2019/Showdown/crash.gif"
+      }
+    },
+    {
+      "name": "blank"
+    },
+    {
+      "name": "animatedgif",
+      "args": {
         "file": "floor/processor/images/Panto2019/Showdown/delete_script.gif"
       }
     },
@@ -107,6 +116,24 @@
       "args": {
         "file": "floor/processor/images/Panto2019/Showdown/delete_jafar.gif"
       }
+    },
+    {
+      "name": "blank"
+    },
+    {
+      "name": "animatedgif",
+      "args": {
+        "file": "floor/processor/images/Panto2019/Showdown/bluescreen_crash.gif"
+      }
+    },
+    {
+      "name": "animatedgif",
+      "args": {
+        "file": "floor/processor/images/Panto2019/Showdown/bluescreen.gif"
+      }
+    },
+    {
+      "name": "blank"
     }
   ]
 }
