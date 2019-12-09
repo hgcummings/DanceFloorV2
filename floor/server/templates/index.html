@@ -170,26 +170,35 @@
 
     var playlistDiv = document.getElementById('playlist');
     var listGroup = document.createElement('ul');
-    var time_indicator = '';
+    var indicator = '';
     listGroup.className = 'list-group';
 
     for (var i = 0; i < playlist.queue.length; i++) {
       var playlistItem = document.createElement('a');
       var isActive = (i === playlist.current_position);
 
-
+      playlistItem.className = 'list-group-item playlist-text';
       if (isActive) {
         playlistItem.className = 'list-group-item list-group-item-success playlist-text';
 
         var seconds_remaining = parseInt(playlist.millis_remaining/1000);
-        time_indicator = ' <i>(Time Remaining: ' + seconds_remaining + 's)</i>';
-      } else {
-        playlistItem.className = 'list-group-item playlist-text';
-        time_indicator = '';
+        indicator = ' <i>(Time Remaining: ' + seconds_remaining + 's)</i>';
+      }
+
+      if (!isActive || playlist.millis_remaining === 0) {
+        indicator = '';
+        if (playlist.queue[i].args) {
+          var args = playlist.queue[i].args;
+          var firstArgName = Object.keys(args)[0];
+          if (firstArgName) {
+            var firstArgValue = args[firstArgName].split('/').pop();
+            indicator = ' <i>(' + firstArgName + ': ' + firstArgValue + ')</i>';
+          }
+        }
       }
 
       var seconds_remaining = parseInt(playlist.millis_remaining/1000)
-      playlistItem.innerHTML = '' + (i+1) + '. ' + playlist.queue[i].name + time_indicator;
+      playlistItem.innerHTML = '' + (i+1) + '. ' + playlist.queue[i].name + indicator;
       listGroup.appendChild(playlistItem);
     }
 
