@@ -28,6 +28,9 @@ class Base(object):
 
 	def is_clocked(self):
 		return False
+
+	def is_complete(self):
+		return False
 		
 	def set_max_value(self, max_value):
 		self.max_value = max_value

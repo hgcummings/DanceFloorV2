@@ -8,6 +8,7 @@ import time
 logger = logging.getLogger('flight')
 last_scene = None
 last_z_index = 0
+last_scene_change = 0
 
 # See https://github.com/PyCQA/pylint/issues/2144
 # pylint: disable=too-many-function-args
@@ -22,7 +23,7 @@ class Flight(Base):
         self.z_index = kwargs.get("z_index", self.DEFAULT_Z_INDEX)
 
     def initialise_processor(self):
-        global last_scene, last_z_index
+        global last_scene, last_z_index, last_scene_change
 
         self.surface = pygame.Surface((self.FLOOR_WIDTH * 2, self.FLOOR_HEIGHT * 2))
         pygame.init() # pylint: disable=no-member
@@ -40,14 +41,21 @@ class Flight(Base):
             self.last_scene.set_active(False)
         last_scene = self.scene
         last_z_index = self.z_index
+        last_scene_change = time.time()
 
+        self.completing = False
         self.trigger_time = 0
         self.spinning = False
         self.spin_start_time = 0
 
         self.scene.set_active(True)
 
+    def is_complete(self):
+        return self.completing
+
     def get_next_frame(self, weights):
+        global last_scene_change
+
         pygame.event.pump()
         
         surface = self.surface
@@ -61,6 +69,9 @@ class Flight(Base):
         if (self.joystick.get_button(1) and time.time() - self.spin_start_time > 2.0):
             self.spinning = True
             self.spin_start_time = time.time()
+
+        if (self.joystick.get_button(2) and time.time() - last_scene_change > 0.5):
+            self.completing = True
 
         if (self.last_scene is not None and self.last_z_index <= self.z_index):
             self.last_scene.update()
