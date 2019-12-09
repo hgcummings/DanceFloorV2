@@ -1,6 +1,15 @@
 {
   "queue": [
     {
+      "name": "animatedgif",
+      "args": {
+        "file": "floor/processor/images/Panto2019/Cave/tunnel.gif"
+      }
+    },
+    {
+      "name": "blank"
+    },
+    {
       "name": "flight",
       "args": {
         "scene": "desert",

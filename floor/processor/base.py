@@ -86,7 +86,7 @@ class Base(object):
 		self.bpm = bpm
 		self.downbeat = downbeat
 
-	def show_image(self,im,offset=[0,0],whitetoblack=True):
+	def show_image(self,im,offset=[0,0],whitetoblack=False):
 		if (im.mode == 'P'):
 			im = im.convert('RGB')
 		for x in range(im.size[0]):
