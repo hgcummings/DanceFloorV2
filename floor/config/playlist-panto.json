@@ -12,6 +12,13 @@
     {
       "name": "flight",
       "args": {
+        "scene": "intro",
+        "z_index": -2
+      }
+    },
+    {
+      "name": "flight",
+      "args": {
         "scene": "desert",
         "z_index": -1
       }

@@ -7,7 +7,6 @@ import zoom
 medium_rocks = perspective.PerspectiveCreationModel([15, 30], "floor/processor/images/Panto2019/Desert/Rock_M.png")
 small_rocks = perspective.PerspectiveCreationModel([10, 20], "floor/processor/images/Panto2019/Desert/Rock_S.png")
 
-
 class Desert(object):
     def __init__(self, screen_size):
         self.screen_size = screen_size
@@ -27,11 +26,10 @@ class Desert(object):
         self.arch.update()
 
     def draw(self, surface):
-        pg.draw.line(
+        pg.draw.rect(
             surface, 
-            pg.Color('white'), 
-            (0, panto_constants.horizon_level + self.offset), 
-            (self.screen_size[0], panto_constants.horizon_level + self.offset), 1)
+            pg.Color(32, 32, 32),
+            pg.Rect((0, panto_constants.horizon_level + self.offset), self.screen_size))
 
         self.perspective_layer.draw(surface)
         self.arch.draw(surface)

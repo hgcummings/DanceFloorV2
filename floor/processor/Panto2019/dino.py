@@ -18,7 +18,7 @@ class Dino(parallax.Parallax):
         cactus_layer_2 = parallax.ParallaxLayer(screen_size, Cactus2, cactus_spawn_delay_2)
         cloud_layer = parallax.ParallaxLayer(screen_size, Cloud, cloud_spawn_delay)
         ground_layer = parallax.ParallaxLayer(screen_size, Ground, ground_spawn_delay, True)
-        trex_layer = parallax.ParallaxLayerSingle(screen_size, TRex, 120)
+        trex_layer = parallax.ParallaxLayerSingle(screen_size, TRex, 60)
 
         super(Dino, self).__init__([cloud_layer, ground_layer, cactus_layer_1, cactus_layer_2, trex_layer])
 
