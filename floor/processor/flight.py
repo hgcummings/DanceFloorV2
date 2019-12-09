@@ -43,15 +43,15 @@ class Flight(Base):
         last_z_index = self.z_index
         last_scene_change = time.time()
 
-        self.completing = False
+        self.next = 0
         self.trigger_time = 0
         self.spinning = False
         self.spin_start_time = 0
 
         self.scene.set_active(True)
 
-    def is_complete(self):
-        return self.completing
+    def get_next(self):
+        return self.next
 
     def get_next_frame(self, weights):
         global last_scene_change
@@ -71,7 +71,10 @@ class Flight(Base):
             self.spin_start_time = time.time()
 
         if (self.joystick.get_button(2) and time.time() - last_scene_change > 0.5):
-            self.completing = True
+            self.next = -1
+
+        if (self.joystick.get_button(3) and time.time() - last_scene_change > 0.5):
+            self.next = 1
 
         if (self.last_scene is not None and self.last_z_index <= self.z_index):
             self.last_scene.update()

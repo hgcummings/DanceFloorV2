@@ -168,8 +168,11 @@ class Controller(object):
 			for d in self.drivers:
 				d.set_leds(leds)
 
-		if self.processor.is_complete():
+		move_next = self.processor.get_next()
+		if move_next == 1:
 			self.playlist.advance()
+		elif move_next == -1:
+			self.playlist.previous()
 
 	def transfer_data(self):
 		for d in self.drivers:
