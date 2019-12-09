@@ -39,6 +39,7 @@ class Flight(Base):
         if (last_scene is not None):
             self.last_scene.set_active(False)
         last_scene = self.scene
+        last_z_index = self.z_index
 
         self.trigger_time = 0
         self.spinning = False

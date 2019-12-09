@@ -24,6 +24,13 @@
     {
       "name": "flight",
       "args": {
+        "scene": "clouds_thin",
+        "z_index": 1
+      }
+    },
+    {
+      "name": "flight",
+      "args": {
         "scene": "starfield",
         "z_index": -1
       }
@@ -39,7 +46,7 @@
       "name": "flight",
       "args": {
         "scene": "orchard",
-        "z_index": 1
+        "z_index": 0
       }
     },
     {
