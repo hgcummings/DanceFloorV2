@@ -30,14 +30,14 @@ class Sphinx(object):
 
 class SphinxLayer(parallax.ParallaxSprite):
     def __init__(self, screen_size):
-        super(SphinxLayer, self).__init__(screen_size[0], [15, 15], "floor/processor/images/Panto2019/Sphinx/Sphinx.png", 1)
+        super(SphinxLayer, self).__init__(screen_size[0], [16, 16], "floor/processor/images/Panto2019/Sphinx/Sphinx.png", 1)
 
 
 class PyramidFront(parallax.ParallaxSprite):
     def __init__(self, screen_size):
-        super(PyramidFront, self).__init__(screen_size[0], [20, 20], "floor/processor/images/Panto2019/Sphinx/Pyramid.png", 0.5)
+        super(PyramidFront, self).__init__(screen_size[0], [23, 23], "floor/processor/images/Panto2019/Sphinx/Pyramid.png", 0.5)
 
 
 class PyramidBack(parallax.ParallaxSprite):
     def __init__(self, screen_size):
-        super(PyramidBack, self).__init__(screen_size[0], [19, 19], "floor/processor/images/Panto2019/Sphinx/Pyramid.png", 0.5)
+        super(PyramidBack, self).__init__(screen_size[0], [22, 22], "floor/processor/images/Panto2019/Sphinx/Pyramid.png", 0.5)

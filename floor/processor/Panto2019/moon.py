@@ -2,7 +2,7 @@ import pygame as pg
 
 import panto_constants
 
-moon_height = 20
+moon_height = 30
 base_speed = 4
 
 
@@ -16,7 +16,7 @@ class Moon(object):
         self.sprite_group_reflection = pg.sprite.Group()
         self.sprite_group_reflection.add(AnimatedEaseInSprite(
             screen_size[0],
-            moon_height + 25,
+            moon_height + 15,
             ["floor/processor/images/Panto2019/Finale/Moon_S_Reflection1.png", "floor/processor/images/Panto2019/Finale/Moon_S_Reflection2.png"],
             10))
 
