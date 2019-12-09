@@ -92,6 +92,21 @@
         "scene": "blank",
         "z_index": 0
       }
+    },
+    {
+      "name": "blank"
+    },
+    {
+      "name": "animatedgif",
+      "args": {
+        "file": "floor/processor/images/Panto2019/Showdown/delete_script.gif"
+      }
+    },
+    {
+      "name": "animatedgif",
+      "args": {
+        "file": "floor/processor/images/Panto2019/Showdown/delete_jafar.gif"
+      }
     }
   ]
 }
