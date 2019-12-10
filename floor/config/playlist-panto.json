@@ -1,6 +1,15 @@
 {
   "queue": [
     {
+      "name": "blank"
+    },
+    {
+      "name": "animatedgif",
+      "args": {
+        "file": "floor/processor/images/Panto2019/Cave/steam.gif"
+      }
+    },
+    {
       "name": "animatedgif",
       "args": {
         "file": "floor/processor/images/Panto2019/Cave/tunnel.gif"
