@@ -1,7 +1,9 @@
 import pygame as pg
 import time
+import logging
 
 import panto_constants
+logger = logging.getLogger('moon')
 
 moon_height = 30
 base_speed = 4
@@ -11,11 +13,12 @@ class Moon(object):
         self.screen_size = screen_size
 
         self.sprite_group = pg.sprite.Group()
-        self.sprite_group.add(EaseInSprite(screen_size[0], moon_height, "floor/processor/images/Panto2019/Finale/Moon_S.png"))
+        self.sprite_group.add(EaseInSprite(screen_size[0], 0, moon_height, "floor/processor/images/Panto2019/Finale/Moon_S.png"))
 
         self.sprite_group_reflection = pg.sprite.Group()
         self.sprite_group_reflection.add(AnimatedEaseInSprite(
             screen_size[0],
+            0,
             moon_height + 17,
             ["floor/processor/images/Panto2019/Finale/Moon_S_Reflection1.png", "floor/processor/images/Panto2019/Finale/Moon_S_Reflection2.png"],
             10))
@@ -65,7 +68,7 @@ class Moon(object):
             surface.blit(frame_surface, (0, 0))
 
 class AnimatedEaseInSprite(pg.sprite.Sprite):
-    def __init__(self, screen_width, y_pos, sprite_files, frame_delay):
+    def __init__(self, screen_width, initial_x_pos, y_pos, sprite_files, frame_delay):
         super(AnimatedEaseInSprite, self).__init__()
 
         self.screen_width = screen_width
@@ -80,22 +83,24 @@ class AnimatedEaseInSprite(pg.sprite.Sprite):
         self.index = 0
         self.image = self.frames[self.index]
         # All frames must have the same dimensions
-        self.rect = self.image.get_rect(center=(screen_width + self.image.get_size()[0] / 2, y_pos))
+        self.rect = self.image.get_rect(center=(initial_x_pos + self.image.get_size()[0] / 2, y_pos))
 
         self.speed = base_speed
         self.movement_partial = 0
 
-        self.initial_distance = self.rect.center[0] - self.screen_width / 2
+        self.initial_distance = abs(self.rect.center[0] - self.screen_width / 2)
 
         self.is_active = False
 
     def update(self):
         distance_to_centre = self.rect.center[0] - self.screen_width / 2
+        logger.debug("self.rect.center[0]: %d, distance_to_centre: %d, initial_distance: %s", self.rect.center[0], distance_to_centre, self.initial_distance)
         self.speed = base_speed * distance_to_centre / float(self.initial_distance)
 
-        if self.is_active and self.rect.center[0] > self.screen_width / 2:
+        logger.debug("x: %d, speed: %s", self.rect.x, self.speed)
+        if self.is_active and self.rect.center[0] != self.screen_width / 2:
             self.movement_partial += self.speed
-            if self.movement_partial >= 1:
+            if abs(self.movement_partial) >= 1:
                 self.rect.x -= int(self.movement_partial)
                 self.movement_partial = 0
 
@@ -112,5 +117,5 @@ class AnimatedEaseInSprite(pg.sprite.Sprite):
 
 
 class EaseInSprite(AnimatedEaseInSprite):
-    def __init__(self, screen_width, y_pos, sprite_file):
-        super(EaseInSprite, self).__init__(screen_width, y_pos, [sprite_file], 0)
+    def __init__(self, screen_width, initial_x_pos, y_pos, sprite_file):
+        super(EaseInSprite, self).__init__(screen_width, initial_x_pos, y_pos, [sprite_file], 0)
