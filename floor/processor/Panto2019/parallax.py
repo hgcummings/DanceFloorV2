@@ -1,10 +1,11 @@
 import pygame as pg
 import random
 import logging
+import time
 logger = logging.getLogger('parallax')
 
 random.seed(13)
-
+frame_duration = 0.5
 
 class Parallax(object):
     def __init__(self, parallax_layers):
@@ -97,12 +98,16 @@ class ParallaxSprite(pg.sprite.Sprite):
         self.rect.y = y
         self.h_speed = h_speed
         self.h_movement_partial = 0
+        self.last_frame_change = time.time()
 
         self.image_index = 0
 
     def update(self):
-        self.image_index = (self.image_index + 1) % len(self.images)
-        self.image = self.images[self.image_index]
+        current_time = time.time()
+        if (current_time > self.last_frame_change + 0.5):
+            self.image_index = (self.image_index + 1) % len(self.images)
+            self.image = self.images[self.image_index]
+            self.last_frame_change = current_time
 
         self.h_movement_partial += self.h_speed
         if abs(self.h_movement_partial) >= 1:
