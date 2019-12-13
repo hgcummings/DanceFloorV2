@@ -5,7 +5,7 @@ import logging
 import panto_constants
 logger = logging.getLogger('moon')
 
-moon_height = 30
+moon_height = 32
 base_speed = 4
 
 class Moon(object):
@@ -19,7 +19,7 @@ class Moon(object):
         self.sprite_group_reflection.add(AnimatedEaseInSprite(
             screen_size[0],
             0,
-            moon_height + 17,
+            moon_height + 15,
             ["floor/processor/images/Panto2019/Finale/Moon_x22_Reflection1.png", "floor/processor/images/Panto2019/Finale/Moon_x22_Reflection2.png"],
             10))
 
