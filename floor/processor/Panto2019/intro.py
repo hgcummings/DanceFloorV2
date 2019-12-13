@@ -1,7 +1,7 @@
 import pygame as pg
 import panto_constants
 
-intensity_speed = 2
+intensity_speed = 3
 lift_speed = 1
 target_intensity = 32
 
