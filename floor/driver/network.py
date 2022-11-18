@@ -64,7 +64,7 @@ class Network(Base):
 		#	netmask 255.255.255.0
 
 		#self.multisocketaddr='10.2.2.255'
-		self.multisocketaddr='10.233.255.255'
+		self.multisocketaddr='10.214.255.255'
 		self.multisocketdata = bytearray(chr(0)) * self.maxledindex * 4
 		self.multisocketport = args['network_port']
 		logger.info('Network driver sending on port {}'.format(self.multisocketport))
