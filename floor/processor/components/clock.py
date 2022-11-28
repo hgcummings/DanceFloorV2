@@ -22,13 +22,15 @@ class Clock():
             time.tzset()
 
     
-    def generate_time_pixels(self):
+    def generate_time_pixels(self, override_time=None):
         pixels = []
-        current_time = time.strftime('%H:%M')
+
+        display_time = time.strftime('%H:%M', time.localtime(override_time or time.time()))
+
         for row in range(0, self.font.height()):
             pixels.append([])
 
-        for char in list(current_time):
+        for char in list(display_time):
             char_data = self.font.alpha()[char]
             for row in range(0, self.font.height()):
                 pixels[row].extend(char_data[row])
@@ -39,9 +41,9 @@ class Clock():
 
         return (pixels, colon_end, colon_width)
 
-    def generate_pixels(self):
+    def generate_pixels(self, override_time=None):
         pixels = []
-        (time_pixels, mid_char_end, mid_char_width) = self.generate_time_pixels()
+        (time_pixels, mid_char_end, mid_char_width) = self.generate_time_pixels(override_time)
         top = (self.HEIGHT - len(time_pixels) * self.SCALE) / 3
         left = ((self.WIDTH / 2) - (mid_char_end * self.SCALE) + (mid_char_width * self.SCALE / 2))
         for row in range(self.HEIGHT):

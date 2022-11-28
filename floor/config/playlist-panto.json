@@ -1,8 +1,11 @@
 {
   "queue": [
     {
-      "name": "animatedgif",
-      "args": { "file": "floor/processor/images/Panto2022/Promo/rebooting.gif" }
+      "name": "faketicker",
+      "args": { 
+        "offsetHours": -6,
+        "speedFactor": 2 
+      }
     }
   ]
 }
