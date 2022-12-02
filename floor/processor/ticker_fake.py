@@ -95,11 +95,16 @@ class FakeTicker(Base):
 
 			text_pixels = self.current_text[row_index]
 			for column_index in range(0, self.FLOOR_WIDTH - margin):
-				pixel_index = column_index + int(self.current_offset)
-				pixel = (0, 0, 0)
-				if (pixel_index >= 0 and pixel_index < len(text_pixels) and text_pixels[pixel_index]):
-					pixel = (255, 255, 255)
-				pixels.append(pixel)
+				if (dt * self.speed * 18 > len(text_pixels)):
+					intensity = int(sum(text_pixels) * 255 / len(text_pixels))
+					pixels.append((intensity, intensity, intensity))
+				else:
+					pixel_index = column_index + int(self.current_offset)
+					pixel = (0, 0, 0)
+					if (pixel_index >= 0 and pixel_index < len(text_pixels) and text_pixels[pixel_index]):
+						pixel = (255, 255, 255)
+					pixels.append(pixel)
+
 		
 		if (dt * self.speed > (60)):
 			pixels.extend(self.generate_blurred_clock(dt * self.speed))
