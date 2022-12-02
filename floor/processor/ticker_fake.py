@@ -55,6 +55,7 @@ class FakeTicker(Base):
 		self.brightness = 255
 		self.offset_seconds = 3600 * int(kwargs["offsetHours"])
 		self.speed_factor = float(kwargs["speedFactor"])
+		self.max_speed = 2500000
 		self.speed = 1
 		self.last_rendered_time = time.time()
 		self.font = importlib.import_module("processor.fonts.{}".format(self.DEFAULT_FONT))
@@ -79,7 +80,7 @@ class FakeTicker(Base):
 		dt = time.time() - self.last_rendered_time
 		self.offset_seconds = self.offset_seconds + dt * (self.speed - 1)
 
-		self.speed = self.speed * (1 + ((self.speed_factor - 1) * dt))
+		self.speed = min(self.max_speed, self.speed * (1 + ((self.speed_factor - 1) * dt)))
 
 		pixels = []
 
@@ -100,7 +101,10 @@ class FakeTicker(Base):
 					pixel = (255, 255, 255)
 				pixels.append(pixel)
 		
-		pixels.extend(self.clock.generate_pixels(time.time() + self.offset_seconds))
+		if (dt * self.speed > (60)):
+			pixels.extend(self.generate_blurred_clock(dt * self.speed))
+		else:
+			pixels.extend(self.clock.generate_pixels(time.time() + self.offset_seconds))
 
 		self.current_offset += dt * 18 * self.speed
 
@@ -110,6 +114,16 @@ class FakeTicker(Base):
 		self.last_rendered_time = time.time()
 
 		return pixels
+
+	def generate_blurred_clock(self, time_range):
+		pixels = [0 for _ in range(0, self.clock.HEIGHT * self.clock.WIDTH)]
+		for offset_minutes in range(0, min(255, int(time_range / 60))):
+			minute_pixels = self.clock.generate_pixels(time.time() + self.offset_seconds - 60 * offset_minutes)
+			minute_pixels = [1 if p == (255,255,255) else 0 for p in minute_pixels]
+			pixels = [a + b for (a, b) in zip(pixels, minute_pixels)]
+		max_pixel = max(*pixels)
+		normalised_pixels = [int(255 * p / max_pixel) for p in pixels]
+		return [(p, p, p) for p in normalised_pixels]
 
 	def reset_offset(self):
 		self.current_offset = float(len(self.current_icon[0]) + 2 * self.ICON_MARGIN - self.FLOOR_WIDTH)
