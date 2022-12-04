@@ -20,68 +20,72 @@
       "args": { "file": "floor/processor/images/Panto2022/A1S0C1_04_Jar_In.gif" }
     },
     {
-      "name": "pmimage",
-      "args": { "file": "floor/processor/images/Panto2022/A1S0C2_01_Rust.png" }
+      "name": "blank",
+      "args": { "file": "floor/processor/images/Panto2022/A1S0C1_04_Jar_In.gif" }
     },
     {
-      "name": "pmimage",
-      "args": { "file": "floor/processor/images/Panto2022/A1S0C2_02_Haskell.png" }
+      "name": "animatedgif",
+      "args": { "file": "floor/processor/images/Panto2022/A1S0C2_01_Rust.gif" }
     },
     {
-      "name": "pmimage",
-      "args": { "file": "floor/processor/images/Panto2022/A1S0C2_03_Swift.png" }
+      "name": "animatedgif",
+      "args": { "file": "floor/processor/images/Panto2022/A1S0C2_02_Haskell.gif" }
     },
     {
-      "name": "pmimage",
-      "args": { "file": "floor/processor/images/Panto2022/A1S0C2_04_Elm.png" }
+      "name": "animatedgif",
+      "args": { "file": "floor/processor/images/Panto2022/A1S0C2_03_Swift.gif" }
     },
     {
-      "name": "pmimage",
-      "args": { "file": "floor/processor/images/Panto2022/A1S0C2_05_Scala.png" }
+      "name": "animatedgif",
+      "args": { "file": "floor/processor/images/Panto2022/A1S0C2_04_Elm.gif" }
     },
     {
-      "name": "pmimage",
-      "args": { "file": "floor/processor/images/Panto2022/A1S0C2_06_Scratch.png" }
+      "name": "animatedgif",
+      "args": { "file": "floor/processor/images/Panto2022/A1S0C2_05_Scala.gif" }
     },
     {
-      "name": "pmimage",
-      "args": { "file": "floor/processor/images/Panto2022/A1S0C2_07_Prolog.png" }
+      "name": "animatedgif",
+      "args": { "file": "floor/processor/images/Panto2022/A1S0C2_06_Scratch.gif" }
     },
     {
-      "name": "pmimage",
-      "args": { "file": "floor/processor/images/Panto2022/A1S0C2_08_C.png" }
+      "name": "animatedgif",
+      "args": { "file": "floor/processor/images/Panto2022/A1S0C2_07_Prolog.gif" }
     },
     {
-      "name": "pmimage",
-      "args": { "file": "floor/processor/images/Panto2022/A1S0C2_09_Ruby.png" }
+      "name": "animatedgif",
+      "args": { "file": "floor/processor/images/Panto2022/A1S0C2_08_C.gif" }
     },
     {
-      "name": "pmimage",
-      "args": { "file": "floor/processor/images/Panto2022/A1S0C2_10_Reason.png" }
+      "name": "animatedgif",
+      "args": { "file": "floor/processor/images/Panto2022/A1S0C2_09_Ruby.gif" }
     },
     {
-      "name": "pmimage",
-      "args": { "file": "floor/processor/images/Panto2022/A1S0C2_11_Python.png" }
+      "name": "animatedgif",
+      "args": { "file": "floor/processor/images/Panto2022/A1S0C2_10_Reason.gif" }
     },
     {
-      "name": "pmimage",
-      "args": { "file": "floor/processor/images/Panto2022/A1S0C2_12_Forth.png" }
+      "name": "animatedgif",
+      "args": { "file": "floor/processor/images/Panto2022/A1S0C2_11_Python.gif" }
     },
     {
-      "name": "pmimage",
-      "args": { "file": "floor/processor/images/Panto2022/A1S0C2_13_Typescript.png" }
+      "name": "animatedgif",
+      "args": { "file": "floor/processor/images/Panto2022/A1S0C2_12_Forth.gif" }
     },
     {
-      "name": "pmimage",
-      "args": { "file": "floor/processor/images/Panto2022/A1S0C2_14_Clojure.png" }
+      "name": "animatedgif",
+      "args": { "file": "floor/processor/images/Panto2022/A1S0C2_13_Typescript.gif" }
     },
     {
-      "name": "pmimage",
-      "args": { "file": "floor/processor/images/Panto2022/A1S0C2_15_Kotlin.png" }
+      "name": "animatedgif",
+      "args": { "file": "floor/processor/images/Panto2022/A1S0C2_14_Clojure.gif" }
     },
     {
-      "name": "pmimage",
-      "args": { "file": "floor/processor/images/Panto2022/A1S0C2_16_Dart.png" }
+      "name": "animatedgif",
+      "args": { "file": "floor/processor/images/Panto2022/A1S0C2_15_Kotlin.gif" }
+    },
+    {
+      "name": "animatedgif",
+      "args": { "file": "floor/processor/images/Panto2022/A1S0C2_16_Dart.gif" }
     },
     {
       "name": "animatedgif",
