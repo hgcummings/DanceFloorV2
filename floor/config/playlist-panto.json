@@ -1,6 +1,9 @@
 {
   "queue": [
     {
+      "name": "ticker"
+    },
+    {
       "name": "blank"
     },
     {
