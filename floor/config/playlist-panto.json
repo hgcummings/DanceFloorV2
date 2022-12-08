@@ -117,6 +117,16 @@
         "offsetHours": -6,
         "speedFactor": 1
       }
+    },
+    {
+      "name": "blank"
+    },
+    {
+      "name": "animatedgif",
+      "args": { "file": "floor/processor/images/Panto2022/A1S4C1_Woods.gif" }
+    },
+    {
+      "name": "blank"
     }
   ]
 }
