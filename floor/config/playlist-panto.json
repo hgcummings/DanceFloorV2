@@ -127,6 +127,10 @@
     },
     {
       "name": "blank"
+    },
+    {
+      "name": "animatedgif",
+      "args": { "file": "floor/processor/images/Panto2019/Promo/hibernating.gif" }
     }
   ]
 }
