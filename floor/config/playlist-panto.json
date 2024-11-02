@@ -16,7 +16,8 @@
       }
     },
     {
-      "name": "blank"
+      "name": "animatedgif",
+      "args": { "file": "floor/processor/images/Panto2022/A1S0C1_03_Logo_Out.gif" }
     },
     {
       "name": "flight",

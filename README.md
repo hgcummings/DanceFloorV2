@@ -22,11 +22,7 @@ Second reminder - this only works with the command prompt, not bash.
 
 ```
 mkvirtualenv -p C:\Python27\python.exe dance
-pip install git+https://github.com/dpallot/simple-websocket-server.git
-pip install flask
-pip install flask-htpasswd
-pip install pillow
-pip install tweepy
+pip install -r requirements.txt
 deactivate
 git clone git@github.com:PhilMarsden/DanceFloorV2.git
 cd DanceFloorV2
