@@ -6,18 +6,8 @@
     {
       "name": "animatedgif",
       "args": {
-        "file": "floor/processor/images/Panto2019/Cave/steam_magic.gif"
+        "file": "floor/processor/images/Panto2024/teleporter2.gif"
       }
-    },
-    {
-      "name": "animatedgif",
-      "args": {
-        "file": "floor/processor/images/Panto2019/Cave/tunnel.gif"
-      }
-    },
-    {
-      "name": "animatedgif",
-      "args": { "file": "floor/processor/images/Panto2022/A1S0C1_03_Logo_Out.gif" }
     },
     {
       "name": "flight",
