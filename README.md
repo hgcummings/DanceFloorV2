@@ -40,6 +40,12 @@ http://localhost:1979
 
 http://localhost:1977
 
+# To run the server
+
+From a machine on the same network as the dancefloor itself:
+
+``python floor/run-show.py --network --network_port 50888 --devserver --noconsole``
+
 ## Authentication
 
 If you want to access any of the protected endpoints locally, you'll need to specify a .htpasswd file.
