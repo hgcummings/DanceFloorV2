@@ -197,7 +197,7 @@
         if (playlist.queue[i].args) {
           var args = playlist.queue[i].args;
           var firstArgName = Object.keys(args)[0];
-          if (firstArgName) {
+          if (firstArgName && typeof args[firstArgName] === "string") {
             var firstArgValue = args[firstArgName].split('/').pop();
             indicator = ' <i>(' + firstArgName + ': ' + firstArgValue + ')</i>';
           }
