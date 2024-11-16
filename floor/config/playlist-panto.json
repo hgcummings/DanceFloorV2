@@ -91,6 +91,18 @@
       }
     },
     {
+      "name": "animatedgif",
+      "args": {
+        "file": "floor/processor/images/Panto2024/A2S3C4_Fireball.gif"
+      }
+    },
+    {
+      "name": "animatedgif",
+      "args": {
+        "file": "floor/processor/images/Panto2024/A2S3C5_Fireball.gif"
+      }
+    },
+    {
       "name": "blank"
     },
     {
