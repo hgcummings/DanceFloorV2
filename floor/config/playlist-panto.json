@@ -18,6 +18,12 @@
     {
       "name": "animatedgif",
       "args": {
+        "file": "floor/processor/images/Panto2024/A1S2C0_E_Mono.gif"
+      }
+    },
+    {
+      "name": "animatedgif",
+      "args": {
         "file": "floor/processor/images/Panto2024/A1S2C3_Teleporter_Group.gif"
       }
     },
