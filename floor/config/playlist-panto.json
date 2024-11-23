@@ -28,6 +28,9 @@
       }
     },
     {
+      "name": "blank"
+    },
+    {
       "name": "animatedgif",
       "args": {
         "file": "floor/processor/images/Panto2024/A1S4C0_Teleporter_IM.gif"
@@ -42,11 +45,17 @@
     {
       "name": "animatedgif",
       "args": {
-        "file": "floor/processor/images/Panto2024/A1S5C0_Teleporter_BW.gif"
+        "file": "floor/processor/images/Panto2024/A1S4C4_Thrusters.gif"
       }
     },
     {
       "name": "blank"
+    },
+    {
+      "name": "animatedgif",
+      "args": {
+        "file": "floor/processor/images/Panto2024/A1S5C0_Teleporter_BW.gif"
+      }
     },
     {
       "name": "animatedgif",
@@ -77,9 +86,6 @@
       "args": {
         "file": "floor/processor/images/Panto2024/A2S3C1_SayNoToDrugs.gif"
       }
-    },
-    {
-      "name": "blank"
     },
     {
       "name": "animatedgif",
@@ -114,7 +120,76 @@
     {
       "name": "animatedgif",
       "args": {
+        "file": "floor/processor/images/Panto2024/A1S5C0_Teleporter_Thor.gif"
+      }
+    },
+    {
+      "name": "animatedgif",
+      "args": {
         "file": "floor/processor/images/Panto2024/A2S4C1_Bifrost.gif"
+      }
+    },
+    {
+      "name": "blank"
+    },
+    {
+      "name": "animatedgif",
+      "args": {
+        "file": "floor/processor/images/Panto2024/A2S5C01.gif"
+      }
+    },
+    {
+      "name": "animatedgif",
+      "args": {
+        "file": "floor/processor/images/Panto2024/A2S5C02.gif"
+      }
+    },
+    {
+      "name": "animatedgif",
+      "args": {
+        "file": "floor/processor/images/Panto2024/A2S5C03.gif"
+      }
+    },
+    {
+      "name": "animatedgif",
+      "args": {
+        "file": "floor/processor/images/Panto2024/A2S5C04.gif"
+      }
+    },
+    {
+      "name": "animatedgif",
+      "args": {
+        "file": "floor/processor/images/Panto2024/A2S5C05.gif"
+      }
+    },
+    {
+      "name": "animatedgif",
+      "args": {
+        "file": "floor/processor/images/Panto2024/A2S5C06.gif"
+      }
+    },
+    {
+      "name": "animatedgif",
+      "args": {
+        "file": "floor/processor/images/Panto2024/A2S5C07.gif"
+      }
+    },
+    {
+      "name": "animatedgif",
+      "args": {
+        "file": "floor/processor/images/Panto2024/A2S5C08.gif"
+      }
+    },
+    {
+      "name": "animatedgif",
+      "args": {
+        "file": "floor/processor/images/Panto2024/A2S5C09.gif"
+      }
+    },
+    {
+      "name": "animatedgif",
+      "args": {
+        "file": "floor/processor/images/Panto2024/A2S5C10_Explode_Duck.gif"
       }
     },
     {
@@ -192,45 +267,6 @@
       "args": {
         "scene": "blank",
         "z_index": 0
-      }
-    },
-    {
-      "name": "blank"
-    },
-    {
-      "name": "animatedgif",
-      "args": {
-        "file": "floor/processor/images/Panto2019/Showdown/crash.gif"
-      }
-    },
-    {
-      "name": "blank"
-    },
-    {
-      "name": "animatedgif",
-      "args": {
-        "file": "floor/processor/images/Panto2019/Showdown/delete_script.gif"
-      }
-    },
-    {
-      "name": "animatedgif",
-      "args": {
-        "file": "floor/processor/images/Panto2019/Showdown/delete_jafar.gif"
-      }
-    },
-    {
-      "name": "blank"
-    },
-    {
-      "name": "animatedgif",
-      "args": {
-        "file": "floor/processor/images/Panto2019/Showdown/bluescreen_crash.gif"
-      }
-    },
-    {
-      "name": "animatedgif",
-      "args": {
-        "file": "floor/processor/images/Panto2019/Showdown/bluescreen.gif"
       }
     },
     {
