@@ -49,6 +49,62 @@
       }
     },
     {
+      "name": "flight",
+      "args": {
+        "scene": "intro",
+        "z_index": -2
+      }
+    },
+    {
+      "name": "flight",
+      "args": {
+        "scene": "desert",
+        "z_index": -1
+      }
+    },
+    {
+      "name": "flight",
+      "args": {
+        "scene": "clouds",
+        "z_index": 1
+      }
+    },
+    {
+      "name": "flight",
+      "args": {
+        "scene": "flock",
+        "z_index": 2
+      }
+    },
+    {
+      "name": "flight",
+      "args": {
+        "scene": "starfield",
+        "z_index": -1
+      }
+    },
+    {
+      "name": "flight",
+      "args": {
+        "scene": "sphinx",
+        "z_index": 1
+      }
+    },
+    {
+      "name": "flight",
+      "args": {
+        "scene": "dino",
+        "z_index": 2
+      }
+    },
+    {
+      "name": "flight",
+      "args": {
+        "scene": "orchard",
+        "z_index": 3
+      }
+    },
+    {
       "name": "blank"
     },
     {
@@ -190,83 +246,6 @@
       "name": "animatedgif",
       "args": {
         "file": "floor/processor/images/Panto2024/A2S5C10_Explode_Duck.gif"
-      }
-    },
-    {
-      "name": "flight",
-      "args": {
-        "scene": "intro",
-        "z_index": -2
-      }
-    },
-    {
-      "name": "flight",
-      "args": {
-        "scene": "desert",
-        "z_index": -1
-      }
-    },
-    {
-      "name": "flight",
-      "args": {
-        "scene": "clouds",
-        "z_index": 1
-      }
-    },
-    {
-      "name": "flight",
-      "args": {
-        "scene": "flock",
-        "z_index": 2
-      }
-    },
-    {
-      "name": "flight",
-      "args": {
-        "scene": "starfield",
-        "z_index": -1
-      }
-    },
-    {
-      "name": "flight",
-      "args": {
-        "scene": "sphinx",
-        "z_index": 1
-      }
-    },
-    {
-      "name": "flight",
-      "args": {
-        "scene": "dino",
-        "z_index": 2
-      }
-    },
-    {
-      "name": "flight",
-      "args": {
-        "scene": "orchard",
-        "z_index": 3
-      }
-    },
-    {
-      "name": "flight",
-      "args": {
-        "scene": "horizon",
-        "z_index": 2
-      }
-    },
-    {
-      "name": "flight",
-      "args": {
-        "scene": "moon",
-        "z_index": 1
-      }
-    },
-    {
-      "name": "flight",
-      "args": {
-        "scene": "blank",
-        "z_index": 0
       }
     },
     {
