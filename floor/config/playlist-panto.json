@@ -8,6 +8,13 @@
       }
     },
     {
+      "name": "flight",
+      "args": {
+        "scene": "starfield",
+        "z_index": -1
+      }
+    },
+    {
       "name": "blank"
     },
     {
