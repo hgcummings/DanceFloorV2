@@ -1,7 +1,8 @@
 import pygame as pg
 import panto_constants
+import scene
 
-class Horizon(object):
+class Horizon(scene.Scene):
     def __init__(self, screen_size):
         self.screen_size = screen_size
         return

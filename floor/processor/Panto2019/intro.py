@@ -1,11 +1,12 @@
 import pygame as pg
 import panto_constants
+import scene
 
 intensity_speed = 3
 lift_speed = 1
 target_intensity = 32
 
-class Intro(object):
+class Intro(scene.Scene):
     def __init__(self, screen_size):
         self.screen_size = screen_size
         self.intensity = 0

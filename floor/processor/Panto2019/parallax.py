@@ -1,28 +1,34 @@
 import pygame as pg
 import random
 import logging
+import scene
 import time
 logger = logging.getLogger('parallax')
 
 random.seed(13)
 frame_duration = 0.5
 
-class Parallax(object):
+class Parallax(scene.Scene):
     def __init__(self, parallax_layers):
         self.parallax_layers = parallax_layers
+        self.frozen = False
 
     def set_active(self, active):
         for layer in self.parallax_layers:
             layer.set_active(active)
 
     def update(self):
-        for layer in self.parallax_layers:
-            layer.update()
+        if not self.frozen:
+            for layer in self.parallax_layers:
+                layer.update()
 
     def draw(self, surface):
         for layer in self.parallax_layers:
             layer.draw(surface)
 
+    def trigger_special(self, is_primary):
+        if not is_primary:
+            self.frozen = True
 
 class ParallaxLayer(object):
     def __init__(self, screen_size, parallax_sprite, spawn_delay_range, spawn_immediate = False):

@@ -63,7 +63,9 @@ class Flight(Base):
         surface.fill(pygame.Color('black'))
 
         if (self.joystick.get_button(0) and time.time() - self.trigger_time > 1.0):
-            self.scene.trigger_special()
+            propagate = self.scene.trigger_special(True)
+            if propagate and self.last_scene is not None:
+                self.last_scene.trigger_special(False)
             self.trigger_time = time.time()
         
         if (self.joystick.get_button(1) and time.time() - self.spin_start_time > 2.0):

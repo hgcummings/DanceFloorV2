@@ -1,4 +1,4 @@
-class Blank(object):
+class Scene(object):
     def __init__(self, screen_size):
         return
 
@@ -10,3 +10,6 @@ class Blank(object):
 
     def draw(self, surface):
         return
+
+    def trigger_special(self, is_primary):
+        return False

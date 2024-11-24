@@ -4,13 +4,14 @@ import time
 import pygame
 import logging
 import os
+import scene
 CACHE = {}
 logger = logging.getLogger('animation')
 
 # See https://github.com/PyCQA/pylint/issues/2144
 # pylint: disable=too-many-function-args
 
-class Animation(object):
+class Animation(scene.Scene):
     def __init__(self, screen_size, filename):
         global CACHE
         

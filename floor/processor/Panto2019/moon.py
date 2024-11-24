@@ -1,6 +1,7 @@
 import pygame as pg
 import time
 import logging
+import scene
 
 import panto_constants
 logger = logging.getLogger('moon')
@@ -8,7 +9,7 @@ logger = logging.getLogger('moon')
 moon_height = 32
 base_speed = 4
 
-class Moon(object):
+class Moon(scene.Scene):
     def __init__(self, screen_size):
         self.screen_size = screen_size
 

@@ -1,4 +1,5 @@
 import pygame as pg
+import scene
 
 import panto_constants
 import perspective
@@ -7,7 +8,7 @@ import zoom
 medium_rocks = perspective.PerspectiveCreationModel([15, 30], "floor/processor/images/Panto2019/Desert/Rock_M.png")
 small_rocks = perspective.PerspectiveCreationModel([10, 20], "floor/processor/images/Panto2019/Desert/Rock_S.png")
 
-class Desert(object):
+class Desert(scene.Scene):
     def __init__(self, screen_size):
         self.screen_size = screen_size
 
@@ -38,5 +39,5 @@ class Desert(object):
         self.is_active = active
         self.perspective_layer.set_active(active)
 
-    def trigger_special(self):
+    def trigger_special(self, _):
         self.arch.spawn()

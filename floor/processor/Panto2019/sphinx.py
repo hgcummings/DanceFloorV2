@@ -2,13 +2,14 @@ import pygame as pg
 
 import panto_constants
 import parallax
+import scene
 
 sphinx_delay = 60
 pyramid_front_delay = 0
 pyramid_back_delay = 20
 
 
-class Sphinx(object):
+class Sphinx(scene.Scene):
     def __init__(self, screen_size):
         self.screen_size = screen_size
 
