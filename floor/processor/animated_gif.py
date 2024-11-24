@@ -3,7 +3,7 @@ from base import Base
 from PIL import Image,ImageDraw,ImageSequence
 from StringIO import StringIO
 from os import listdir
-from os.path import isfile, join
+from os.path import dirname, isfile, join, normpath
 import time
 import urllib
 import sys
@@ -23,12 +23,31 @@ class AnimatedGIF(Base):
 		logger.debug('__init__')
 		self.frame_data = []
 		self.frame_durations = []
-		self.file = kwargs["file"]
+		self.file = normpath(kwargs["file"])
+		self.preload_dir = "preload_dir" in kwargs and kwargs["preload_dir"]
 		self.frame_index = -1
 		self.frame_end_millis = 0
 		logger.info("File : {}".format(kwargs["file"]))
 
 	def initialise_processor(self):
+		if (self.preload_dir):
+			dir = dirname(self.file)
+
+			logger.info("======= Preloading directory {}".format(dir))
+
+			actual_file = self.file
+			for entry in listdir(dir):
+				if entry.endswith('.gif') and isfile(join(dir, entry)):
+					self.file = normpath(join(dir, entry))
+					self.load_animation()
+					self.frame_data = []
+					self.frame_durations = []
+
+			self.file = actual_file
+
+		self.load_animation()
+
+	def load_animation(self):
 		global CACHE
 		if self.file in CACHE:
 			logger.info("======= Using cached version of file {}".format(self.file))
@@ -37,7 +56,7 @@ class AnimatedGIF(Base):
 			self.frame_data = cached['frame_data']
 			self.frame_durations = cached['frame_durations']
 		else:
-			logger.info("======= Processing File {} ".format(self.file))
+			logger.info("======= Processing file {} ".format(self.file))
 			im_in = Image.open(self.file)
 		
 			if ((im_in.size[0] != self.FLOOR_WIDTH) or (im_in.size[1] != self.FLOOR_HEIGHT)):

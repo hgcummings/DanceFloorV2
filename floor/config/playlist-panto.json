@@ -1,6 +1,13 @@
 {
   "queue": [
     {
+      "name": "animatedgif",
+      "args": {
+        "file": "floor/processor/images/Panto2024/hibernating.gif",
+        "preload_dir": true
+      }
+    },
+    {
       "name": "blank"
     },
     {
