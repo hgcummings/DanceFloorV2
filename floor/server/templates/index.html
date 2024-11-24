@@ -35,7 +35,7 @@
 {% block content %}
   <div class="row">
     <div class="col-md-3">
-      <h2>Now Playing</h2>
+      <h2>Upcoming</h2>
       <div id="playlist"></div>
     </div>
 
@@ -180,7 +180,7 @@
     var indicator = '';
     listGroup.className = 'list-group';
 
-    for (var i = 0; i < playlist.queue.length; i++) {
+    for (var i = playlist.current_position; i < playlist.queue.length; i++) {
       var playlistItem = document.createElement('a');
       var isActive = (i === playlist.current_position);
 
@@ -410,6 +410,12 @@
     });
     $('#downbeat-nudge-right').click(function () {
       onDownbeatNudgedRight();
+    });
+    $(window).on("keydown", function(event) {
+      if (event.which === 32) {
+        advance();
+        event.preventDefault();
+      }
     });
   }
 
