@@ -95,7 +95,7 @@ class Flight(Base):
                 self.spinning = False
                 rotation = 0
         else:
-            rotation = -30 * round(self.joystick.get_axis(0), 2)
+            rotation = 30 * round(self.joystick.get_axis(0), 2)
 
         # pygame.transform uses the top-left pixel as the fill colour when rotating, but if
         # the horizon is high, we want to use the ground colour as the fill, so flip before
@@ -103,6 +103,9 @@ class Flight(Base):
         surface = pygame.transform.flip(surface, offset_y < 0, offset_y < 0)
         surface = pygame.transform.rotate(surface, rotation)
         surface = pygame.transform.flip(surface, offset_y < 0, offset_y < 0)
+
+        # 2024 panto: reverse direction of animation
+        surface = pygame.transform.flip(surface, True, False)
 
         pixels = pygame.PixelArray(surface.subsurface(pygame.Rect(
             (surface.get_width() / 2) - self.FLOOR_WIDTH / 2,
