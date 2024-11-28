@@ -415,6 +415,9 @@
       if (event.which === 32) {
         advance();
         event.preventDefault();
+      } else if (event.which === 37) {
+        previous();
+        event.preventDefault();
       }
     });
   }
