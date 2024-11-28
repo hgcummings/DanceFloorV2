@@ -119,6 +119,13 @@
       }
     },
     {
+      "name": "flight",
+      "args": {
+        "scene": "cactii",
+        "z_index": 2
+      }
+    },
+    {
       "name": "blank"
     },
     {

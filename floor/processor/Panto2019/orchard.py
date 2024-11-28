@@ -27,9 +27,8 @@ class Orchard(scene.Scene):
         self.parallax_effect.set_active(active)
 
     def trigger_special(self, is_primary):
-        if is_primary:
+        if not is_primary:
             self.frozen = True
-            return True
         return False
 
 

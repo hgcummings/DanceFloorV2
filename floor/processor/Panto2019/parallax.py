@@ -27,8 +27,10 @@ class Parallax(scene.Scene):
             layer.draw(surface)
 
     def trigger_special(self, is_primary):
-        if not is_primary:
+        if is_primary:
             self.frozen = True
+            return True
+        return False
 
 class ParallaxLayer(object):
     def __init__(self, screen_size, parallax_sprite, spawn_delay_range, spawn_immediate = False):
