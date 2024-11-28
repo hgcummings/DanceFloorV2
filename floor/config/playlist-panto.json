@@ -154,6 +154,12 @@
     {
       "name": "animatedgif",
       "args": {
+        "file": "floor/processor/images/Panto2024/A2S3C0_Teleporter_AM.gif"
+      }
+    },
+    {
+      "name": "animatedgif",
+      "args": {
         "file": "floor/processor/images/Panto2024/A2S3C1_SayNoToDrugs.gif"
       }
     },
