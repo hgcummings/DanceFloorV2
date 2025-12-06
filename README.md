@@ -46,6 +46,8 @@ From a machine on the same network as the dancefloor itself:
 
 ``python floor/run-show.py --network --network_port 50888 --devserver --noconsole``
 
+The broadcast address range also needs to cover the IP range of the controllers in the screen. This is configured via self.multisocketaddr in `floor/driver/network.py`
+
 ## Authentication
 
 If you want to access any of the protected endpoints locally, you'll need to specify a .htpasswd file.
