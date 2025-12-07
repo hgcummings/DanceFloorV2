@@ -3,15 +3,15 @@
     {
       "name": "animatedgif",
       "args": {
-        "file": "floor/processor/images/Panto2024/hibernating.gif",
+        "file": "floor/processor/images/Panto2025/hibernating.gif",
         "preload_dir": true
       }
     },
     {
-      "name": "flight",
+      "name": "animatedgif",
       "args": {
-        "scene": "starfield",
-        "z_index": -1
+        "file": "floor/processor/images/Panto2025/A1_city_mid.gif",
+        "preload_dir": true
       }
     },
     {
@@ -20,25 +20,18 @@
     {
       "name": "animatedgif",
       "args": {
-        "file": "floor/processor/images/Panto2024/A1S2C0_E_Mono.gif"
+        "file": "floor/processor/images/Panto2025/A1S6_city_near.gif",
+        "preload_dir": true
       }
+    },
+    {
+      "name": "raverplaid"
     },
     {
       "name": "animatedgif",
       "args": {
-        "file": "floor/processor/images/Panto2024/A1S2C2_Teleporter_Shiv.gif"
-      }
-    },
-    {
-      "name": "animatedgif",
-      "args": {
-        "file": "floor/processor/images/Panto2024/A1S2C0_E_Mono.gif"
-      }
-    },
-    {
-      "name": "animatedgif",
-      "args": {
-        "file": "floor/processor/images/Panto2024/A1S2C3_Teleporter_Group.gif"
+        "file": "floor/processor/images/Panto2025/A2S2C1_hearts.gif",
+        "preload_dir": true
       }
     },
     {
@@ -47,232 +40,29 @@
     {
       "name": "animatedgif",
       "args": {
-        "file": "floor/processor/images/Panto2024/A1S4C0_Teleporter_IM.gif"
+        "file": "floor/processor/images/Panto2025/A2S3C1_Transformation.gif",
+        "preload_dir": true
       }
     },
     {
       "name": "animatedgif",
       "args": {
-        "file": "floor/processor/images/Panto2024/A1S4C1_Repulsor.gif"
+        "file": "floor/processor/images/Panto2025/A2S3C2_Verticalised.gif",
+        "preload_dir": true
       }
     },
     {
       "name": "animatedgif",
       "args": {
-        "file": "floor/processor/images/Panto2024/A1S4C4_Thrusters.gif"
-      }
-    },
-    {
-      "name": "flight",
-      "args": {
-        "scene": "intro",
-        "z_index": -2
-      }
-    },
-    {
-      "name": "flight",
-      "args": {
-        "scene": "desert",
-        "z_index": -1
-      }
-    },
-    {
-      "name": "flight",
-      "args": {
-        "scene": "clouds",
-        "z_index": 1
-      }
-    },
-    {
-      "name": "flight",
-      "args": {
-        "scene": "flock",
-        "z_index": 2
-      }
-    },
-    {
-      "name": "flight",
-      "args": {
-        "scene": "starfield",
-        "z_index": -1
-      }
-    },
-    {
-      "name": "flight",
-      "args": {
-        "scene": "sphinx",
-        "z_index": 1
-      }
-    },
-    {
-      "name": "flight",
-      "args": {
-        "scene": "dino",
-        "z_index": 2
-      }
-    },
-    {
-      "name": "flight",
-      "args": {
-        "scene": "orchard",
-        "z_index": 3
-      }
-    },
-    {
-      "name": "flight",
-      "args": {
-        "scene": "cactii",
-        "z_index": 2
-      }
-    },
-    {
-      "name": "blank"
-    },
-    {
-      "name": "animatedgif",
-      "args": {
-        "file": "floor/processor/images/Panto2024/A1S5C0_Teleporter_BW.gif"
+        "file": "floor/processor/images/Panto2025/A2S3C3_AI.gif",
+        "preload_dir": true
       }
     },
     {
       "name": "animatedgif",
       "args": {
-        "file": "floor/processor/images/Panto2024/A1S5C1_Bot.gif"
-      }
-    },
-    {
-      "name": "blank"
-    },
-    {
-      "name": "animatedgif",
-      "args": {
-        "file": "floor/processor/images/Panto2024/A2S1C0_America.gif"
-      }
-    },
-    {
-      "name": "animatedgif",
-      "args": {
-        "file": "floor/processor/images/Panto2024/A2S1C1_Asplode.gif"
-      }
-    },
-    {
-      "name": "blank"
-    },
-    {
-      "name": "animatedgif",
-      "args": {
-        "file": "floor/processor/images/Panto2024/A2S3C0_Teleporter_AM.gif"
-      }
-    },
-    {
-      "name": "animatedgif",
-      "args": {
-        "file": "floor/processor/images/Panto2024/A2S3C1_SayNoToDrugs.gif"
-      }
-    },
-    {
-      "name": "animatedgif",
-      "args": {
-        "file": "floor/processor/images/Panto2024/A2S3C2_Multiball.gif"
-      }
-    },
-    {
-      "name": "blank"
-    },
-    {
-      "name": "animatedgif",
-      "args": {
-        "file": "floor/processor/images/Panto2024/A2S3C3_Fireball.gif"
-      }
-    },
-    {
-      "name": "animatedgif",
-      "args": {
-        "file": "floor/processor/images/Panto2024/A2S3C4_Fireball.gif"
-      }
-    },
-    {
-      "name": "animatedgif",
-      "args": {
-        "file": "floor/processor/images/Panto2024/A2S3C5_Fireball.gif"
-      }
-    },
-    {
-      "name": "blank"
-    },
-    {
-      "name": "animatedgif",
-      "args": {
-        "file": "floor/processor/images/Panto2024/A2S4C0_Teleporter_Thor.gif"
-      }
-    },
-    {
-      "name": "animatedgif",
-      "args": {
-        "file": "floor/processor/images/Panto2024/A2S4C1_Bifrost.gif"
-      }
-    },
-    {
-      "name": "blank"
-    },
-    {
-      "name": "animatedgif",
-      "args": {
-        "file": "floor/processor/images/Panto2024/A2S5C01.gif"
-      }
-    },
-    {
-      "name": "animatedgif",
-      "args": {
-        "file": "floor/processor/images/Panto2024/A2S5C02.gif"
-      }
-    },
-    {
-      "name": "animatedgif",
-      "args": {
-        "file": "floor/processor/images/Panto2024/A2S5C03.gif"
-      }
-    },
-    {
-      "name": "animatedgif",
-      "args": {
-        "file": "floor/processor/images/Panto2024/A2S5C04.gif"
-      }
-    },
-    {
-      "name": "animatedgif",
-      "args": {
-        "file": "floor/processor/images/Panto2024/A2S5C05.gif"
-      }
-    },
-    {
-      "name": "animatedgif",
-      "args": {
-        "file": "floor/processor/images/Panto2024/A2S5C06.gif"
-      }
-    },
-    {
-      "name": "animatedgif",
-      "args": {
-        "file": "floor/processor/images/Panto2024/A2S5C07.gif"
-      }
-    },
-    {
-      "name": "animatedgif",
-      "args": {
-        "file": "floor/processor/images/Panto2024/A2S5C08.gif"
-      }
-    },
-    {
-      "name": "animatedgif",
-      "args": {
-        "file": "floor/processor/images/Panto2024/A2S5C09.gif"
-      }
-    },
-    {
-      "name": "animatedgif",
-      "args": {
-        "file": "floor/processor/images/Panto2024/A2S5C10_Explode_Duck.gif"
+        "file": "floor/processor/images/Panto2025/A2S3C4_Consultant.gif",
+        "preload_dir": true
       }
     },
     {
