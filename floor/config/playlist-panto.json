@@ -112,10 +112,31 @@
       "name": "blank"
     },
     {
-      "name": "animatedgif",
+      "name": "sprites",
       "args": {
-        "file": "floor/processor/images/Panto2025/A2S4C1_Reveal.gif",
-        "preload_dir": true
+        "sprites": [
+          {
+            "file": "floor/processor/images/Panto2025/A2S4/background.gif",
+            "init_x": 0,
+            "init_y": 0,
+            "vx": 0,
+            "vy": 0
+          },
+          {
+            "file": "floor/processor/images/Panto2025/A2S4/curtain.gif",
+            "init_x": 0,
+            "init_y": 0,
+            "vx": -1,
+            "vy": 0
+          },
+          {
+            "file": "floor/processor/images/Panto2025/A2S4/curtain.gif",
+            "init_x": 36,
+            "init_y": 0,
+            "vx": 1,
+            "vy": 0
+          }
+        ]
       }
     },
     {
