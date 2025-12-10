@@ -8,6 +8,49 @@
       }
     },
     {
+      "name": "blank"
+    },
+    {
+      "name": "animatedgif",
+      "args": {
+        "file": "floor/processor/images/Panto2025/A1S1C0_LucidLabs.gif",
+        "preload_dir": true
+      }
+    },
+    {
+      "name": "blank"
+    },
+    {
+      "name": "animatedgif",
+      "args": {
+        "file": "floor/processor/images/Panto2025/A1_city_far.gif",
+        "preload_dir": true
+      }
+    },
+    {
+      "name": "blank"
+    },
+    {
+      "name": "animatedgif",
+      "args": {
+        "file": "floor/processor/images/Panto2025/A1_city_far.gif",
+        "preload_dir": true
+      }
+    },
+    {
+      "name": "blank"
+    },
+    {
+      "name": "animatedgif",
+      "args": {
+        "file": "floor/processor/images/Panto2025/A1_city_mid.gif",
+        "preload_dir": true
+      }
+    },
+    {
+      "name": "blank"
+    },
+    {
       "name": "animatedgif",
       "args": {
         "file": "floor/processor/images/Panto2025/A1_city_mid.gif",
@@ -62,6 +105,40 @@
       "name": "animatedgif",
       "args": {
         "file": "floor/processor/images/Panto2025/A2S3C4_Consultant.gif",
+        "preload_dir": true
+      }
+    },
+    {
+      "name": "blank"
+    },
+    {
+      "name": "animatedgif",
+      "args": {
+        "file": "floor/processor/images/Panto2025/A2S4C1_Reveal.gif",
+        "preload_dir": true
+      }
+    },
+    {
+      "name": "animatedgif",
+      "args": {
+        "file": "floor/processor/images/Panto2025/A2S4C2_Rise.gif",
+        "preload_dir": true
+      }
+    },
+    {
+      "name": "animatedgif",
+      "args": {
+        "file": "floor/processor/images/Panto2025/A2S4C3_Fly.gif",
+        "preload_dir": true
+      }
+    },
+    {
+      "name": "blank"
+    },
+    {
+      "name": "animatedgif",
+      "args": {
+        "file": "floor/processor/images/Panto2025/A2S6C1_Bluescreen.gif",
         "preload_dir": true
       }
     },
