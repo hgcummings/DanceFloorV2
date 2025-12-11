@@ -235,10 +235,39 @@
       }
     },
     {
-      "name": "animatedgif",
+      "name": "sprites",
       "args": {
-        "file": "floor/processor/images/Panto2025/A2S4C3_Fly.gif",
-        "preload_dir": true
+        "frames": 36,
+        "sprites": [
+          {
+            "file": "floor/processor/images/Panto2025/sprites/A2S4/L0_sky.png",
+            "init_x": 0,
+            "init_y": 0,
+            "vx": 0,
+            "vy": 0
+          },
+          {
+            "file": "floor/processor/images/Panto2025/sprites/A2S4/L1_hills.png",
+            "init_x": 0,
+            "init_y": 13,
+            "vx": 0,
+            "vy": 0
+          },
+          {
+            "file": "floor/processor/images/Panto2025/sprites/A2S4/L2_city_rear.png",
+            "init_x": 0,
+            "init_y": 23,
+            "vx": 0,
+            "vy": 0
+          },
+          {
+            "file": "floor/processor/images/Panto2025/sprites/A2S4/L4_witch.png",
+            "init_x": 21,
+            "init_y": 8,
+            "vx": -3,
+            "vy": -1
+          }
+        ]
       }
     },
     {
