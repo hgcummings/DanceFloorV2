@@ -53,6 +53,11 @@ class MovingSprite(pg.sprite.Sprite):
         self.vx = config["vx"]
         self.vy = config["vy"]
 
+        self.skip = config.get("skip", 1)
+        self.index = 0
+
     def update(self):
-        self.rect.x += self.vx
-        self.rect.y += self.vy
+        if self.index % self.skip == 0:
+            self.rect.x += self.vx
+            self.rect.y += self.vy
+        self.index += 1

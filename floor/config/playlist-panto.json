@@ -150,7 +150,28 @@
         "frames": 36,
         "sprites": [
           {
-            "file": "floor/processor/images/Panto2025/sprites/A2S4/background.gif",
+            "file": "floor/processor/images/Panto2025/sprites/A2S4/L0_sky.png",
+            "init_x": 0,
+            "init_y": 0,
+            "vx": 0,
+            "vy": 0
+          },
+          {
+            "file": "floor/processor/images/Panto2025/sprites/A2S4/L1_hills.png",
+            "init_x": 0,
+            "init_y": 0,
+            "vx": 0,
+            "vy": 0
+          },
+          {
+            "file": "floor/processor/images/Panto2025/sprites/A2S4/L2_city_rear.png",
+            "init_x": 0,
+            "init_y": 0,
+            "vx": 0,
+            "vy": 0
+          },
+          {
+            "file": "floor/processor/images/Panto2025/sprites/A2S4/L3_city_fore.png",
             "init_x": 0,
             "init_y": 0,
             "vx": 0,
@@ -174,10 +195,43 @@
       }
     },
     {
-      "name": "animatedgif",
+      "name": "sprites",
       "args": {
-        "file": "floor/processor/images/Panto2025/A2S4C2_Rise.gif",
-        "preload_dir": true
+        "ms_per_frame": 25,
+        "frames": 90,
+        "sprites": [
+          {
+            "file": "floor/processor/images/Panto2025/sprites/A2S4/L0_sky.png",
+            "init_x": 0,
+            "init_y": 0,
+            "vx": 0,
+            "vy": 0
+          },
+          {
+            "file": "floor/processor/images/Panto2025/sprites/A2S4/L1_hills.png",
+            "init_x": 0,
+            "init_y": 0,
+            "vx": 0,
+            "vy": 1,
+            "skip": 7
+          },
+          {
+            "file": "floor/processor/images/Panto2025/sprites/A2S4/L2_city_rear.png",
+            "init_x": 0,
+            "init_y": 0,
+            "vx": 0,
+            "vy": 1,
+            "skip": 4
+          },
+          {
+            "file": "floor/processor/images/Panto2025/sprites/A2S4/L3_city_fore.png",
+            "init_x": 0,
+            "init_y": 0,
+            "vx": 0,
+            "vy": 1,
+            "skip": 2
+          }
+        ]
       }
     },
     {
