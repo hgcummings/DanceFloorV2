@@ -1,6 +1,7 @@
 from base import Base
 import pygame as pg
 import logging
+import time
 
 logger = logging.getLogger('sprites')
 
@@ -9,7 +10,10 @@ class Sprites(Base):
     def __init__(self, **kwargs):
         super(Sprites, self).__init__(**kwargs)
         self.sprite_group = pg.sprite.OrderedUpdates()
-        logger.debug(kwargs["sprites"])
+        self.frames = kwargs["frames"]
+        self.ms_per_frame = kwargs.get("ms_per_frame", 100)
+        self.last_update = 0
+        self.frame = 0
         for sprite in kwargs["sprites"]:
             self.sprite_group.add(MovingSprite(sprite))
 
@@ -18,8 +22,16 @@ class Sprites(Base):
         pg.init() # pylint: disable=no-member
 
     def get_next_frame(self, weights):
-        self.sprite_group.update()
-        self.sprite_group.draw(self.surface)
+        current_millis = int(time.time() * 1000)
+
+        if (current_millis > self.last_update + self.ms_per_frame and
+             self.frame < self.frames):
+            logger.info("frame: " + str(self.frame))
+            self.last_update = current_millis
+            self.frame += 1
+            self.sprite_group.update()
+            self.sprite_group.draw(self.surface)
+
         pixels = pg.PixelArray(self.surface)
 
         return [

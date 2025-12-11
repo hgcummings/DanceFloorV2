@@ -28,6 +28,36 @@
       }
     },
     {
+      "name": "sprites",
+      "args": {
+        "frames": 26,
+        "ms_per_frame": 150,
+        "sprites": [
+          {
+            "file": "floor/processor/images/Panto2025/A1_city_far.gif",
+            "init_x": 0,
+            "init_y": 0,
+            "vx": 0,
+            "vy": 0
+          },
+          {
+            "file": "floor/processor/images/Panto2025/sprites/bubble.png",
+            "init_x": -23,
+            "init_y": 13,
+            "vx": 1,
+            "vy": 0
+          }
+        ]
+      }
+    },
+    {
+      "name": "animatedgif",
+      "args": {
+        "file": "floor/processor/images/Panto2025/A1_city_far.gif",
+        "preload_dir": true
+      }
+    },
+    {
       "name": "blank"
     },
     {
@@ -66,6 +96,9 @@
         "file": "floor/processor/images/Panto2025/A1S6_city_near.gif",
         "preload_dir": true
       }
+    },
+    {
+      "name": "blank"
     },
     {
       "name": "raverplaid"
@@ -114,23 +147,24 @@
     {
       "name": "sprites",
       "args": {
+        "frames": 36,
         "sprites": [
           {
-            "file": "floor/processor/images/Panto2025/A2S4/background.gif",
+            "file": "floor/processor/images/Panto2025/sprites/A2S4/background.gif",
             "init_x": 0,
             "init_y": 0,
             "vx": 0,
             "vy": 0
           },
           {
-            "file": "floor/processor/images/Panto2025/A2S4/curtain.gif",
+            "file": "floor/processor/images/Panto2025/sprites/A2S4/curtain.gif",
             "init_x": 0,
             "init_y": 0,
             "vx": -1,
             "vy": 0
           },
           {
-            "file": "floor/processor/images/Panto2025/A2S4/curtain.gif",
+            "file": "floor/processor/images/Panto2025/sprites/A2S4/curtain.gif",
             "init_x": 36,
             "init_y": 0,
             "vx": 1,
