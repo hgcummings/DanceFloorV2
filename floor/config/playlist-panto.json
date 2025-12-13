@@ -148,6 +148,7 @@
       "name": "sprites",
       "args": {
         "frames": 36,
+        "mirror": true,
         "sprites": [
           {
             "file": "floor/processor/images/Panto2025/sprites/A2S4/L0_sky.png",
@@ -199,6 +200,7 @@
       "args": {
         "ms_per_frame": 25,
         "frames": 90,
+        "mirror": true,
         "sprites": [
           {
             "file": "floor/processor/images/Panto2025/sprites/A2S4/L0_sky.png",
@@ -238,6 +240,7 @@
       "name": "sprites",
       "args": {
         "frames": 36,
+        "mirror": true,
         "sprites": [
           {
             "file": "floor/processor/images/Panto2025/sprites/A2S4/L0_sky.png",

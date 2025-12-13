@@ -11,6 +11,7 @@ class Sprites(Base):
         super(Sprites, self).__init__(**kwargs)
         self.sprite_group = pg.sprite.OrderedUpdates()
         self.frames = kwargs["frames"]
+        self.mirror = "mirror" in kwargs
         self.ms_per_frame = kwargs.get("ms_per_frame", 100)
         self.last_update = 0
         self.frame = 0
@@ -32,7 +33,10 @@ class Sprites(Base):
             self.sprite_group.update()
             self.sprite_group.draw(self.surface)
 
-        pixels = pg.PixelArray(self.surface)
+        if (self.mirror):
+            pixels = pg.PixelArray(pg.transform.flip(self.surface, True, False))
+        else:
+            pixels = pg.PixelArray(self.surface)
 
         return [
             self.surface.unmap_rgb(pixels[x, y])
